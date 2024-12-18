@@ -131,4 +131,79 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-xxl-12 col-xl-12">
+            <div class="card custom-card">
+                <div class="card-header justify-content-between">
+                    <div class="card-title">Sales Statistics</div>
+                    <div class="dropdown d-flex">
+                        <a href="javascript:void(0);"
+                            class="btn btn-sm btn-primary-light btn-wave waves-effect waves-light d-flex align-items-center me-2"><i
+                                class="ri-filter-3-line me-1"></i>Filter</a>
+                        <a href="javascript:void(0);"
+                            class="btn dropdown-toggle btn-sm btn-wave waves-effect waves-light btn-primary d-flex align-items-center"
+                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i
+                                class="ri-calendar-2-line me-1"></i>This Week</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="javascript:void(0);">Last Month</a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0);">Last Week</a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0);">Share Report</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="earnings"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xxl-12 col-xl-12">
+            <div class="card custom-card">
+                <div class="card-header  justify-content-between">
+                    <div class="card-title">Payrol Summary</div>
+                    <div class="dropdown">
+                        <a aria-label="anchor" href="javascript:void(0);"
+                            class="btn btn-outline-light btn-icons btn-sm text-muted" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fe fe-more-vertical"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="border-bottom"><a class="dropdown-item" href="javascript:void(0);">Today</a></li>
+                            <li class="border-bottom"><a class="dropdown-item" href="javascript:void(0);">This Week</a>
+                            </li>
+                            <li><a class="dropdown-item" href="javascript:void(0);">Last Week</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="hrmstatistics"></div>
+                    <div class="row mt-4 justify-content-center">
+                        <div class="col-xl-4 col-md-4  m-1 m-md-0 d-block text-center">
+                            <div class="px-4 py-2 border rounded-1">
+                                <h4 class="mb-1">$73,970</h4>
+                                <p class="mb-0 text-muted"><i class="bx bxs-circle text-primary fs-13  me-1"></i>Gross
+                                    Salary </p>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4  m-1 m-md-0  d-block text-center">
+                            <div class="px-4 py-2  border rounded-1">
+                                <h4 class="mb-1">45,389</h4>
+                                <p class="mb-0 text-muted"><i class="bx bxs-circle text-secondary fs-13 me-1"></i>Net
+                                    Salary </p>
+                            </div>
+                        </div>
+                        <div class="col-xl-4  col-md-4  m-1  m-md-0 d-block text-center">
+                            <div class="px-4 py-2  border rounded-1">
+                                <h4 class="mb-1">19,685</h4>
+                                <p class="mb-0 text-muted"> <i class="bx bxs-circle text-light fs-13 me-1"></i>Taxes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

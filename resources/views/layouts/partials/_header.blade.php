@@ -520,24 +520,24 @@
                             {{ __('Profil') }}
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a class="dropdown-item border-bottom" href="mail.html">
                             <i class="fs-13 me-2 bx bx-comment"></i>
                             {{ __('Pesan') }}
                         </a>
-                    </li>
-                    <li>
+                    </li> --}}
+                    {{-- <li>
                         <a class="dropdown-item border-bottom" href="mail-settings.html">
                             <i class="fs-13 me-2 bx bx-cog"></i>
                             {{ __('Pengaturan') }}
                         </a>
-                    </li>
-                    <li>
+                    </li> --}}
+                    {{-- <li>
                         <a class="dropdown-item border-bottom" href="faq's.html">
                             <i class="fs-13 me-2 bx bx-help-circle"></i>
                             {{ __('Bantuan') }}
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a class="dropdown-item logout" href="#">
                             <i class="fs-13 me-2 bx bx-arrow-to-right"></i>

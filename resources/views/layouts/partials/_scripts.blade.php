@@ -32,5 +32,15 @@
 <!-- Loading Overlay JS -->
 <script src="{{ url(config('common.path_template') . 'assets/libs/loading-overlay/loadingoverlay.min.js') }}"></script>
 
+<!-- Chartjs Chart JS -->
+<script src="{{ url(config('common.path_template') . 'assets/libs/chart.js/chart.min.js') }}"></script>
+
+<!-- Apex Charts JS -->
+<script src="{{ url(config('common.path_template') . 'assets/libs/apexcharts/apexcharts.min.js') }}"></script>
+
+<!-- Dashboard -->
+<script src="{{ url(config('common.path_template') . 'assets/js/sales-dashboard.js') }}"></script>
+<script src="{{ url(config('common.path_template') . 'assets/js/hrm-dashboard.js') }}"></script>
+
 <!-- Custom JS -->
 <script src="{{ url(config('common.path_template') . 'assets/js/custom.js') }}"></script>

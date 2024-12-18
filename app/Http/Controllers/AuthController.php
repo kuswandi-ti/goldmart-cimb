@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
@@ -44,15 +45,15 @@ class AuthController extends Controller
         return view('auth.forgot-password');
     }
 
-    public function sendResetLink(AdminAuthSendResetLinkRequest $request)
+    public function sendResetLink(AuthSendResetLinkRequest $request)
     {
         $token = Str::random(64);
 
-        $admin = Admin::where('email', $request->email)->first();
-        $admin->remember_token = $token;
-        $admin->save();
+        $user = User::where('email', $request->email)->first();
+        $user->remember_token = $token;
+        $user->save();
 
-        Mail::to($request->email)->send(new AdminSendResetLinkMail($token, $request->email));
+        Mail::to($request->email)->send(new SendResetLinkMail($token, $request->email));
 
         return redirect()->back()->with('success', __('admin.A mail has been sent to your email address. Please check your email.'));
     }

@@ -1,4 +1,4 @@
-@extends('layouts.admin.auth')
+@extends('layouts.auth')
 
 @section('page_title')
     {{ __('Lupa Password') }}
@@ -14,10 +14,8 @@
                             <div class="p-0 card-img-overlay d-flex align-items-center rounded-0">
                                 <div class="p-5 card-body rectangle3">
                                     <div class="text-center">
-                                        <a href="{{ route('website.index') }}">
-                                            <img src="{{ url(config('common.path_storage') . (!empty($system_setting['company_logo']) ? $system_setting['company_logo'] : config('common.no_image')) ?? config('common.no_image')) }}"
-                                                alt="logo" class="desktop-dark" style="width: 30%">
-                                        </a>
+                                        <img src="{{ !empty($setting_system['company_logo']) ? url(config('common.path_storage') . $setting_system['company_logo']) : url(config('common.path_template') . config('common.logo_company_main')) }}"
+                                            alt="logo" class="desktop-dark" style="width: 30%">
                                     </div>
                                     <h6 class="mt-4 fs-15 op-9 text-fixed-white">
                                         {{ __('Lupa Password') }}
@@ -41,7 +39,7 @@
                                 {{ __('Selamat datang di sistem kami') }}
                             </p>
 
-                            <form method="POST" action="{{ route('admin.forgot_password.send') }}">
+                            <form method="POST" action="{{ route('forgot_password.send') }}">
                                 @csrf
 
                                 <div class="mt-3 row gy-3">
@@ -51,8 +49,8 @@
                                         </label>
                                         <input type="email"
                                             class="form-control form-control-lg @error('email') is-invalid @enderror"
-                                            name="email" id="email" placeholder="{{ __('Email') }}" required
-                                            autofocus>
+                                            name="email" id="email" value="{{ old('email') }}"
+                                            placeholder="{{ __('Email') }}" required autofocus>
                                         @error('email')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -71,7 +69,7 @@
                             <div class="text-center ">
                                 <p class="mt-4 mb-0 fs-12 text-muted">
                                     {{ __('Sudah punya akun ? Login') }}
-                                    <a href="{{ route('admin.login') }}" class="text-primary">
+                                    <a href="{{ route('login') }}" class="text-primary">
                                         {{ __('disini') }}
                                     </a>
                                 </p>
