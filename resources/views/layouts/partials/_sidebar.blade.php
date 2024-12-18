@@ -53,12 +53,23 @@
                 {{-- INPUT DATA - BEGIN --}}
                 {{-- ======================================================================================================= --}}
                 <!-- Start::slide__category -->
-                @if (canAccess(['user index']))
-                    <li class="mt-4 slide__category"><span class="category-name">{{ __('Input Data') }}</span></li>
+                @if (canAccess(['kredit nasabah index']))
+                    <li class="mt-4 slide__category"><span class="category-name">{{ __('Data') }}</span></li>
                 @endif
                 <!-- End::slide__category -->
 
                 <!-- Start::slide -->
+                @if (canAccess(['kredit nasabah index']))
+                    <li class="slide {{ setSidebarActive(['kredit nasabah.*']) }}">
+                        <a href="{{ route('kreditnasabah.index') }}"
+                            class="side-menu__item {{ setSidebarActive(['kredit nasabah.*']) }}">
+                            <span class="side-menu__icon">
+                                <i class='bx bxs-credit-card'></i>
+                            </span>
+                            <span class="side-menu__label">{{ __('Kredit Nasabah') }}</span>
+                        </a>
+                    </li>
+                @endif
                 <!-- End::slide -->
                 {{-- ======================================================================================================= --}}
                 {{-- INPUT DATA - END --}}

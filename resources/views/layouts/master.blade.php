@@ -112,6 +112,11 @@
             return jQuery.trim(text).substring(0, length).trim(this) + prefix;
         }
 
+        window.formatAmount = function(num, digit = 2) {
+            var rounded = (Math.round(num * 100) / 100).toFixed(digit);
+            return rounded.replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        };
+
         $(document).ready(function() {
             $('body').on('keyup', '.number-only', function(e) {
                 this.value = this.value.replace(/[^0-9]/g, '');

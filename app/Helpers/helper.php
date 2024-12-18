@@ -87,8 +87,54 @@ function getArrayAllPermission()
         ['guard_name' => 'web', 'name' => 'permission delete', 'group_name' => 'Permission Permission'],
         ['guard_name' => 'web', 'name' => 'permission index', 'group_name' => 'Permission Permission'],
         ['guard_name' => 'web', 'name' => 'permission update', 'group_name' => 'Permission Permission'],
+        ['guard_name' => 'web', 'name' => 'kredit nasabah index', 'group_name' => 'Kredit Nasabah Permission'],
+        ['guard_name' => 'web', 'name' => 'kredit nasabah update', 'group_name' => 'Kredit Nasabah Permission'],
         ['guard_name' => 'web', 'name' => 'setting system', 'group_name' => 'Setting System Permission'],
     ];
+}
+
+function setStatusLunasBadge($status)
+{
+    $status_lunas_badge = '';
+
+    switch ($status) {
+        case 'Belum Lunas':
+            $status_lunas_badge = 'danger';
+            break;
+
+        case 'Sudah Lunas':
+            $status_lunas_badge = 'success';
+            break;
+
+        default:
+            $status_lunas_badge = '';
+            break;
+    }
+    return $status_lunas_badge;
+}
+
+function setStatusPengambilanBarangBadge($status)
+{
+    $status_pengambilan_barang_badge = '';
+
+    switch ($status) {
+        case 'Belum Diambil':
+            $status_pengambilan_barang_badge = 'danger';
+            break;
+
+        case 'Sudah Diambil':
+            $status_pengambilan_barang_badge = 'success';
+            break;
+
+        case 'Pending':
+            $status_badge = 'dark';
+            break;
+
+        default:
+            $status_pengambilan_barang_badge = '';
+            break;
+    }
+    return $status_pengambilan_barang_badge;
 }
 
 function setStatusBadge($status)

@@ -1,11 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KreditNasabahController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
 
@@ -53,6 +54,10 @@ Route::group(['middleware' => ['auth_check', 'prevent_back_history']], function 
     /** Permission Routes */
     Route::get('permission/data', [PermissionController::class, 'data'])->name('permission.data');
     Route::resource('permission', PermissionController::class);
+
+    /** Kredit Nasabah Routes */
+    Route::get('kreditnasabah/index', [KreditNasabahController::class, 'index'])->name('kreditnasabah.index');
+    Route::get('kreditnasabah/data', [KreditNasabahController::class, 'data'])->name('kreditnasabah.data');
 
     /** Setting Routes */
     Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
