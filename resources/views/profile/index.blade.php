@@ -99,11 +99,10 @@
                             </div>
 
                             <div class="col-xl-12">
-                                <label for="approved_at" class="form-label text-default">{{ __('Tgl Approve') }}</label>
-                                <input type="text" class="form-control @error('approved_at') is-invalid @enderror"
-                                    name="approved_at" id="approved_at"
-                                    value="{{ old('approved_at') ?? $user->approved_at }}"
-                                    placeholder="{{ __('Tgl Approve') }}" disabled>
+                                <label for="join_date" class="form-label text-default">{{ __('Tgl Bergabung') }}</label>
+                                <input type="text" class="form-control @error('join_date') is-invalid @enderror"
+                                    name="join_date" id="join_date" value="{{ old('join_date') ?? $user->join_date }}"
+                                    placeholder="{{ __('Tgl Bergabung') }}" disabled>
                             </div>
                         </div>
                     </div>

@@ -42,7 +42,7 @@ class SettingController extends Controller
         }
 
         if ($request->hasFile('image_company_logo_desktop')) {
-            $imagePath = $this->handleImageUpload($request, 'image_company_logo_desktop', $request->old_image_company_logo_desktop, 'company_logo');
+            $imagePath = $this->handleImageUpload($request, 'image_company_logo_desktop', $request->old_image_company_logo_desktop, 'company_logo_desktop');
             SettingSystem::updateOrCreate(
                 ['key' => 'company_logo_desktop'],
                 ['value' => $imagePath, 'updated_by' => auth()->user()->name],
@@ -50,7 +50,7 @@ class SettingController extends Controller
         }
 
         if ($request->hasFile('image_company_logo_toggle')) {
-            $imagePath = $this->handleImageUpload($request, 'image_company_logo_toggle', $request->old_image_company_logo_toggle, 'company_logo');
+            $imagePath = $this->handleImageUpload($request, 'image_company_logo_toggle', $request->old_image_company_logo_toggle, 'company_logo_toggle');
             SettingSystem::updateOrCreate(
                 ['key' => 'company_logo_toggle'],
                 ['value' => $imagePath, 'updated_by' => auth()->user()->name],
