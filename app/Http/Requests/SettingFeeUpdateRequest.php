@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProfilePersonalUpdateRequest extends FormRequest
+class SettingFeeUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +22,9 @@ class ProfilePersonalUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['nullable', 'image', 'max:3000'],
-            'name' => ['required', 'string', 'max:255'],
+            'fee_loan_regular' => ['required', 'numeric'],
+            'fee_loan_funding' => ['required', 'numeric'],
+            'fee_loan_social' => ['required', 'numeric'],
         ];
     }
 }

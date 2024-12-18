@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Traits\FileUploadTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Admin\AdminProfilePasswordUpdateRequest;
-use App\Http\Requests\Admin\AdminProfilePersonalUpdateRequest;
+use App\Http\Requests\ProfilePasswordUpdateRequest;
+use App\Http\Requests\ProfilePersonalUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -19,8 +19,8 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $admin = Auth::user();
-        return view('admin.profile.index', compact('admin'));
+        $user = Auth::user();
+        return view('profile.index', compact('user'));
     }
 
     /**
@@ -58,18 +58,18 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(AdminProfilePersonalUpdateRequest $request, string $id)
+    public function update(ProfilePersonalUpdateRequest $request, string $id)
     {
         $imagePath = $this->handleImageUpload($request, 'image', $request->old_image, 'profile');
 
-        $admin = User::findOrFail($id);
+        $user = User::findOrFail($id);
 
-        $admin->name = $request->name;
-        $admin->image = !empty($imagePath) ? $imagePath : $request->old_image;
-        $admin->updated_at = saveDateTimeNow();
-        $admin->updated_by = auth()->user()->name;
+        $user->name = $request->name;
+        $user->image = !empty($imagePath) ? $imagePath : $request->old_image;
+        $user->updated_at = saveDateTimeNow();
+        $user->updated_by = auth()->user()->name;
 
-        $admin->save();
+        $user->save();
 
         return redirect()->back()->with('success', __('Data profil berhasil diperbarui'));
     }
@@ -82,11 +82,11 @@ class ProfileController extends Controller
         //
     }
 
-    public function updatePassword(AdminProfilePasswordUpdateRequest $request, string $id)
+    public function updatePassword(ProfilePasswordUpdateRequest $request, string $id)
     {
-        $admin = User::findOrFail($id);
-        $admin->password = bcrypt($request->password);
-        $admin->save();
+        $user = User::findOrFail($id);
+        $user->password = bcrypt($request->password);
+        $user->save();
 
         return redirect()->back()->with('success', __('Data password berhasil diperbarui'));
     }

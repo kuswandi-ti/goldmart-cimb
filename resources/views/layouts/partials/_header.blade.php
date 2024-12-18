@@ -17,20 +17,20 @@
             </div>
             <!-- End::header-element -->
 
-            <div class="main-header-center header-link">
+            {{-- <div class="main-header-center header-link">
                 <a aria-label="anchor" href="javascript:void(0);" class="header-link">
                     <span class="text-light">{{ __('Periode Aktif') }}</span>
                     <span class="text-light">&nbsp; : &nbsp;</span>
                     <span class="badge bg-danger pulse pulse-secondary"><strong>123</strong></span>
                 </a>
-            </div>
+            </div> --}}
         </div>
         <!-- End::header-content-left -->
 
         <!-- Start::header-content-right -->
         <div class="header-content-right">
             <!-- Start::header-element -->
-            <div class="header-element country-selector">
+            {{-- <div class="header-element country-selector">
                 <!-- Start::header-link|dropdown-toggle -->
                 <a aria-label="anchor" href="javascript:void(0);" class="header-link dropdown-toggle"
                     data-bs-toggle="dropdown" data-bs-auto-close="outside">
@@ -49,7 +49,7 @@
                         </a>
                     </li>
                 </ul>
-            </div>
+            </div> --}}
             <!-- End::header-element -->
 
             <!-- Start::header-element -->
@@ -70,14 +70,14 @@
             <!-- Start::header-element -->
             <div class="header-element cart-dropdown">
                 <!-- Start::header-link|dropdown-toggle -->
-                <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-toggle="dropdown"
+                {{-- <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-toggle="dropdown"
                     data-bs-auto-close="outside">
                     <i class="bx bx-cart header-link-icon ionicon"></i>
                     <span class="badge bg-danger rounded-pill header-icon-badge" id="cart-icon-badge">5</span>
-                </a>
+                </a> --}}
                 <!-- End::header-link|dropdown-toggle -->
                 <!-- Start::main-header-dropdown -->
-                <div class="border-0 main-header-dropdown dropdown-menu dropdown-menu-end" data-popper-placement="none">
+                {{-- <div class="border-0 main-header-dropdown dropdown-menu dropdown-menu-end" data-popper-placement="none">
                     <div class="p-3">
                         <div class="d-flex align-items-center justify-content-between">
                             <p class="mb-0 fs-17 fw-semibold">Cart Items</p>
@@ -91,7 +91,7 @@
                         <li class="dropdown-item border-bottom">
                             <div class="d-flex align-items-start cart-dropdown-item">
                                 <span class="p-1 avatar avatar-xl bd-gray-200">
-                                    <img src="{{ url(config('common.path_template_admin') . 'assets/images/ecommerce/png/1.png') }}"
+                                    <img src="{{ url(config('common.path_template') . 'assets/images/ecommerce/png/1.png') }}"
                                         alt="">
                                 </span>
                                 <div class="flex-grow-1 ms-3">
@@ -119,7 +119,7 @@
                         <li class="dropdown-item border-bottom">
                             <div class="d-flex align-items-start cart-dropdown-item">
                                 <span class="p-1 avatar avatar-xl bd-gray-200">
-                                    <img src="{{ url(config('common.path_template_admin') . 'assets/images/ecommerce/png/15.png') }}"
+                                    <img src="{{ url(config('common.path_template') . 'assets/images/ecommerce/png/15.png') }}"
                                         alt="">
                                 </span>
                                 <div class="flex-grow-1 ms-3">
@@ -175,7 +175,7 @@
                         <li class="dropdown-item border-bottom">
                             <div class="d-flex align-items-start cart-dropdown-item">
                                 <span class="p-1 avatar avatar-xl bd-gray-200">
-                                    <img src="{{ url(config('common.path_template_admin') . 'assets/images/ecommerce/png/8.png') }}"
+                                    <img src="{{ url(config('common.path_template') . 'assets/images/ecommerce/png/8.png') }}"
                                         alt="">
                                 </span>
                                 <div class="flex-grow-1 ms-3">
@@ -203,7 +203,7 @@
                         <li class="dropdown-item">
                             <div class="d-flex align-items-start cart-dropdown-item">
                                 <span class="p-1 avatar avatar-xl bd-gray-200">
-                                    <img src="{{ url(config('common.path_template_admin') . 'assets/images/ecommerce/png/11.png') }}"
+                                    <img src="{{ url(config('common.path_template') . 'assets/images/ecommerce/png/11.png') }}"
                                         alt="">
                                 </span>
                                 <div class="flex-grow-1 ms-3">
@@ -244,7 +244,7 @@
                                 data-abc="true">continue shopping <i class="bi bi-arrow-right ms-1"></i></a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- End::main-header-dropdown -->
             </div>
             <!-- End::header-element -->
@@ -252,16 +252,15 @@
             <!-- Start::header-element -->
             <div class="header-element notifications-dropdown ">
                 <!-- Start::header-link|dropdown-toggle -->
-                <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-toggle="dropdown"
+                {{-- <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-toggle="dropdown"
                     data-bs-auto-close="outside" id="messageDropdown" aria-expanded="false">
                     <i class="bx bx-bell bx-flip-horizontal header-link-icon ionicon"></i>
                     <span class="badge bg-info rounded-pill header-icon-badge pulse pulse-secondary"
                         id="notification-icon-badge">5</span>
-                </a>
+                </a> --}}
                 <!-- End::header-link|dropdown-toggle -->
                 <!-- Start::main-header-dropdown -->
-                <div class="border-0 main-header-dropdown dropdown-menu dropdown-menu-end"
-                    data-popper-placement="none">
+                {{-- <div class="border-0 main-header-dropdown dropdown-menu dropdown-menu-end" data-popper-placement="none">
                     <div class="p-3">
                         <div class="d-flex align-items-center justify-content-between">
                             <p class="mb-0 fs-17 fw-semibold">Notifications</p>
@@ -274,7 +273,7 @@
                             <div class="d-flex align-items-start">
                                 <div class="pe-2">
                                     <span class="avatar avatar-md bg-secondary-transparent rounded-2">
-                                        <img src="{{ url(config('common.path_template_admin') . 'assets/images/faces/2.jpg') }}"
+                                        <img src="{{ url(config('common.path_template') . 'assets/images/faces/2.jpg') }}"
                                             alt="">
                                     </span>
                                 </div>
@@ -398,23 +397,23 @@
                             <h6 class="mt-3 fw-semibold">No New Notifications</h6>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- End::main-header-dropdown -->
             </div>
             <!-- End::header-element -->
 
-            <div class="d-flex header-settings header-shortcuts-dropdown">
+            {{-- <div class="d-flex header-settings header-shortcuts-dropdown">
                 <a aria-label="anchor" href="javascript:void(0);" class="header-link nav-link icon"
                     data-bs-toggle="offcanvas" data-bs-target="#apps" aria-controls="apps">
                     <i class="bx bxs-grid header-link-icon"></i>
                 </a>
-            </div>
+            </div> --}}
 
             <div class="offcanvas offcanvas-end wd-330" tabindex="-1" id="apps" aria-labelledby="appsLabel">
                 <div class="offcanvas-header border-bottom">
                     <h5 id="appsLabel" class="mb-0 fs-18">Related Apps</h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                        aria-label="Close"> <i class="bx bx-x apps-btn-close"></i></button>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close">
+                        <i class="bx bx-x apps-btn-close"></i></button>
                 </div>
                 <div class="p-3">
                     <div class="row g-3">

@@ -41,9 +41,9 @@
                             <thead>
                                 <tr>
                                     <th scope="col" width="5%">{{ __('Nomor') }}</th>
-                                    <th scope="col" width="5%">{{ __('Aksi') }}</th>
-                                    <th scope="col" width="7%"></th>
+                                    <th scope="col" width="12%">{{ __('Aksi') }}</th>
                                     <th scope="col">{{ __('Nama') }}</th>
+                                    <th scope="col">{{ __('Tgl Bergabung') }}</th>
                                     <th scope="col">{{ __('Role') }}</th>
                                     <th scope="col" width="10%">{{ __('Status') }}</th>
                                 </tr>
@@ -87,11 +87,11 @@
                 searchable: false,
                 sortable: false,
             }, {
-                data: 'image',
+                data: 'name',
                 searchable: true,
                 sortable: true,
             }, {
-                data: 'name',
+                data: 'join_date',
                 searchable: true,
                 sortable: true,
             }, {

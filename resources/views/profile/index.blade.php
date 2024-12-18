@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('layouts.master')
 
 @section('page_title')
     {{ __('Profil') }}
@@ -16,8 +16,7 @@
 @section('page_content')
     <div class="row">
         <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
-            <form method="post" action="{{ route('admin.profile.update', auth()->user()->id) }}"
-                enctype="multipart/form-data">
+            <form method="post" action="{{ route('profile.update', auth()->user()->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -48,7 +47,7 @@
                                         <div class="justify-content-between">
                                             <div class="mb-2 file-format-icon">
                                                 <div class="text-center">
-                                                    <img src="{{ !empty(auth()->user()->image) ? url(config('common.path_storage') . auth()->user()->image) : url(config('common.path_template_admin') . config('common.image_user_profile_big')) }}"
+                                                    <img src="{{ !empty(auth()->user()->image) ? url(config('common.path_storage') . auth()->user()->image) : url(config('common.path_template') . config('common.image_user_profile_big')) }}"
                                                         class="img-fluid rounded preview-path_image" width="150"
                                                         height="175">
                                                 </div>
@@ -78,7 +77,7 @@
                                 <label for="name" class="form-label text-default">{{ __('Nama') }}
                                     <x-all-not-null /></label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" id="name" value="{{ old('name') ?? $admin->name }}"
+                                    name="name" id="name" value="{{ old('name') ?? $user->name }}"
                                     placeholder="{{ __('Nama') }}" required autofocus>
                                 @error('name')
                                     <div class="invalid-feedback">
@@ -90,7 +89,7 @@
                             <div class="col-xl-12">
                                 <label for="email" class="form-label text-default">{{ __('Email') }}</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="email" id="email" value="{{ old('email') ?? $admin->email }}"
+                                    name="email" id="email" value="{{ old('email') ?? $user->email }}"
                                     placeholder="{{ __('Email') }}" disabled>
                                 @error('email')
                                     <div class="invalid-feedback">
@@ -103,7 +102,7 @@
                                 <label for="approved_at" class="form-label text-default">{{ __('Tgl Approve') }}</label>
                                 <input type="text" class="form-control @error('approved_at') is-invalid @enderror"
                                     name="approved_at" id="approved_at"
-                                    value="{{ old('approved_at') ?? $admin->approved_at }}"
+                                    value="{{ old('approved_at') ?? $user->approved_at }}"
                                     placeholder="{{ __('Tgl Approve') }}" disabled>
                             </div>
                         </div>
@@ -118,7 +117,7 @@
         </div>
 
         <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
-            <form method="post" action="{{ route('admin.profile_password.update', $admin->id) }}">
+            <form method="post" action="{{ route('profile_password.update', $user->id) }}">
                 @csrf
                 @method('PUT')
 

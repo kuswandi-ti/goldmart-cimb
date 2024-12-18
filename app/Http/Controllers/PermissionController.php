@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
-use App\Http\Requests\Admin\AdminPermissionRequest;
+use App\Http\Requests\PermissionRequest;
 
 class PermissionController extends Controller
 {
@@ -22,7 +22,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return view('admin.permission.index');
+        return view('permission.index');
     }
 
     /**
@@ -30,13 +30,13 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('admin.permission.create');
+        return view('permission.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AdminPermissionRequest $request)
+    public function store(PermissionRequest $request)
     {
         $store = Permission::create([
             'name' => $request->permission_name,
@@ -44,9 +44,9 @@ class PermissionController extends Controller
         ]);
 
         if ($store) {
-            return redirect()->route('admin.permission.index')->with('success', __('Data permission berhasil dibuat'));
+            return redirect()->route('permission.index')->with('success', __('Data permission berhasil dibuat'));
         } else {
-            return redirect()->route('admin.permission.index')->with('error', __('Data permission gagal dibuat'));
+            return redirect()->route('permission.index')->with('error', __('Data permission gagal dibuat'));
         }
     }
 
@@ -65,13 +65,13 @@ class PermissionController extends Controller
     {
         $permission = Permission::findOrFail($id);
 
-        return view('admin.permission.edit', compact('permission'));
+        return view('permission.edit', compact('permission'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(AdminPermissionRequest $request, string $id)
+    public function update(PermissionRequest $request, string $id)
     {
         $permission = Permission::findOrFail($id);
         $update = $permission->update([
@@ -80,9 +80,9 @@ class PermissionController extends Controller
         ]);
 
         if ($update) {
-            return redirect()->route('admin.permission.index')->with('success', __('Data permission berhasil diperbarui'));
+            return redirect()->route('permission.index')->with('success', __('Data permission berhasil diperbarui'));
         } else {
-            return redirect()->route('admin.permission.index')->with('error', __('Data permission gagal diperbarui'));
+            return redirect()->route('permission.index')->with('error', __('Data permission gagal diperbarui'));
         }
     }
 
@@ -116,7 +116,7 @@ class PermissionController extends Controller
                 if (canAccess(['permission update'])) {
                     $update = '
                             <li>
-                                <a class="dropdown-item border-bottom" href="' . route('admin.permission.edit', $query) . '">
+                                <a class="dropdown-item border-bottom" href="' . route('permission.edit', $query) . '">
                                     <i class="bx bx-edit-alt fs-20"></i> ' . __("Perbarui") . '
                                 </a>
                             </li>
@@ -125,7 +125,7 @@ class PermissionController extends Controller
                 if (canAccess(['permission delete'])) {
                     $delete = '
                             <li>
-                                <a class="dropdown-item border-bottom delete_item" href="' . route('admin.permission.destroy', $query) . '">
+                                <a class="dropdown-item border-bottom delete_item" href="' . route('permission.destroy', $query) . '">
                                     <i class="bx bx-trash fs-20"></i> ' . __("Hapus") . '
                                 </a>
                             </li>

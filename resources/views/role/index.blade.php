@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('layouts.master')
 
 @section('page_title')
     {{ __('Role') }}
@@ -28,7 +28,7 @@
                     </div>
                     @can('role create')
                         <div class="d-flex" role="search">
-                            <a href="{{ route('admin.role.create') }}" class="btn btn-primary">
+                            <a href="{{ route('role.create') }}" class="btn btn-primary">
                                 {{ __('Baru') }}
                             </a>
                         </div>
@@ -56,7 +56,7 @@
 
 <x-web-sweet-alert />
 
-@include('layouts.admin.includes.datatable')
+@include('layouts.includes.datatable')
 
 @push('scripts')
     <script>
@@ -72,7 +72,7 @@
                 sSearch: '',
             },
             ajax: {
-                url: '{{ route('admin.role.data') }}',
+                url: '{{ route('role.data') }}',
             },
             columns: [{
                 data: 'DT_RowIndex',

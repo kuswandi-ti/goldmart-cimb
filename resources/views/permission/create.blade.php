@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('layouts.master')
 
 @section('page_title')
     {{ __('Permission') }}
@@ -11,7 +11,7 @@
 @section('section_header_breadcrumb')
     @parent
     <li class="breadcrumb-item">
-        <a href="{{ route('admin.permission.index') }}" class="text-white-50">
+        <a href="{{ route('permission.index') }}" class="text-white-50">
             {{ __('Permission') }}
         </a>
     </li>
@@ -21,7 +21,7 @@
 @section('page_content')
     <div class="row">
         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-            <form method="POST" action="{{ route('admin.permission.store') }}">
+            <form method="POST" action="{{ route('permission.store') }}">
                 @csrf
 
                 <div class="card custom-card">
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="d-flex">
-                            <a href="{{ route('admin.permission.index') }}" class="btn btn-warning">
+                            <a href="{{ route('permission.index') }}" class="btn btn-warning">
                                 {{ __('Kembali') }}
                             </a>
                         </div>

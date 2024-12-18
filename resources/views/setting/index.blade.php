@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('layouts.master')
 
 @section('page_title')
     {{ __('Pengaturan Sistem') }}
@@ -23,7 +23,7 @@
                         <a class="nav-link active" data-bs-toggle="tab" role="tab" aria-current="page" href="#tab1"
                             aria-selected="true">
                             <i class="align-middle bx bx-info-circle me-2 fs-18"></i>
-                            {{ __('Informasi Koperasi') }}
+                            {{ __('Informasi Perusahaan') }}
                         </a>
                         <a class="mt-3 nav-link" data-bs-toggle="tab" role="tab" aria-current="page" href="#tab2"
                             aria-selected="false" tabindex="-1">
@@ -45,7 +45,7 @@
                 <div class="col-xl-9 col-lg-8">
                     <div class="tab-content mail-setting-tab mt-lg-0">
                         <div class="tab-pane text-muted active show" id="tab1" role="tabpanel">
-                            <form method="POST" action="{{ route('admin.general_setting.update') }}"
+                            <form method="POST" action="{{ route('general_setting.update') }}"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -61,7 +61,7 @@
                                                                 class="row gy-2 d-sm-flex align-items-center justify-content-between">
                                                                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
                                                                     <span class="mb-0 fs-14 fw-semibold">
-                                                                        {{ __('Nama Koperasi') }} <x-all-not-null />
+                                                                        {{ __('Nama Perusahaan') }} <x-all-not-null />
                                                                     </span>
                                                                 </div>
                                                                 <div class="col-xl-9">
@@ -69,7 +69,7 @@
                                                                         class="form-control @error('company_name') is-invalid @enderror"
                                                                         name="company_name" id="company_name"
                                                                         value="{{ old('company_name') ?? ($setting_system['company_name'] ?? '') }}"
-                                                                        placeholder="{{ __('Nama Koperasi') }}" required
+                                                                        placeholder="{{ __('Nama Perusahaan') }}" required
                                                                         autofocus>
                                                                     @error('company_name')
                                                                         <div class="invalid-feedback">
@@ -106,7 +106,7 @@
                                                                 class="row gy-2 d-sm-flex align-items-center justify-content-between">
                                                                 <div class="col-xl-3">
                                                                     <span class="mb-0 fs-14 fw-semibold">
-                                                                        {{ __('Email Koperasi') }} <x-all-not-null />
+                                                                        {{ __('Email Perusahaan') }} <x-all-not-null />
                                                                     </span>
                                                                 </div>
                                                                 <div class="col-xl-9">
@@ -114,7 +114,8 @@
                                                                         class="form-control @error('company_email') is-invalid @enderror"
                                                                         name="company_email" id="company_email"
                                                                         value="{{ old('company_email') ?? ($setting_system['company_email'] ?? '') }}"
-                                                                        placeholder="{{ __('Email Koperasi') }}" required>
+                                                                        placeholder="{{ __('Email Perusahaan') }}"
+                                                                        required>
                                                                     @error('company_email')
                                                                         <div class="invalid-feedback">
                                                                             {{ $message }}
@@ -128,7 +129,7 @@
                                                                 class="row gy-2 d-sm-flex align-items-center justify-content-between">
                                                                 <div class="col-xl-3">
                                                                     <span class="mb-0 fs-14 fw-semibold">
-                                                                        {{ __('No. HP Koperasi') }}
+                                                                        {{ __('No. Kontak Perusahaan') }}
                                                                     </span>
                                                                 </div>
                                                                 <div class="col-xl-9">
@@ -136,7 +137,7 @@
                                                                         class="form-control @error('company_phone') is-invalid @enderror"
                                                                         name="company_phone" id="company_phone"
                                                                         value="{{ old('company_phone') ?? ($setting_system['company_phone'] ?? '') }}"
-                                                                        placeholder="{{ __('No. HP Koperasi') }}">
+                                                                        placeholder="{{ __('No. Kontak Perusahaan') }}">
                                                                     @error('company_phone')
                                                                         <div class="invalid-feedback">
                                                                             {{ $message }}
@@ -150,12 +151,12 @@
                                                                 class="row gy-2 d-sm-flex align-items-center justify-content-between">
                                                                 <div class="col-xl-3">
                                                                     <span class="mb-0 fs-14 fw-semibold">
-                                                                        {{ __('Alamat Koperasi') }}
+                                                                        {{ __('Alamat Perusahaan') }}
                                                                     </span>
                                                                 </div>
                                                                 <div class="col-xl-9">
                                                                     <textarea class="form-control @error('company_address') is-invalid @enderror" name="company_address"
-                                                                        id="company_address" rows="5" placeholder="{{ __('Alamat Koperasi') }}">{{ old('company_address') ?? ($setting_system['company_address'] ?? '') }}</textarea>
+                                                                        id="company_address" rows="5" placeholder="{{ __('Alamat Perusahaan') }}">{{ old('company_address') ?? ($setting_system['company_address'] ?? '') }}</textarea>
                                                                     @error('company_address')
                                                                         <div class="invalid-feedback">
                                                                             {{ $message }}
@@ -169,7 +170,7 @@
                                                                 class="row gy-2 d-sm-flex align-items-center justify-content-between">
                                                                 <div class="col-xl-3">
                                                                     <span class="mb-0 fs-14 fw-semibold">
-                                                                        {{ __('Logo Koperasi') }}
+                                                                        {{ __('Logo Perusahaan') }}
                                                                     </span>
                                                                 </div>
                                                                 <div class="col-xl-9">
@@ -184,7 +185,7 @@
                                                                                             <div
                                                                                                 class="mb-2 file-format-icon">
                                                                                                 <div class="text-center">
-                                                                                                    <img src="{{ !empty($setting_system['company_logo']) ? url(config('common.path_storage') . $setting_system['company_logo']) : url(config('common.path_template_admin') . config('common.logo_company_main')) }}"
+                                                                                                    <img src="{{ !empty($setting_system['company_logo']) ? url(config('common.path_storage') . $setting_system['company_logo']) : url(config('common.path_template') . config('common.logo_company_main')) }}"
                                                                                                         class="rounded img-fluid preview-path_image_company_logo"
                                                                                                         width="200"
                                                                                                         height="200">
@@ -192,7 +193,7 @@
                                                                                             </div>
                                                                                             <div>
                                                                                                 <span class="fw-semibold">
-                                                                                                    {{ __('Logo Koperasi (Utama)') }}
+                                                                                                    {{ __('Logo Perusahaan (Utama)') }}
                                                                                                 </span>
                                                                                                 <span
                                                                                                     class="fs-10 d-block text-muted">
@@ -224,7 +225,7 @@
                                                                                             <div
                                                                                                 class="mb-2 file-format-icon">
                                                                                                 <div class="text-center">
-                                                                                                    <img src="{{ !empty($setting_system['company_logo_desktop']) ? url(config('common.path_storage') . $setting_system['company_logo_desktop']) : url(config('common.path_template_admin') . config('common.logo_company_desktop')) }}"
+                                                                                                    <img src="{{ !empty($setting_system['company_logo_desktop']) ? url(config('common.path_storage') . $setting_system['company_logo_desktop']) : url(config('common.path_template') . config('common.logo_company_desktop')) }}"
                                                                                                         class="rounded img-fluid preview-path_image_company_logo_desktop"
                                                                                                         width="125"
                                                                                                         height="33">
@@ -232,7 +233,7 @@
                                                                                             </div>
                                                                                             <div>
                                                                                                 <span class="fw-semibold">
-                                                                                                    {{ __('Logo Koperasi (Desktop)') }}
+                                                                                                    {{ __('Logo Perusahaan (Desktop)') }}
                                                                                                 </span>
                                                                                                 <span
                                                                                                     class="fs-10 d-block text-muted">
@@ -264,7 +265,7 @@
                                                                                             <div
                                                                                                 class="mb-2 file-format-icon">
                                                                                                 <div class="text-center">
-                                                                                                    <img src="{{ !empty($setting_system['company_logo_toggle']) ? url(config('common.path_storage') . $setting_system['company_logo_toggle']) : url(config('common.path_template_admin') . config('common.logo_company_toggle')) }}"
+                                                                                                    <img src="{{ !empty($setting_system['company_logo_toggle']) ? url(config('common.path_storage') . $setting_system['company_logo_toggle']) : url(config('common.path_template') . config('common.logo_company_toggle')) }}"
                                                                                                         class="rounded img-fluid preview-path_image_company_logo_toggle"
                                                                                                         width="38"
                                                                                                         height="33">
@@ -272,7 +273,7 @@
                                                                                             </div>
                                                                                             <div>
                                                                                                 <span class="fw-semibold">
-                                                                                                    {{ __('Logo Koperasi (Toggle)') }}
+                                                                                                    {{ __('Logo Perusahaan (Toggle)') }}
                                                                                                 </span>
                                                                                                 <span
                                                                                                     class="fs-10 d-block text-muted">
@@ -313,7 +314,7 @@
                         </div>
 
                         <div class="tab-pane text-muted" id="tab2" role="tabpanel">
-                            <form method="POST" action="{{ route('admin.fee_setting.update') }}">
+                            <form method="POST" action="{{ route('fee_setting.update') }}">
                                 @csrf
                                 @method('PUT')
 
@@ -419,7 +420,7 @@
                         </div>
 
                         <div class="tab-pane text-muted" id="tab3" role="tabpanel">
-                            <form method="POST" action="{{ route('admin.other_setting.update') }}">
+                            <form method="POST" action="{{ route('other_setting.update') }}">
                                 @csrf
                                 @method('PUT')
 
@@ -493,7 +494,7 @@
                         </div>
 
                         <div class="tab-pane text-muted" id="tab4" role="tabpanel">
-                            <form method="POST" action="{{ route('admin.transaction_setting.update') }}">
+                            <form method="POST" action="{{ route('transaction_setting.update') }}">
                                 @csrf
                                 @method('PUT')
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
-use App\Http\Requests\Admin\AdminRoleRequest;
+use App\Http\Requests\RoleRequest;
 
 class RoleController extends Controller
 {
@@ -24,7 +24,7 @@ class RoleController extends Controller
     public function index()
     {
         $permissions = Permission::orderBy('name', 'ASC')->get()->groupBy('group_name');
-        return view('admin.role.index', compact('permissions'));
+        return view('role.index', compact('permissions'));
     }
 
     /**
@@ -33,13 +33,13 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::orderBy('name', 'ASC')->get()->groupBy('group_name');
-        return view('admin.role.create', compact('permissions'));
+        return view('role.create', compact('permissions'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AdminRoleRequest $request)
+    public function store(RoleRequest $request)
     {
         $store = Role::create([
             'name' => $request->role_name,
@@ -47,9 +47,9 @@ class RoleController extends Controller
         $store->syncPermissions($request->permissions);
 
         if ($store) {
-            return redirect()->route('admin.role.index')->with('success', __('Data role berhasil dibuat'));
+            return redirect()->route('role.index')->with('success', __('Data role berhasil dibuat'));
         } else {
-            return redirect()->route('admin.role.index')->with('error', __('Data role gagal dibuat'));
+            return redirect()->route('role.index')->with('error', __('Data role gagal dibuat'));
         }
     }
 
@@ -64,13 +64,13 @@ class RoleController extends Controller
         $roles_permissions = $role->permissions;
         $roles_permissions = $roles_permissions->pluck('name')->toArray();
 
-        return view('admin.role.edit', compact('role', 'permissions', 'roles_permissions'));
+        return view('role.edit', compact('role', 'permissions', 'roles_permissions'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(AdminRoleRequest $request, string $id)
+    public function update(RoleRequest $request, string $id)
     {
         $role = Role::findOrFail($id);
         $update = $role->update([
@@ -79,9 +79,9 @@ class RoleController extends Controller
         $role->syncPermissions($request->permissions);
 
         if ($update) {
-            return redirect()->route('admin.role.index')->with('success', __('Data role berhasil diperbarui'));
+            return redirect()->route('role.index')->with('success', __('Data role berhasil diperbarui'));
         } else {
-            return redirect()->route('admin.role.index')->with('error', __('Data role gagal diperbarui'));
+            return redirect()->route('role.index')->with('error', __('Data role gagal diperbarui'));
         }
     }
 
@@ -124,7 +124,7 @@ class RoleController extends Controller
                 if (canAccess(['role update'])) {
                     $update = '
                             <li>
-                                <a class="dropdown-item border-bottom" href="' . route('admin.role.edit', $query) . '">
+                                <a class="dropdown-item border-bottom" href="' . route('role.edit', $query) . '">
                                     <i class="bx bx-edit-alt fs-20"></i> ' . __("Perbarui") . '
                                 </a>
                             </li>
@@ -133,7 +133,7 @@ class RoleController extends Controller
                 if (canAccess(['role delete'])) {
                     $delete = '
                             <li>
-                                <a class="dropdown-item border-bottom delete_item" href="' . route('admin.role.destroy', $query) . '">
+                                <a class="dropdown-item border-bottom delete_item" href="' . route('role.destroy', $query) . '">
                                     <i class="bx bx-trash fs-20"></i> ' . __("Hapus") . '
                                 </a>
                             </li>

@@ -161,13 +161,6 @@ class UserController extends Controller
 
         return datatables($query)
             ->addIndexColumn()
-            ->editColumn('image', function ($query) {
-                if (!empty($query->image)) {
-                    return '<img src="' . url(config('common.path_storage') . $query->image) . '" class="img-fluid rounded-pill" width="45" height="45">';
-                } else {
-                    return '<img src="' . url(config('common.path_template') . config('common.image_user_profile_small')) . '" class="img-fluid rounded-pill" width="45" height="45">';
-                }
-            })
             ->editColumn('role', function ($query) {
                 return $query->getRoleNames()->first();
             })

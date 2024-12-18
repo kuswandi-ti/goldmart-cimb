@@ -3,13 +3,13 @@
     <!-- Start::main-sidebar-header -->
     <div class="main-sidebar-header">
         <a href="{{ route('dashboard.index') }}" class="header-logo">
-            <img src="{{ !empty($setting_system['company_logo_dekstop']) ? url(config('common.path_storage') . $setting_system['company_logo_desktop']) : url(config('common.path_template_admin') . config('common.logo_company_desktop')) }}"
+            <img src="{{ !empty($setting_system['company_logo_dekstop']) ? url(config('common.path_storage') . $setting_system['company_logo_desktop']) : url(config('common.path_template') . config('common.logo_company_desktop')) }}"
                 alt="logo" class="desktop-logo" width="125" height="33">
-            <img src="{{ !empty($setting_system['company_logo_toggle']) ? url(config('common.path_storage') . $setting_system['company_logo_toggle']) : url(config('common.path_template_admin') . config('common.logo_company_toggle')) }}"
+            <img src="{{ !empty($setting_system['company_logo_toggle']) ? url(config('common.path_storage') . $setting_system['company_logo_toggle']) : url(config('common.path_template') . config('common.logo_company_toggle')) }}"
                 alt="logo" class="toggle-logo" width="38" height="33">
-            <img src="{{ !empty($setting_system['company_logo_desktop']) ? url(config('common.path_storage') . $setting_system['company_logo_desktop']) : url(config('common.path_template_admin') . config('common.logo_company_desktop')) }}"
+            <img src="{{ !empty($setting_system['company_logo_desktop']) ? url(config('common.path_storage') . $setting_system['company_logo_desktop']) : url(config('common.path_template') . config('common.logo_company_desktop')) }}"
                 alt="logo" class="desktop-dark" width="125" height="33">
-            <img src="{{ !empty($setting_system['company_logo_toggle']) ? url(config('common.path_storage') . $setting_system['company_logo_toggle']) : url(config('common.path_template_admin') . config('common.logo_company_toggle')) }}"
+            <img src="{{ !empty($setting_system['company_logo_toggle']) ? url(config('common.path_storage') . $setting_system['company_logo_toggle']) : url(config('common.path_template') . config('common.logo_company_toggle')) }}"
                 alt="logo" class="toggle-dark" width="38" height="33">
         </a>
     </div>
@@ -59,17 +59,6 @@
                 <!-- End::slide__category -->
 
                 <!-- Start::slide -->
-                @if (canAccess(['user index']))
-                    <li class="slide {{ setSidebarActive(['user.*']) }}">
-                        <a href="{{ route('user.index') }}"
-                            class="side-menu__item {{ setSidebarActive(['user.*']) }}">
-                            <span class="side-menu__icon">
-                                <i class='bx bx-user'></i>
-                            </span>
-                            <span class="side-menu__label">{{ __('User') }}</span>
-                        </a>
-                    </li>
-                @endif
                 <!-- End::slide -->
                 {{-- ======================================================================================================= --}}
                 {{-- INPUT DATA - END --}}
@@ -79,13 +68,24 @@
                 {{-- PENGATURAN - BEGIN --}}
                 {{-- ======================================================================================================= --}}
                 <!-- Start::slide__category -->
-                @if (canAccess(['role index', 'permission index', 'setting system']))
+                @if (canAccess(['user index', 'role index', 'permission index', 'setting system']))
                     <li class="mt-4 slide__category"><span class="category-name">{{ __('Pengaturan') }}</span>
                     </li>
                 @endif
                 <!-- End::slide__category -->
 
                 <!-- Start::slide -->
+                @if (canAccess(['user index']))
+                    <li class="slide {{ setSidebarActive(['user.*']) }}">
+                        <a href="{{ route('user.index') }}"
+                            class="side-menu__item {{ setSidebarActive(['user.*']) }}">
+                            <span class="side-menu__icon">
+                                <i class='bx bx-user'></i>
+                            </span>
+                            <span class="side-menu__label">{{ __('Manajemen User') }}</span>
+                        </a>
+                    </li>
+                @endif
                 @if (canAccess(['role index', 'permission index']))
                     <li
                         class="slide has-sub {{ setSidebarActive(['permission.*', 'role.*']) }} {{ setSidebarOpen(['permission.*', 'role.*']) }}">

@@ -1,18 +1,18 @@
 @extends('layouts.master')
 
 @section('page_title')
-    {{ __('Data User') }}
+    {{ __('User') }}
 @endsection
 
 @section('section_header_title')
-    {{ __('Data User') }}
+    {{ __('User') }}
 @endsection
 
 @section('section_header_breadcrumb')
     @parent
     <li class="breadcrumb-item">
         <a href="{{ route('user.index') }}" class="text-white-50">
-            {{ __('Data User') }}
+            {{ __('User') }}
         </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">{{ __('Menambah Data User') }}</li>

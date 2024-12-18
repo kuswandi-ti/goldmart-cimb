@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Models\SettingSystem;
 use App\Traits\FileUploadTrait;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\AdminSettingFeeUpdateRequest;
-use App\Http\Requests\Admin\AdminSettingOtherUpdateRequest;
-use App\Http\Requests\Admin\AdminSettingGeneralUpdateRequest;
-use App\Http\Requests\Admin\AdminSettingTransactionUpdateRequest;
+use App\Http\Requests\SettingFeeUpdateRequest;
+use App\Http\Requests\SettingOtherUpdateRequest;
+use App\Http\Requests\SettingGeneralUpdateRequest;
+use App\Http\Requests\SettingTransactionUpdateRequest;
 
 class SettingController extends Controller
 {
@@ -21,10 +21,10 @@ class SettingController extends Controller
 
     public function index()
     {
-        return view('admin.setting.index');
+        return view('setting.index');
     }
 
-    public function generalSettingUpdate(AdminSettingGeneralUpdateRequest $request)
+    public function generalSettingUpdate(SettingGeneralUpdateRequest $request)
     {
         foreach ($request->only('company_name', 'site_title', 'company_phone', 'company_email', 'company_address') as $key => $value) {
             SettingSystem::updateOrCreate(
@@ -57,10 +57,10 @@ class SettingController extends Controller
             );
         }
 
-        return redirect()->route('admin.setting.index')->with('success', __('Pengaturan informasi koperasi berhasil diperbarui'));
+        return redirect()->route('setting.index')->with('success', __('Pengaturan informasi umum berhasil diperbarui'));
     }
 
-    public function feeSettingUpdate(AdminSettingFeeUpdateRequest $request)
+    public function feeSettingUpdate(SettingFeeUpdateRequest $request)
     {
         foreach ($request->only('fee_loan_regular', 'fee_loan_funding', 'fee_loan_social') as $key => $value) {
             SettingSystem::updateOrCreate(
@@ -69,10 +69,10 @@ class SettingController extends Controller
             );
         }
 
-        return redirect()->route('admin.setting.index')->with('success', __('Pengaturan persentase jasa berhasil diperbarui'));
+        return redirect()->route('setting.index')->with('success', __('Pengaturan persentase jasa berhasil diperbarui'));
     }
 
-    public function otherSettingUpdate(AdminSettingOtherUpdateRequest $request)
+    public function otherSettingUpdate(SettingOtherUpdateRequest $request)
     {
         foreach ($request->only('decimal_digit_amount', 'decimal_digit_percent') as $key => $value) {
             SettingSystem::updateOrCreate(
@@ -81,10 +81,10 @@ class SettingController extends Controller
             );
         }
 
-        return redirect()->route('admin.setting.index')->with('success', __('Pengaturan lainnya berhasil diperbarui'));
+        return redirect()->route('setting.index')->with('success', __('Pengaturan lainnya berhasil diperbarui'));
     }
 
-    public function transactionSettingUpdate(AdminSettingTransactionUpdateRequest $request)
+    public function transactionSettingUpdate(SettingTransactionUpdateRequest $request)
     {
         foreach ($request->only(
             'sale_prefix',
@@ -106,6 +106,6 @@ class SettingController extends Controller
             );
         }
 
-        return redirect()->route('admin.setting.index')->with('success', __('Pengaturan lainnya berhasil diperbarui'));
+        return redirect()->route('setting.index')->with('success', __('Pengaturan transaksi berhasil diperbarui'));
     }
 }

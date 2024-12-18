@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;

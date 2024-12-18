@@ -2,12 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-// use App\Http\Controllers\RoleController;
-// use App\Http\Controllers\ProfileController;
-// use App\Http\Controllers\SettingController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
-// use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +19,8 @@ use App\Http\Controllers\DashboardController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/', [AuthController::class, 'login'])->name('login');
 
 /** Auth Routes */
 Route::get('login', [AuthController::class, 'login'])->name('login');
