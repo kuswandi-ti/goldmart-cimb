@@ -41,6 +41,7 @@
                                     <th scope="col">{{ __('Telp. Nasabah') }}</th>
                                     <th scope="col">{{ __('Rekening Pencairan') }}</th>
                                     <th scope="col">{{ __('Nama Barang') }}</th>
+                                    <th scope="col">{{ __('Jumlah Barang') }}</th>
                                     <th scope="col">{{ __('Nilai Pencairan') }}</th>
                                     <th scope="col">{{ __('Margin Keuntungan') }}</th>
                                     <th scope="col">{{ __('Angsuran') }}</th>
@@ -59,11 +60,105 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal - Begin -->
+    <div class="modal fade" id="editDataModal" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="editDataLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="editDataLabel"></h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4 row gy-4">
+                        <div class="col-xl-12">
+                            <label for="status_pelunasan" class="form-label text-default">{{ __('Status Pelunasan') }}
+                                <x-all-not-null /></label>
+                            <select
+                                class="js-example-placeholder-single js-states form-control select2 @error('status_pelunasan') is-invalid @enderror"
+                                name="status_pelunasan" id="status_pelunasan" required>
+                                <option value="Belum Lunas">Belum Lunas</option>
+                                <option value="Sudah Lunas">Sudah Lunas</option>
+                            </select>
+                            @error('status_pelunasan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="status_pengambilan_barang"
+                                class="form-label text-default">{{ __('Status Pengambilan Barang') }}
+                                <x-all-not-null /></label>
+                            <select
+                                class="js-example-placeholder-single js-states form-control select2 @error('status_pengambilan_barang') is-invalid @enderror"
+                                name="status_pengambilan_barang" id="status_pengambilan_barang" required>
+                                <option value="Belum Diambil">Belum Diambil</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Sudah Diambil">Sudah Diambil</option>
+                            </select>
+                            @error('status_pengambilan_barang')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div id="div_pengambilan_barang">
+                            <div class="col-xl-12">
+                                <label for="tgl_pengambilan_barang"
+                                    class="form-label text-default">{{ __('Tanggal Pengambilan Barang') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-text text-muted">
+                                        <i class="ri-calendar-line"></i>
+                                    </div>
+                                    <input type="text"
+                                        class="form-control flatpickr @error('tgl_pengambilan_barang') is-invalid @enderror"
+                                        name="tgl_pengambilan_barang" id="tgl_pengambilan_barang"
+                                        value="{{ old('tgl_pengambilan_barang') }}"
+                                        placeholder="{{ __('Tanggal Pengambilan Barang') }}" required>
+                                    @error('tgl_pengambilan_barang')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <br>
+                            <div class="col-xl-12">
+                                <label for="note_pengambilan_barang"
+                                    class="form-label text-default">{{ __('Note Pengambilan Barang') }}</label>
+                                <input type="text"
+                                    class="form-control @error('note_pengambilan_barang') is-invalid @enderror"
+                                    name="note_pengambilan_barang" id="note_pengambilan_barang"
+                                    value="{{ old('note_pengambilan_barang') }}"
+                                    placeholder="{{ __('Note Pengambilan Barang') }}">
+                                @error('note_pengambilan_barang')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('Simpan') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal - End -->
 @endsection
 
 <x-web-sweet-alert />
 
 @include('layouts.includes.datatable')
+@include('layouts.includes.select2')
+@include('layouts.includes.flatpickr')
 
 @push('scripts')
     <script>
@@ -114,7 +209,11 @@
                 searchable: true,
                 sortable: true,
             }, {
-                data: 'barang',
+                data: 'nama_barang',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'qty',
                 searchable: true,
                 sortable: true,
             }, {
@@ -154,8 +253,45 @@
                 "render": function(data, type, row) {
                     return formatAmount(data);
                 },
-                "targets": [9, 10, 11]
+                "targets": [10, 11, 12]
             }, ]
+        });
+
+        $('#status_pelunasan, #status_pengambilan_barang').select2({
+            dropdownParent: $('#editDataModal')
+        });
+
+        $(document).ready(function() {
+            $('#div_pengambilan_barang').hide();
+        });
+
+        $(document.body).on("change", "#status_pengambilan_barang", function() {
+            if (this.value == "Sudah Diambil") {
+                $('#div_pengambilan_barang').show();
+            } else {
+                $('#div_pengambilan_barang').hide();
+            }
+        });
+
+        $('body').on('click', '.edit', function(e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+
+            $.ajax({
+                url: `kreditnasabah/${id}/edit`,
+                type: "GET",
+                cache: false,
+                success: function(response) {
+                    // console.log(response);
+                    $('#editDataLabel').html("Perbarui Data");
+                    $("#status_pelunasan").val(response.status_lunas).trigger('change');
+                    $("#status_pengambilan_barang").val(response.status_pengambilan_barang).trigger(
+                        'change');
+                    $('#tgl_pengambilan_barang').val(response.tgl_pengambilan_barang);
+                    $('#note_pengambilan_barang').val(response.note_pengambilan_barang);
+                    $('#editDataModal').modal('show');
+                }
+            });
         });
     </script>
 @endpush

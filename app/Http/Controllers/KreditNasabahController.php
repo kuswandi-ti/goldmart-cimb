@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\KreditNasabah;
+use Illuminate\Support\Facades\Validator;
 
 class KreditNasabahController extends Controller
 {
@@ -19,6 +20,35 @@ class KreditNasabahController extends Controller
     public function index()
     {
         return view('kredit_nasabah.index');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(KreditNasabah $kreditnasabah)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $kredit_nasabah = KreditNasabah::findOrFail($id);
+
+        return response()->json($kredit_nasabah);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, KreditNasabah $kreditnasabah)
+    {
+        $validator = Validator::make($request->all(), [
+            'title'     => 'required',
+            'content'   => 'required',
+        ]);
     }
 
     public function data(Request $request)
@@ -38,7 +68,7 @@ class KreditNasabahController extends Controller
                     if (canAccess(['kredit nasabah update'])) {
                         $update = '
                             <li>
-                                <a class="dropdown-item border-bottom" href="' . route('user.edit', $query) . '">
+                                <a class="edit dropdown-item border-bottom" href="javascript:void(0);" data-toggle="tooltip" data-id="'.$query->id.'">
                                     <i class="bx bx-edit-alt fs-20"></i> ' . __("Perbarui") . '
                                 </a>
                             </li>

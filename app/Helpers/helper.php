@@ -127,7 +127,7 @@ function setStatusPengambilanBarangBadge($status)
             break;
 
         case 'Pending':
-            $status_badge = 'dark';
+            $status_pengambilan_barang_badge = 'dark';
             break;
 
         default:
