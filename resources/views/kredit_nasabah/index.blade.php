@@ -26,6 +26,13 @@
                             </p>
                         </div>
                     </div>
+                    @can('external update')
+                        <div class="d-flex" role="search">
+                            <a href="#" class="btn btn-danger">
+                                {{ __('Update Eksternal Data') }}
+                            </a>
+                        </div>
+                    @endcan
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -67,6 +74,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
+                    <input type="hidden" id="id"></input>
                     <h6 class="modal-title" id="editDataLabel"></h6>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -144,7 +152,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" id="update">
                         {{ __('Simpan') }}
                     </button>
                 </div>
@@ -284,6 +292,7 @@
                 success: function(response) {
                     // console.log(response);
                     $('#editDataLabel').html("Perbarui Data");
+                    $('#id').val(response.id);
                     $("#status_pelunasan").val(response.status_lunas).trigger('change');
                     $("#status_pengambilan_barang").val(response.status_pengambilan_barang).trigger(
                         'change');
@@ -293,5 +302,48 @@
                 }
             });
         });
+
+    $('#update').click(function(e) {
+        e.preventDefault();
+
+        let id = $('#id').val();
+        let status_pelunasan = $("#status_pelunasan option:selected").val();
+        let status_pengambilan_barang = $("#status_pengambilan_barang option:selected").val();
+        let tgl_pengambilan_barang = $('#tgl_pengambilan_barang').val();
+        let note_pengambilan_barang = $('#note_pengambilan_barang').val();
+
+        $.ajax({
+            method: 'PUT',
+            url: `kreditnasabah/${id}`,
+            cache: false,
+            data: {
+                "status_pelunasan": status_pelunasan,
+                "status_pengambilan_barang": status_pengambilan_barang,
+                "tgl_pengambilan_barang": tgl_pengambilan_barang,
+                "note_pengambilan_barang": note_pengambilan_barang
+            },
+            success: function(data) {
+                //console.log(data)
+                if (data.success == true) {
+                    Swal.fire(
+                        "{{ __('Perbarui Data !') }}",
+                        data.message,
+                        'success'
+                    ).then(() => {
+                        window.location.reload();
+                    });
+                } else if (data.success == false) {
+                    Swal.fire(
+                        'Error!',
+                        data.message,
+                        'error'
+                    )
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
     </script>
 @endpush

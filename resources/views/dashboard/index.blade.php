@@ -136,7 +136,7 @@
         <div class="col-xxl-12 col-xl-12">
             <div class="card custom-card">
                 <div class="card-header justify-content-between">
-                    <div class="card-title">Sales Statistics</div>
+                    <div class="card-title">Sales Statistics (Data Dummy)</div>
                     <div class="dropdown d-flex">
                         <a href="javascript:void(0);"
                             class="btn btn-sm btn-primary-light btn-wave waves-effect waves-light d-flex align-items-center me-2"><i
@@ -163,7 +163,7 @@
         <div class="col-xxl-12 col-xl-12">
             <div class="card custom-card">
                 <div class="card-header  justify-content-between">
-                    <div class="card-title">Payrol Summary</div>
+                    <div class="card-title">Payrol Summary (Data Dummy)</div>
                     <div class="dropdown">
                         <a aria-label="anchor" href="javascript:void(0);"
                             class="btn btn-outline-light btn-icons btn-sm text-muted" data-bs-toggle="dropdown"

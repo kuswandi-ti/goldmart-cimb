@@ -45,10 +45,27 @@ class KreditNasabahController extends Controller
      */
     public function update(Request $request, KreditNasabah $kreditnasabah)
     {
-        $validator = Validator::make($request->all(), [
-            'title'     => 'required',
-            'content'   => 'required',
+        $update = $kreditnasabah->update([
+            'status_lunas' => $request->status_pelunasan,
+            'status_pengambilan_barang' => $request->status_pengambilan_barang,
+            'tgl_pengambilan_barang' => $request->tgl_pengambilan_barang,
+            'note_pengambilan_barang' => $request->note_pengambilan_barang,
+            'updated_at' => saveDateTimeNow(),
+            'updated_by' => auth()->user()->name,
         ]);
+
+        if ($update) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Berhasil Diudapte!',
+                'data'    => $kreditnasabah
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data gagal diperbarui!'
+            ]);
+        }
     }
 
     public function data(Request $request)
@@ -68,7 +85,7 @@ class KreditNasabahController extends Controller
                     if (canAccess(['kredit nasabah update'])) {
                         $update = '
                             <li>
-                                <a class="edit dropdown-item border-bottom" href="javascript:void(0);" data-toggle="tooltip" data-id="'.$query->id.'">
+                                <a class="edit dropdown-item border-bottom" href="javascript:void(0);" data-toggle="tooltip" data-id="' . $query->id . '">
                                     <i class="bx bx-edit-alt fs-20"></i> ' . __("Perbarui") . '
                                 </a>
                             </li>
@@ -89,7 +106,7 @@ class KreditNasabahController extends Controller
                                     <i class="bx bx-cog fs-16"></i>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="">' .
-                        (!empty($update) ? $update : '') .'
+                        (!empty($update) ? $update : '') . '
                                 </ul>
                             </div>';
                 } else {

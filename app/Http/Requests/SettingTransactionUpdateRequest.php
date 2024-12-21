@@ -23,17 +23,6 @@ class SettingTransactionUpdateRequest extends FormRequest
     {
         return [
             'sale_prefix' => ['required', 'string', 'max:255'],
-            'sale_last_number' => ['required', 'numeric'],
-            'loan_regular_prefix' => ['required', 'string', 'max:255'],
-            'loan_regular_last_number' => ['required', 'numeric'],
-            'loan_funding_prefix' => ['required', 'string', 'max:255'],
-            'loan_funding_last_number' => ['required', 'numeric'],
-            'loan_social_prefix' => ['required', 'string', 'max:255'],
-            'loan_social_last_number' => ['required', 'numeric'],
-            'saving_deposit_prefix' => ['required', 'string', 'max:255'],
-            'saving_deposit_last_number' => ['required', 'numeric'],
-            'saving_withdraw_prefix' => ['required', 'string', 'max:255'],
-            'saving_withdraw_last_number' => ['required', 'numeric'],
         ];
     }
 }

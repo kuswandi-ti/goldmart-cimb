@@ -86,20 +86,12 @@ class SettingController extends Controller
 
     public function transactionSettingUpdate(SettingTransactionUpdateRequest $request)
     {
-        foreach ($request->only(
-            'sale_prefix',
-            'sale_last_number',
-            'loan_regular_prefix',
-            'loan_regular_last_number',
-            'loan_funding_prefix',
-            'loan_funding_last_number',
-            'loan_social_prefix',
-            'loan_social_last_number',
-            'saving_deposit_prefix',
-            'saving_deposit_last_number',
-            'saving_withdraw_prefix',
-            'saving_withdraw_last_number',
-        ) as $key => $value) {
+        foreach (
+            $request->only(
+                'sale_prefix',
+                'sale_last_number',
+            ) as $key => $value
+        ) {
             SettingSystem::updateOrCreate(
                 ['key' => $key],
                 ['value' => $value, 'updated_by' => auth()->user()->name],

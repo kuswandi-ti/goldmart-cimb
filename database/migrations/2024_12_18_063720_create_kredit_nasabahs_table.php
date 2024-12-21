@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('tgl_incoming')->nullable();
             $table->string('kode_nasabah');
             $table->string('nama_nasabah');
+            $table->string('email')->nullable();
             $table->string('tlp_nasabah')->nullable();
             $table->text('alamat_nasabah')->nullable();
             $table->string('rekening_pencairan')->nullable();
