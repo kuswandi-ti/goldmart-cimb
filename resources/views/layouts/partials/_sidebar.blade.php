@@ -60,9 +60,9 @@
 
                 <!-- Start::slide -->
                 @if (canAccess(['kredit nasabah index']))
-                    <li class="slide {{ setSidebarActive(['kredit nasabah.*']) }}">
+                    <li class="slide {{ setSidebarActive(['kreditnasabah.*']) }}">
                         <a href="{{ route('kreditnasabah.index') }}"
-                            class="side-menu__item {{ setSidebarActive(['kredit nasabah.*']) }}">
+                            class="side-menu__item {{ setSidebarActive(['kreditnasabah.*']) }}">
                             <span class="side-menu__icon">
                                 <i class='bx bxs-credit-card'></i>
                             </span>
