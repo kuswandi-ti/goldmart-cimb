@@ -6,7 +6,7 @@
 <link href="{{ url(config('common.path_template') . 'assets/css/styles.css') }}" rel="stylesheet">
 
 <!-- Icons Css -->
-<link href="{{ url(config('common.path_template') . 'assets/css/icons.css') }}.." rel="stylesheet">
+<link href="{{ url(config('common.path_template') . 'assets/css/icons.css') }}" rel="stylesheet">
 
 <!-- Node Waves Css -->
 <link href="{{ url(config('common.path_template') . 'assets/libs/node-waves/waves.min.css') }}" rel="stylesheet">
