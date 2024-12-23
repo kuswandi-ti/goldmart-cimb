@@ -68,6 +68,11 @@ class KreditNasabahController extends Controller
         }
     }
 
+    public function detail($filter)
+    {
+        return view('kredit_nasabah.detail', compact('filter'));
+    }
+
     public function data(Request $request)
     {
         $query = KreditNasabah::orderBy('tgl_incoming', 'DESC');

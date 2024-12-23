@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                             <div class="mt-2 d-flex">
-                                <a href="{{ route('kreditnasabah.index') }}"
+                                <a href="kreditnasabah/detail/nasabah"
                                     class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">Lihat Detail
                                 </a>
                             </div>
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <div class="mt-2 d-flex">
-                                <a href="javascript:void(0);"
+                                <a href="kreditnasabah/detail/kredit"
                                     class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">Lihat Detail</a>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                             <div class="mt-2 d-flex">
-                                <a href="javascript:void(0);"
+                                <a href="kreditnasabah/detail/keuntungan"
                                     class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">Lihat Detail</a>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                             <div class="mt-2 d-flex">
-                                <a href="javascript:void(0);"
+                                <a href="kreditnasabah/detail/sudah-lunas"
                                     class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">Lihat Detail</a>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                                 </div>
                             </div>
                             <div class="mt-2 d-flex">
-                                <a href="javascript:void(0);"
+                                <a href="kreditnasabah/detail/belum-lunas"
                                     class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">Lihat Detail</a>
                             </div>
                         </div>
@@ -276,11 +276,6 @@
                     text: 'Rupiah'
                 }
             },
-            // legend: {
-            //     layout: 'vertical',
-            //     align: 'right',
-            //     verticalAlign: 'middle'
-            // },
             plotOptions: {
                 series: {
                     allowPointSelect: true,
@@ -292,8 +287,11 @@
                     dataLabels: {
                         enabled: true
                     },
+                    animation: {
+                        defer: 900
+                    },
                     enableMouseTracking: false
-                }
+                },
             },
             series: [{
                 name: 'Total Kredit',
@@ -347,24 +345,17 @@
                     text: 'Rupiah'
                 }
             },
-            // legend: {
-            //     layout: 'vertical',
-            //     align: 'right',
-            //     verticalAlign: 'middle'
-            // },
             plotOptions: {
                 series: {
-                    allowPointSelect: true,
-                    label: {
-                        connectorAllowed: false
-                    },
-                },
-                line: {
                     dataLabels: {
                         enabled: true
-                    },
-                    enableMouseTracking: false
-                }
+                    }
+                },
+                column: {
+                    animation: {
+                        defer: 900
+                    }
+                },
             },
             series: [{
                 name: 'Total Kredit',
