@@ -22,8 +22,10 @@ return new class extends Migration
             $table->text('alamat_nasabah')->nullable();
             $table->string('rekening_pencairan')->nullable();
             $table->string('nama_barang')->nullable();
+            $table->text('image')->nullable();
             $table->integer('qty')->default(0);
             $table->decimal('nilai_pencairan', 20, 2)->default(0);
+            $table->decimal('total_nilai_kredit', 20, 2)->default(0);
             $table->decimal('margin_keuntungan', 20, 2)->default(0);
             $table->decimal('angsuran', 20, 2)->default(0);
             $table->integer('tenor')->default(0);
@@ -31,9 +33,11 @@ return new class extends Migration
             $table->string('periode_bulan')->nullable();
             $table->string('mitra')->nullable();
             $table->enum('status_lunas', ['Belum Lunas', 'Sudah Lunas'])->default('Belum Lunas');
+            $table->date('tgl_pelunasan')->nullable();
             $table->enum('status_pengambilan_barang', ['Belum Diambil', 'Pending', 'Sudah Diambil']);
             $table->date('tgl_pengambilan_barang')->nullable();
             $table->text('note_pengambilan_barang')->nullable();
+            $table->date('tgl_kirim_barang')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamp('restored_at')->nullable();

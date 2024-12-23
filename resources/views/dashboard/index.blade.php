@@ -23,19 +23,17 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <div>
-                                    <p class="mb-1 fw-medium text-muted">Total Sales</p>
-                                    <h3 class="mb-0">$18,645</h3>
+                                    <p class="mb-1 fw-medium text-muted">Total Nasabah</p>
+                                    <h3 class="mb-0">{{ $total_nasabah->total_nasabah }}</h3>
                                 </div>
                                 <div class="avatar avatar-md br-4 bg-primary-transparent ms-auto">
-                                    <i class="bi bi-cart-check fs-20"></i>
+                                    <i class='bx bxs-user-circle fs-20'></i>
                                 </div>
                             </div>
                             <div class="mt-2 d-flex">
-                                <span class="badge bg-primary-transparent rounded-pill">+24% <i
-                                        class="fe fe-arrow-down"></i></span>
-                                <a href="javascript:void(0);"
-                                    class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">view
-                                    more</a>
+                                <a href="{{ route('kreditnasabah.index') }}"
+                                    class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">Lihat Detail
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -45,19 +43,16 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <div>
-                                    <p class="mb-1 fw-medium text-muted">Total Revenue</p>
-                                    <h3 class="mb-0">$34,876</h3>
+                                    <p class="mb-1 fw-medium text-muted">Total Nilai Kredit (Rp.)</p>
+                                    <h3 class="mb-0">{{ formatAmount($total_nilai_kredit->total_nilai_kredit) }}</h3>
                                 </div>
                                 <div class="avatar avatar-md br-4 bg-secondary-transparent ms-auto">
-                                    <i class="bi bi-archive fs-20"></i>
+                                    <i class='bx bx-credit-card fs-20'></i>
                                 </div>
                             </div>
                             <div class="mt-2 d-flex">
-                                <span class="badge bg-success-transparent rounded-pill">+0.26% <i
-                                        class="fe fe-arrow-down"></i></span>
                                 <a href="javascript:void(0);"
-                                    class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">view
-                                    more</a>
+                                    class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">Lihat Detail</a>
                             </div>
                         </div>
                     </div>
@@ -67,19 +62,17 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <div>
-                                    <p class="mb-1 fw-medium text-muted">Total Products</p>
-                                    <h3 class="mb-0">26,231</h3>
+                                    <p class="mb-1 fw-medium text-muted">Total Margin Keuntungan (Rp.)</p>
+                                    <h3 class="mb-0">{{ formatAmount($total_margin_keuntungan->total_margin_keuntungan) }}
+                                    </h3>
                                 </div>
                                 <div class="avatar avatar-md br-4 bg-info-transparent ms-auto">
-                                    <i class="bi bi-handbag fs-20"></i>
+                                    <i class='bx bxs-wallet fs-20'></i>
                                 </div>
                             </div>
                             <div class="mt-2 d-flex">
-                                <span class="badge bg-danger-transparent rounded-pill">+06% <i
-                                        class="fe fe-arrow-down"></i></span>
                                 <a href="javascript:void(0);"
-                                    class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">view
-                                    more</a>
+                                    class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">Lihat Detail</a>
                             </div>
                         </div>
                     </div>
@@ -89,19 +82,16 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <div>
-                                    <p class="mb-1 fw-medium text-muted">Total Expenses</p>
-                                    <h3 class="mb-0">$73,579</h3>
+                                    <p class="mb-1 fw-medium text-muted">Total Pelunasan (Rp.)</p>
+                                    <h3 class="mb-0">{{ formatAmount($total_sudah_lunas->total_pelunasan) }}</h3>
                                 </div>
                                 <div class="avatar avatar-md br-4 bg-warning-transparent ms-auto">
                                     <i class="bi bi-currency-dollar fs-20"></i>
                                 </div>
                             </div>
                             <div class="mt-2 d-flex">
-                                <span class="badge bg-success-transparent rounded-pill">+10% <i
-                                        class="fe fe-arrow-up"></i></span>
                                 <a href="javascript:void(0);"
-                                    class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">view
-                                    more</a>
+                                    class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">Lihat Detail</a>
                             </div>
                         </div>
                     </div>
@@ -111,19 +101,16 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <div>
-                                    <p class="mb-1 fw-medium text-muted">Active Subscribers</p>
-                                    <h3 class="mb-0">1,468</h3>
+                                    <p class="mb-1 fw-medium text-muted">Belum Pelunasan (Rp.)</p>
+                                    <h3 class="mb-0">{{ formatAmount($total_belum_lunas->total_belum_lunas) }}</h3>
                                 </div>
                                 <div class="avatar avatar-md br-4 bg-danger-transparent ms-auto">
                                     <i class="bi bi-bell fs-20"></i>
                                 </div>
                             </div>
                             <div class="mt-2 d-flex">
-                                <span class="badge bg-danger-transparent rounded-pill">+16% <i
-                                        class="fe fe-arrow-down"></i></span>
                                 <a href="javascript:void(0);"
-                                    class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">view
-                                    more</a>
+                                    class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">Lihat Detail</a>
                             </div>
                         </div>
                     </div>
@@ -132,7 +119,7 @@
         </div>
     </div>
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-xxl-12 col-xl-12">
             <div class="card custom-card">
                 <div class="card-header justify-content-between">
@@ -157,9 +144,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-xxl-12 col-xl-12">
             <div class="card custom-card">
                 <div class="card-header  justify-content-between">
@@ -205,5 +192,207 @@
                 </div>
             </div>
         </div>
+    </div> --}}
+
+    <div class="row">
+        <div class="col-xxl-12 col-xl-12">
+            <div class="card custom-card">
+                <div class="card-header  justify-content-between">
+                    <div class="card-title">Statistik Pelunasan Kredit</div>
+                    <div class="dropdown">
+                        <a aria-label="anchor" href="javascript:void(0);"
+                            class="btn btn-outline-light btn-icons btn-sm text-muted" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fe fe-more-vertical"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="border-bottom"><a class="dropdown-item" href="javascript:void(0);">Today</a></li>
+                            <li class="border-bottom"><a class="dropdown-item" href="javascript:void(0);">This Week</a>
+                            </li>
+                            <li><a class="dropdown-item" href="javascript:void(0);">Last Week</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="kreditstatistic1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xxl-12 col-xl-12">
+            <div class="card custom-card">
+                <div class="card-header  justify-content-between">
+                    <div class="card-title">Statistik Pelunasan Kredit</div>
+                    <div class="dropdown">
+                        <a aria-label="anchor" href="javascript:void(0);"
+                            class="btn btn-outline-light btn-icons btn-sm text-muted" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fe fe-more-vertical"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="border-bottom"><a class="dropdown-item" href="javascript:void(0);">Today</a></li>
+                            <li class="border-bottom"><a class="dropdown-item" href="javascript:void(0);">This Week</a>
+                            </li>
+                            <li><a class="dropdown-item" href="javascript:void(0);">Last Week</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="kreditstatistic2"></div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
+
+@push('scripts_vendor')
+    <script src="{{ asset(config('common.path_template') . 'assets/libs/highcharts/highcharts.js') }}"></script>
+@endpush
+
+@push('scripts')
+    <script>
+        Highcharts.chart('kreditstatistic1', {
+            chart: {
+                type: 'line',
+                zooming: {
+                    type: 'x'
+                }
+            },
+            title: {
+                text: 'Statistik Pelunasan Kredit, tahun 2024'
+            },
+            subtitle: {
+                text: 'Source: goldmart'
+            },
+            xAxis: {
+                categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+                    'October', 'November', 'December'
+                ]
+            },
+            yAxis: {
+                title: {
+                    text: 'Rupiah'
+                }
+            },
+            // legend: {
+            //     layout: 'vertical',
+            //     align: 'right',
+            //     verticalAlign: 'middle'
+            // },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true,
+                    label: {
+                        connectorAllowed: false
+                    },
+                },
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: false
+                }
+            },
+            series: [{
+                name: 'Total Kredit',
+                data: [
+                    43934, 48656, 65165, 81827, 112143, 142383,
+                    171533, 165174, 155157, 161454, 154610, 168960
+                ]
+            }, {
+                name: 'Total Pelunasan',
+                data: [
+                    24916, 37941, 29742, 29851, 32490, 30282,
+                    38121, 36885, 33726, 34243, 31050, 33099
+                ]
+            }],
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        });
+
+        Highcharts.chart('kreditstatistic2', {
+            chart: {
+                type: 'column',
+                zooming: {
+                    type: 'x'
+                }
+            },
+            title: {
+                text: 'Statistik Pelunasan Kredit, tahun 2024'
+            },
+            subtitle: {
+                text: 'Source: goldmart'
+            },
+            xAxis: {
+                categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+                    'October', 'November', 'December'
+                ]
+            },
+            yAxis: {
+                title: {
+                    text: 'Rupiah'
+                }
+            },
+            // legend: {
+            //     layout: 'vertical',
+            //     align: 'right',
+            //     verticalAlign: 'middle'
+            // },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true,
+                    label: {
+                        connectorAllowed: false
+                    },
+                },
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: false
+                }
+            },
+            series: [{
+                name: 'Total Kredit',
+                data: [
+                    43934, 48656, 65165, 81827, 112143, 142383,
+                    171533, 165174, 155157, 161454, 154610, 168960
+                ]
+            }, {
+                name: 'Total Pelunasan',
+                data: [
+                    24916, 37941, 29742, 29851, 32490, 30282,
+                    38121, 36885, 33726, 34243, 31050, 33099
+                ]
+            }],
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        });
+    </script>
+@endpush

@@ -41,8 +41,11 @@
                                 <tr>
                                     <th scope="col" width="5%">{{ __('Nomor') }}</th>
                                     <th scope="col" width="12%">{{ __('Aksi') }}</th>
+                                    <th scope="col" width="10%">{{ __('Status Pelunasan') }}</th>
+                                    <th scope="col" width="10%">{{ __('Status Pengambilan Barang') }}</th>
                                     <th scope="col">{{ __('Tgl Incoming') }}</th>
                                     <th scope="col">{{ __('Tgl Pencairan') }}</th>
+                                    <th scope="col">{{ __('Tgl Pelunasan') }}</th>
                                     <th scope="col">{{ __('Nama Nasabah') }}</th>
                                     <th scope="col">{{ __('Alamat Nasabah') }}</th>
                                     <th scope="col">{{ __('Telp. Nasabah') }}</th>
@@ -55,8 +58,6 @@
                                     <th scope="col">{{ __('Tenor') }}</th>
                                     <th scope="col">{{ __('Turun Plafon') }}</th>
                                     <th scope="col">{{ __('Periode Bulan') }}</th>
-                                    <th scope="col" width="10%">{{ __('Status Pelunasan') }}</th>
-                                    <th scope="col" width="10%">{{ __('Status Pengambilan Barang') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -193,11 +194,23 @@
                 searchable: false,
                 sortable: false,
             }, {
+                data: 'status_lunas',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'status_pengambilan_barang',
+                searchable: true,
+                sortable: true,
+            }, {
                 data: 'tgl_incoming',
                 searchable: true,
                 sortable: true,
             }, {
                 data: 'tgl_pencairan',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'tgl_pelunasan',
                 searchable: true,
                 sortable: true,
             }, {
@@ -248,20 +261,12 @@
                 data: 'periode_bulan',
                 searchable: true,
                 sortable: true,
-            }, {
-                data: 'status_lunas',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'status_pengambilan_barang',
-                searchable: true,
-                sortable: true,
             }],
             "columnDefs": [{
                 "render": function(data, type, row) {
                     return formatAmount(data);
                 },
-                "targets": [10, 11, 12]
+                "targets": [13, 14, 15]
             }, ]
         });
 
@@ -303,47 +308,47 @@
             });
         });
 
-    $('#update').click(function(e) {
-        e.preventDefault();
+        $('#update').click(function(e) {
+            e.preventDefault();
 
-        let id = $('#id').val();
-        let status_pelunasan = $("#status_pelunasan option:selected").val();
-        let status_pengambilan_barang = $("#status_pengambilan_barang option:selected").val();
-        let tgl_pengambilan_barang = $('#tgl_pengambilan_barang').val();
-        let note_pengambilan_barang = $('#note_pengambilan_barang').val();
+            let id = $('#id').val();
+            let status_pelunasan = $("#status_pelunasan option:selected").val();
+            let status_pengambilan_barang = $("#status_pengambilan_barang option:selected").val();
+            let tgl_pengambilan_barang = $('#tgl_pengambilan_barang').val();
+            let note_pengambilan_barang = $('#note_pengambilan_barang').val();
 
-        $.ajax({
-            method: 'PUT',
-            url: `kreditnasabah/${id}`,
-            cache: false,
-            data: {
-                "status_pelunasan": status_pelunasan,
-                "status_pengambilan_barang": status_pengambilan_barang,
-                "tgl_pengambilan_barang": tgl_pengambilan_barang,
-                "note_pengambilan_barang": note_pengambilan_barang
-            },
-            success: function(data) {
-                //console.log(data)
-                if (data.success == true) {
-                    Swal.fire(
-                        "{{ __('Perbarui Data !') }}",
-                        data.message,
-                        'success'
-                    ).then(() => {
-                        window.location.reload();
-                    });
-                } else if (data.success == false) {
-                    Swal.fire(
-                        'Error!',
-                        data.message,
-                        'error'
-                    )
+            $.ajax({
+                method: 'PUT',
+                url: `kreditnasabah/${id}`,
+                cache: false,
+                data: {
+                    "status_pelunasan": status_pelunasan,
+                    "status_pengambilan_barang": status_pengambilan_barang,
+                    "tgl_pengambilan_barang": tgl_pengambilan_barang,
+                    "note_pengambilan_barang": note_pengambilan_barang
+                },
+                success: function(data) {
+                    //console.log(data)
+                    if (data.success == true) {
+                        Swal.fire(
+                            "{{ __('Perbarui Data !') }}",
+                            data.message,
+                            'success'
+                        ).then(() => {
+                            window.location.reload();
+                        });
+                    } else if (data.success == false) {
+                        Swal.fire(
+                            'Error!',
+                            data.message,
+                            'error'
+                        )
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
+            });
         });
-    });
     </script>
 @endpush
