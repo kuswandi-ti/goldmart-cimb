@@ -56,8 +56,9 @@ Route::group(['middleware' => ['auth_check', 'prevent_back_history']], function 
     Route::resource('permission', PermissionController::class);
 
     /** Kredit Nasabah Routes */
-    Route::get('kreditnasabah/data', [KreditNasabahController::class, 'data'])->name('kreditnasabah.data');
+    Route::get('kreditnasabah/detail/detail_data/{filter}', [KreditNasabahController::class, 'detail_data'])->name('kreditnasabah.detail_data');
     Route::get('kreditnasabah/detail/{filter}', [KreditNasabahController::class, 'detail'])->name('kreditnasabah.detail');
+    Route::get('kreditnasabah/data', [KreditNasabahController::class, 'data'])->name('kreditnasabah.data');
     Route::resource('kreditnasabah', KreditNasabahController::class);
 
     /** Setting Routes */

@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('kredit_nasabah', function (Blueprint $table) {
             $table->id();
-            $table->date('tgl_pencairan')->nullable();
-            $table->date('tgl_incoming')->nullable();
             $table->string('kode_nasabah');
             $table->string('nama_nasabah');
             $table->string('email')->nullable();
             $table->string('tlp_nasabah')->nullable();
             $table->text('alamat_nasabah')->nullable();
+            $table->date('tgl_pencairan')->nullable();
+            $table->date('tgl_incoming')->nullable();
             $table->string('rekening_pencairan')->nullable();
             $table->string('nama_barang')->nullable();
             $table->text('image')->nullable();
@@ -33,11 +33,12 @@ return new class extends Migration
             $table->string('periode_bulan')->nullable();
             $table->string('mitra')->nullable();
             $table->enum('status_lunas', ['Belum Lunas', 'Sudah Lunas'])->default('Belum Lunas');
-            $table->date('tgl_pelunasan')->nullable();
-            $table->enum('status_pengambilan_barang', ['Belum Diambil', 'Pending', 'Sudah Diambil']);
-            $table->date('tgl_pengambilan_barang')->nullable();
-            $table->text('note_pengambilan_barang')->nullable();
+            $table->date('tgl_lunas')->nullable();
+            // $table->enum('status_pengambilan_barang', ['Belum Diambil', 'Pending', 'Sudah Diambil']);
+            $table->enum('status_kirim_barang', ['Belum Dikirim', 'Sudah Dikirim']);
             $table->date('tgl_kirim_barang')->nullable();
+            $table->text('note_kirim_barang')->nullable();
+            // $table->date('tgl_kirim_barang')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamp('restored_at')->nullable();

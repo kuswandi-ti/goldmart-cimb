@@ -42,22 +42,17 @@
                                     <th scope="col" width="5%">{{ __('Nomor') }}</th>
                                     <th scope="col" width="12%">{{ __('Aksi') }}</th>
                                     <th scope="col" width="10%">{{ __('Status Pelunasan') }}</th>
-                                    <th scope="col" width="10%">{{ __('Status Pengambilan Barang') }}</th>
-                                    <th scope="col">{{ __('Tgl Incoming') }}</th>
-                                    <th scope="col">{{ __('Tgl Pencairan') }}</th>
-                                    <th scope="col">{{ __('Tgl Pelunasan') }}</th>
+                                    <th scope="col" width="10%">{{ __('Status Kirim Barang') }}</th>
                                     <th scope="col">{{ __('Nama Nasabah') }}</th>
                                     <th scope="col">{{ __('Alamat Nasabah') }}</th>
                                     <th scope="col">{{ __('Telp. Nasabah') }}</th>
                                     <th scope="col">{{ __('Rekening Pencairan') }}</th>
                                     <th scope="col">{{ __('Nama Barang') }}</th>
                                     <th scope="col">{{ __('Jumlah Barang') }}</th>
-                                    <th scope="col">{{ __('Nilai Pencairan') }}</th>
+                                    <th scope="col">{{ __('Total Nilai Kredit') }}</th>
                                     <th scope="col">{{ __('Margin Keuntungan') }}</th>
                                     <th scope="col">{{ __('Angsuran') }}</th>
                                     <th scope="col">{{ __('Tenor') }}</th>
-                                    <th scope="col">{{ __('Turun Plafon') }}</th>
-                                    <th scope="col">{{ __('Periode Bulan') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,51 +77,69 @@
                 <div class="modal-body">
                     <div class="mb-4 row gy-4">
                         <div class="col-xl-12">
-                            <label for="status_pelunasan" class="form-label text-default">{{ __('Status Pelunasan') }}
+                            <label for="status_lunas" class="form-label text-default">{{ __('Status Lunas') }}
                                 <x-all-not-null /></label>
                             <select
-                                class="js-example-placeholder-single js-states form-control select2 @error('status_pelunasan') is-invalid @enderror"
-                                name="status_pelunasan" id="status_pelunasan" required>
+                                class="js-example-placeholder-single js-states form-control select2 @error('status_lunas') is-invalid @enderror"
+                                name="status_lunas" id="status_lunas" required>
                                 <option value="Belum Lunas">Belum Lunas</option>
                                 <option value="Sudah Lunas">Sudah Lunas</option>
                             </select>
-                            @error('status_pelunasan')
+                            @error('status_lunas')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
-                        <div class="col-xl-12">
-                            <label for="status_pengambilan_barang"
-                                class="form-label text-default">{{ __('Status Pengambilan Barang') }}
-                                <x-all-not-null /></label>
-                            <select
-                                class="js-example-placeholder-single js-states form-control select2 @error('status_pengambilan_barang') is-invalid @enderror"
-                                name="status_pengambilan_barang" id="status_pengambilan_barang" required>
-                                <option value="Belum Diambil">Belum Diambil</option>
-                                <option value="Pending">Pending</option>
-                                <option value="Sudah Diambil">Sudah Diambil</option>
-                            </select>
-                            @error('status_pengambilan_barang')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div id="div_pengambilan_barang">
+                        <div id="div_lunas">
                             <div class="col-xl-12">
-                                <label for="tgl_pengambilan_barang"
-                                    class="form-label text-default">{{ __('Tanggal Pengambilan Barang') }}</label>
+                                <label for="tgl_lunas"
+                                    class="form-label text-default">{{ __('Tanggal Pelunasan') }}</label>
                                 <div class="input-group">
                                     <div class="input-group-text text-muted">
                                         <i class="ri-calendar-line"></i>
                                     </div>
                                     <input type="text"
-                                        class="form-control flatpickr @error('tgl_pengambilan_barang') is-invalid @enderror"
-                                        name="tgl_pengambilan_barang" id="tgl_pengambilan_barang"
-                                        value="{{ old('tgl_pengambilan_barang') }}"
-                                        placeholder="{{ __('Tanggal Pengambilan Barang') }}" required>
-                                    @error('tgl_pengambilan_barang')
+                                        class="form-control flatpickr @error('tgl_lunas') is-invalid @enderror"
+                                        name="tgl_lunas" id="tgl_lunas" value="{{ old('tgl_lunas') }}"
+                                        placeholder="{{ __('Tanggal Pelunasan') }}" required>
+                                    @error('tgl_lunas')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="status_kirim_barang"
+                                class="form-label text-default">{{ __('Status Kirim Barang') }}
+                                <x-all-not-null /></label>
+                            <select
+                                class="js-example-placeholder-single js-states form-control select2 @error('status_kirim_barang') is-invalid @enderror"
+                                name="status_kirim_barang" id="status_kirim_barang" required>
+                                <option value="Belum Dikirim">Belum Dikirim</option>
+                                <option value="Sudah Dikirim">Sudah Dikirim</option>
+                            </select>
+                            @error('status_kirim_barang')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div id="div_kirim_barang">
+                            <div class="col-xl-12">
+                                <label for="tgl_kirim_barang"
+                                    class="form-label text-default">{{ __('Tanggal Kirim Barang') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-text text-muted">
+                                        <i class="ri-calendar-line"></i>
+                                    </div>
+                                    <input type="text"
+                                        class="form-control flatpickr @error('tgl_kirim_barang') is-invalid @enderror"
+                                        name="tgl_kirim_barang" id="tgl_kirim_barang" value="{{ old('tgl_kirim_barang') }}"
+                                        placeholder="{{ __('Tanggal Kirim Barang') }}" required>
+                                    @error('tgl_kirim_barang')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -135,14 +148,13 @@
                             </div>
                             <br>
                             <div class="col-xl-12">
-                                <label for="note_pengambilan_barang"
-                                    class="form-label text-default">{{ __('Note Pengambilan Barang') }}</label>
+                                <label for="note_kirim_barang"
+                                    class="form-label text-default">{{ __('Note Kirim Barang') }}</label>
                                 <input type="text"
-                                    class="form-control @error('note_pengambilan_barang') is-invalid @enderror"
-                                    name="note_pengambilan_barang" id="note_pengambilan_barang"
-                                    value="{{ old('note_pengambilan_barang') }}"
-                                    placeholder="{{ __('Note Pengambilan Barang') }}">
-                                @error('note_pengambilan_barang')
+                                    class="form-control @error('note_kirim_barang') is-invalid @enderror"
+                                    name="note_kirim_barang" id="note_kirim_barang"
+                                    value="{{ old('note_kirim_barang') }}" placeholder="{{ __('Note Kirim Barang') }}">
+                                @error('note_kirim_barang')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -198,19 +210,7 @@
                 searchable: true,
                 sortable: true,
             }, {
-                data: 'status_pengambilan_barang',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'tgl_incoming',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'tgl_pencairan',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'tgl_pelunasan',
+                data: 'status_kirim_barang',
                 searchable: true,
                 sortable: true,
             }, {
@@ -238,7 +238,7 @@
                 searchable: true,
                 sortable: true,
             }, {
-                data: 'nilai_pencairan',
+                data: 'total_nilai_kredit',
                 searchable: true,
                 sortable: true,
             }, {
@@ -253,36 +253,37 @@
                 data: 'tenor',
                 searchable: true,
                 sortable: true,
-            }, {
-                data: 'turun_plafon',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'periode_bulan',
-                searchable: true,
-                sortable: true,
             }],
             "columnDefs": [{
                 "render": function(data, type, row) {
                     return formatAmount(data);
                 },
-                "targets": [13, 14, 15]
+                "targets": [10, 11, 12]
             }, ]
         });
 
-        $('#status_pelunasan, #status_pengambilan_barang').select2({
+        $('#status_lunas, #status_kirim_barang').select2({
             dropdownParent: $('#editDataModal')
         });
 
         $(document).ready(function() {
-            $('#div_pengambilan_barang').hide();
+            $('#div_lunas').hide();
+            $('#div_kirim_barang').hide();
         });
 
-        $(document.body).on("change", "#status_pengambilan_barang", function() {
-            if (this.value == "Sudah Diambil") {
-                $('#div_pengambilan_barang').show();
+        $(document.body).on("change", "#status_lunas", function() {
+            if (this.value == "Sudah Lunas") {
+                $('#div_lunas').show();
             } else {
-                $('#div_pengambilan_barang').hide();
+                $('#div_lunas').hide();
+            }
+        });
+
+        $(document.body).on("change", "#status_kirim_barang", function() {
+            if (this.value == "Sudah Dikirim") {
+                $('#div_kirim_barang').show();
+            } else {
+                $('#div_kirim_barang').hide();
             }
         });
 
@@ -298,11 +299,11 @@
                     // console.log(response);
                     $('#editDataLabel').html("Perbarui Data");
                     $('#id').val(response.id);
-                    $("#status_pelunasan").val(response.status_lunas).trigger('change');
-                    $("#status_pengambilan_barang").val(response.status_pengambilan_barang).trigger(
-                        'change');
-                    $('#tgl_pengambilan_barang').val(response.tgl_pengambilan_barang);
-                    $('#note_pengambilan_barang').val(response.note_pengambilan_barang);
+                    $("#status_lunas").val(response.status_lunas).trigger('change');
+                    $('#tgl_lunas').val(response.tgl_lunas);
+                    $("#status_kirim_barang").val(response.status_kirim_barang).trigger('change');
+                    $('#tgl_kirim_barang').val(response.tgl_kirim_barang);
+                    $('#note_kirim_barang').val(response.note_kirim_barang);
                     $('#editDataModal').modal('show');
                 }
             });
@@ -312,20 +313,22 @@
             e.preventDefault();
 
             let id = $('#id').val();
-            let status_pelunasan = $("#status_pelunasan option:selected").val();
-            let status_pengambilan_barang = $("#status_pengambilan_barang option:selected").val();
-            let tgl_pengambilan_barang = $('#tgl_pengambilan_barang').val();
-            let note_pengambilan_barang = $('#note_pengambilan_barang').val();
+            let status_lunas = $("#status_lunas option:selected").val();
+            let tgl_lunas = $('#tgl_lunas').val();
+            let status_kirim_barang = $("#status_kirim_barang option:selected").val();
+            let tgl_kirim_barang = $('#tgl_kirim_barang').val();
+            let note_kirim_barang = $('#note_kirim_barang').val();
 
             $.ajax({
                 method: 'PUT',
                 url: `kreditnasabah/${id}`,
                 cache: false,
                 data: {
-                    "status_pelunasan": status_pelunasan,
-                    "status_pengambilan_barang": status_pengambilan_barang,
-                    "tgl_pengambilan_barang": tgl_pengambilan_barang,
-                    "note_pengambilan_barang": note_pengambilan_barang
+                    "status_lunas": status_lunas,
+                    "tgl_lunas": tgl_lunas,
+                    "status_kirim_barang": status_kirim_barang,
+                    "tgl_kirim_barang": tgl_kirim_barang,
+                    "note_kirim_barang": note_kirim_barang
                 },
                 success: function(data) {
                     //console.log(data)

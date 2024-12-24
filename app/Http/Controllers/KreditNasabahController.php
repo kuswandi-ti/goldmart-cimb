@@ -46,10 +46,11 @@ class KreditNasabahController extends Controller
     public function update(Request $request, KreditNasabah $kreditnasabah)
     {
         $update = $kreditnasabah->update([
-            'status_lunas' => $request->status_pelunasan,
-            'status_pengambilan_barang' => $request->status_pengambilan_barang,
-            'tgl_pengambilan_barang' => $request->tgl_pengambilan_barang,
-            'note_pengambilan_barang' => $request->note_pengambilan_barang,
+            'status_lunas' => $request->status_lunas,
+            'tgl_lunas' => $request->tgl_lunas,
+            'status_kirim_barang' => $request->status_kirim_barang,
+            'tgl_kirim_barang' => $request->tgl_kirim_barang,
+            'note_kirim_barang' => $request->note_kirim_barang,
             'updated_at' => saveDateTimeNow(),
             'updated_by' => auth()->user()->name,
         ]);
@@ -70,7 +71,29 @@ class KreditNasabahController extends Controller
 
     public function detail($filter)
     {
-        return view('kredit_nasabah.detail', compact('filter'));
+        $text = "";
+
+        switch ($filter) {
+            case 'nasabah' :
+                $text = "Total Nasabah";
+                break;
+            case 'kredit' :
+                $text = "Total Nilai Kredit";
+                break;
+            case 'keuntungan' :
+                $text = "Total Margin Keuntungan";
+                break;
+            case 'sudah-lunas' :
+                $text = "Total Pelunasan";
+                break;
+            case 'belum-lunas' :
+                $text = "Belum Pelunasan";
+                break;
+            default :
+                $text = "All";
+        }
+
+        return view('kredit_nasabah.detail', compact('text', 'filter'));
     }
 
     public function data(Request $request)
@@ -82,11 +105,11 @@ class KreditNasabahController extends Controller
             ->editColumn('status_lunas', function ($query) {
                 return '<h6><span class="badge bg-' . setStatusLunasBadge($query->status_lunas) . '">' . $query->status_lunas . '</span></h6>';
             })
-            ->editColumn('status_pengambilan_barang', function ($query) {
-                return '<h6><span class="badge bg-' . setStatusPengambilanBarangBadge($query->status_pengambilan_barang) . '">' . $query->status_pengambilan_barang . '</span></h6>';
+            ->editColumn('status_kirim_barang', function ($query) {
+                return '<h6><span class="badge bg-' . setStatusKirimBarangBadge($query->status_kirim_barang) . '">' . $query->status_kirim_barang . '</span></h6>';
             })
             ->addColumn('action', function ($query) {
-                if ($query->status_lunas == 'Belum Lunas' || $query->status_pengambilan_barang == 'Belum Diambil' || $query->status_pengambilan_barang == 'Pending') {
+                if ($query->status_lunas == 'Belum Lunas' || $query->status_kirim_barang == 'Belum Dikirim') {
                     if (canAccess(['kredit nasabah update'])) {
                         $update = '
                             <li>
@@ -119,6 +142,34 @@ class KreditNasabahController extends Controller
                 }
             })
             ->rawColumns(['action'])
+            ->escapeColumns([])
+            ->make(true);
+    }
+
+    public function detail_data($filter)
+    {
+        switch ($filter) {
+            case 'nasabah' :
+                $query = KreditNasabah::orderBy('tgl_incoming', 'DESC');
+                break;
+            case 'kredit' :
+                $query = KreditNasabah::orderBy('tgl_incoming', 'DESC');
+                break;
+            case 'keuntungan' :
+                $query = KreditNasabah::orderBy('tgl_incoming', 'DESC');
+                break;
+            case 'sudah-lunas' :
+                $query = KreditNasabah::where('status_lunas', '=', 'Sudah Lunas')->orderBy('tgl_incoming', 'DESC');
+                break;
+            case 'belum-lunas' :
+                $query = KreditNasabah::where('status_lunas', '=', 'Belum Lunas')->orderBy('tgl_incoming', 'DESC');
+                break;
+            default :
+                $query = "";
+        }
+
+        return datatables($query)
+            ->addIndexColumn()
             ->escapeColumns([])
             ->make(true);
     }

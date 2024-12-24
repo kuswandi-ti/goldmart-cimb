@@ -113,28 +113,24 @@ function setStatusLunasBadge($status)
     return $status_lunas_badge;
 }
 
-function setStatusPengambilanBarangBadge($status)
+function setStatusKirimBarangBadge($status)
 {
-    $status_pengambilan_barang_badge = '';
+    $status_kirim_barang_badge = '';
 
     switch ($status) {
-        case 'Belum Diambil':
-            $status_pengambilan_barang_badge = 'danger';
+        case 'Belum Dikirim':
+            $status_kirim_barang_badge = 'danger';
             break;
 
-        case 'Sudah Diambil':
-            $status_pengambilan_barang_badge = 'success';
-            break;
-
-        case 'Pending':
-            $status_pengambilan_barang_badge = 'dark';
+        case 'Sudah Dikirim':
+            $status_kirim_barang_badge = 'success';
             break;
 
         default:
-            $status_pengambilan_barang_badge = '';
+            $status_kirim_barang_badge = '';
             break;
     }
-    return $status_pengambilan_barang_badge;
+    return $status_kirim_barang_badge;
 }
 
 function setStatusBadge($status)

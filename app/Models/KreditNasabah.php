@@ -18,9 +18,10 @@ class KreditNasabah extends Model
      */
     protected $fillable = [
         'status_lunas',
-        'status_pengambilan_barang',
-        'tgl_pengambilan_barang',
-        'note_pengambilan_barang',
+        'tgl_lunas',
+        'status_kirim_barang',
+        'tgl_kirim_barang',
+        'note_kirim_barang',
         'updated_at',
         'updated_by',
     ];
