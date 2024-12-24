@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\KreditNasabah;
-use Illuminate\Support\Facades\Validator;
+use App\Traits\FileUploadTrait;
 
 class KreditNasabahController extends Controller
 {
+    use FileUploadTrait;
+
     function __construct()
     {
         $this->middleware('permission:kredit nasabah index', ['only' => ['index', 'show', 'data']]);
@@ -37,7 +39,8 @@ class KreditNasabahController extends Controller
     {
         $kredit_nasabah = KreditNasabah::findOrFail($id);
 
-        return response()->json($kredit_nasabah);
+        // return response()->json($kredit_nasabah);
+        return view('kredit_nasabah.edit', compact('kredit_nasabah'));
     }
 
     /**
@@ -45,27 +48,23 @@ class KreditNasabahController extends Controller
      */
     public function update(Request $request, KreditNasabah $kreditnasabah)
     {
+        $imagePath = $this->handleImageUpload($request, 'image_barang', $request->old_image_barang, 'barang');
+
         $update = $kreditnasabah->update([
             'status_lunas' => $request->status_lunas,
             'tgl_lunas' => $request->tgl_lunas,
             'status_kirim_barang' => $request->status_kirim_barang,
             'tgl_kirim_barang' => $request->tgl_kirim_barang,
             'note_kirim_barang' => $request->note_kirim_barang,
+            'image' => !empty($imagePath) ? $imagePath : $request->old_image_barang,
             'updated_at' => saveDateTimeNow(),
             'updated_by' => auth()->user()->name,
         ]);
 
         if ($update) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Data Berhasil Diudapte!',
-                'data'    => $kreditnasabah
-            ]);
+            return redirect()->route('kreditnasabah.index')->with('success', __('Data berhasil diperbarui'));
         } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Data gagal diperbarui!'
-            ]);
+            return redirect()->route('kreditnasabah.index')->with('error', __('Data gagal diperbarui'));
         }
     }
 
@@ -74,22 +73,22 @@ class KreditNasabahController extends Controller
         $text = "";
 
         switch ($filter) {
-            case 'nasabah' :
+            case 'nasabah':
                 $text = "Total Nasabah";
                 break;
-            case 'kredit' :
+            case 'kredit':
                 $text = "Total Nilai Kredit";
                 break;
-            case 'keuntungan' :
+            case 'keuntungan':
                 $text = "Total Margin Keuntungan";
                 break;
-            case 'sudah-lunas' :
+            case 'sudah-lunas':
                 $text = "Total Pelunasan";
                 break;
-            case 'belum-lunas' :
+            case 'belum-lunas':
                 $text = "Belum Pelunasan";
                 break;
-            default :
+            default:
                 $text = "All";
         }
 
@@ -109,25 +108,32 @@ class KreditNasabahController extends Controller
                 return '<h6><span class="badge bg-' . setStatusKirimBarangBadge($query->status_kirim_barang) . '">' . $query->status_kirim_barang . '</span></h6>';
             })
             ->addColumn('action', function ($query) {
-                if ($query->status_lunas == 'Belum Lunas' || $query->status_kirim_barang == 'Belum Dikirim') {
-                    if (canAccess(['kredit nasabah update'])) {
-                        $update = '
+                // if ($query->status_lunas == 'Belum Lunas' || $query->status_kirim_barang == 'Belum Dikirim') {
+                if (canAccess(['kredit nasabah update'])) {
+                    // $update = '
+                    //     <li>
+                    //         <a class="edit dropdown-item border-bottom" href="javascript:void(0);" data-toggle="tooltip" data-id="' . $query->id . '">
+                    //             <i class="bx bx-edit-alt fs-20"></i> ' . __("Perbarui") . '
+                    //         </a>
+                    //     </li>
+                    // ';
+                    $update = '
                             <li>
-                                <a class="edit dropdown-item border-bottom" href="javascript:void(0);" data-toggle="tooltip" data-id="' . $query->id . '">
+                                <a class="edit dropdown-item border-bottom" href="' . route('kreditnasabah.edit', $query) . '" data-toggle="tooltip" data-id="' . $query->id . '">
                                     <i class="bx bx-edit-alt fs-20"></i> ' . __("Perbarui") . '
                                 </a>
                             </li>
                         ';
-                    }
-                } else {
-                    $update = '
-                            <li>
-                                <a class="dropdown-item border-bottom">
-                                    <i class="bx bx-minus-circle fs-20"></i> ' . __("Tidak Ada Aksi") . '
-                                </a>
-                            </li>
-                        ';
                 }
+                // } else {
+                //     $update = '
+                //             <li>
+                //                 <a class="dropdown-item border-bottom">
+                //                     <i class="bx bx-minus-circle fs-20"></i> ' . __("Tidak Ada Aksi") . '
+                //                 </a>
+                //             </li>
+                //         ';
+                // }
                 if (canAccess(['kredit nasabah update'])) {
                     return '<div class="dropdown">
                                 <button class="btn btn-outline-primary btn-sm btn-wave waves-effect waves-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -149,22 +155,22 @@ class KreditNasabahController extends Controller
     public function detail_data($filter)
     {
         switch ($filter) {
-            case 'nasabah' :
+            case 'nasabah':
                 $query = KreditNasabah::orderBy('tgl_incoming', 'DESC');
                 break;
-            case 'kredit' :
+            case 'kredit':
                 $query = KreditNasabah::orderBy('tgl_incoming', 'DESC');
                 break;
-            case 'keuntungan' :
+            case 'keuntungan':
                 $query = KreditNasabah::orderBy('tgl_incoming', 'DESC');
                 break;
-            case 'sudah-lunas' :
+            case 'sudah-lunas':
                 $query = KreditNasabah::where('status_lunas', '=', 'Sudah Lunas')->orderBy('tgl_incoming', 'DESC');
                 break;
-            case 'belum-lunas' :
+            case 'belum-lunas':
                 $query = KreditNasabah::where('status_lunas', '=', 'Belum Lunas')->orderBy('tgl_incoming', 'DESC');
                 break;
-            default :
+            default:
                 $query = "";
         }
 

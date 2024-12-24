@@ -22,6 +22,7 @@ class KreditNasabah extends Model
         'status_kirim_barang',
         'tgl_kirim_barang',
         'note_kirim_barang',
+        'image',
         'updated_at',
         'updated_by',
     ];

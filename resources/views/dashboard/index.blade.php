@@ -62,7 +62,7 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <div>
-                                    <p class="mb-1 fw-medium text-muted">Total Margin Keuntungan (Rp.)</p>
+                                    <p class="mb-1 fw-medium text-muted">Total Keuntungan (Rp.)</p>
                                     <h3 class="mb-0">{{ formatAmount($total_margin_keuntungan->total_margin_keuntungan) }}
                                     </h3>
                                 </div>

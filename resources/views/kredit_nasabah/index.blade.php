@@ -68,7 +68,7 @@
     </div>
 
     <!-- Modal - Begin -->
-    <div class="modal fade" id="editDataModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    {{-- <div class="modal fade" id="editDataModal" data-bs-backdrop="static" data-bs-keyboard="false"
         aria-labelledby="editDataLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -101,9 +101,9 @@
                                         <label for="tgl_lunas"
                                             class="form-label text-default">{{ __('Tanggal Pelunasan') }}</label>
                                         <div class="input-group">
-                                            {{-- <div class="input-group-text text-muted">
+                                            <div class="input-group-text text-muted">
                                                 <i class="ri-calendar-line"></i>
-                                            </div> --}}
+                                            </div>
                                             <input type="text"
                                                 class="form-control flatpickr @error('tgl_lunas') is-invalid @enderror"
                                                 name="tgl_lunas" id="tgl_lunas" value="{{ old('tgl_lunas') }}"
@@ -137,9 +137,9 @@
                                         <label for="tgl_kirim_barang"
                                             class="form-label text-default">{{ __('Tanggal Kirim Barang') }}</label>
                                         <div class="input-group">
-                                            {{-- <div class="input-group-text text-muted">
+                                            <div class="input-group-text text-muted">
                                                 <i class="ri-calendar-line"></i>
-                                            </div> --}}
+                                            </div>
                                             <input type="text"
                                                 class="form-control flatpickr @error('tgl_kirim_barang') is-invalid @enderror"
                                                 name="tgl_kirim_barang" id="tgl_kirim_barang"
@@ -170,7 +170,44 @@
                             </div>
                         </div>
                         <div class="col-xl-7">
-                            Image
+                            <div
+                                class="border shadow-none card custom-card border-dashed-primary">
+                                <div class="p-3 text-center card-body">
+                                    <a href="javascript:void(0);">
+                                        <div
+                                            class="justify-content-between">
+                                            <div
+                                                class="mb-2 file-format-icon">
+                                                <div class="text-center">
+                                                    <img src="{{ !empty($setting_system['company_logo']) ? url(config('common.path_storage') . $setting_system['company_logo']) : url(config('common.path_template') . config('common.logo_company_main')) }}"
+                                                        class="rounded img-fluid preview-path_image_barang"
+                                                        width="200"
+                                                        height="200">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span class="fw-semibold">
+                                                    {{ __('Foto / Image Barang (Emas)') }}
+                                                </span>
+                                                <span
+                                                    class="fs-10 d-block text-muted">
+                                                    (200 x 200)
+                                                </span>
+                                                <div class="mt-3">
+                                                    <input
+                                                        class="form-control"
+                                                        type="file"
+                                                        name="image_barang"
+                                                        onchange="preview('.preview-path_image_barang', this.files[0])">
+                                                    <input type="hidden"
+                                                        name="old_image_barang"
+                                                        value="{{ $setting_system['company_logo'] ?? '' }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -182,7 +219,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Modal - End -->
 @endsection
 
@@ -285,96 +322,95 @@
             }, ]
         });
 
-        $('#status_lunas, #status_kirim_barang').select2({
-            dropdownParent: $('#editDataModal')
-        });
+        // $('#status_lunas, #status_kirim_barang').select2({
+        //     dropdownParent: $('#editDataModal')
+        // });
 
-        $(document).ready(function() {
-            $('#div_lunas').hide();
-            $('#div_kirim_barang').hide();
-        });
+        // $(document).ready(function() {
+        //     $('#div_lunas').hide();
+        //     $('#div_kirim_barang').hide();
+        // });
 
-        $(document.body).on("change", "#status_lunas", function() {
-            if (this.value == "Sudah Lunas") {
-                $('#div_lunas').show();
-            } else {
-                $('#div_lunas').hide();
-            }
-        });
+        // $(document.body).on("change", "#status_lunas", function() {
+        //     if (this.value == "Sudah Lunas") {
+        //         $('#div_lunas').show();
+        //     } else {
+        //         $('#div_lunas').hide();
+        //     }
+        // });
 
-        $(document.body).on("change", "#status_kirim_barang", function() {
-            if (this.value == "Sudah Dikirim") {
-                $('#div_kirim_barang').show();
-            } else {
-                $('#div_kirim_barang').hide();
-            }
-        });
+        // $(document.body).on("change", "#status_kirim_barang", function() {
+        //     if (this.value == "Sudah Dikirim") {
+        //         $('#div_kirim_barang').show();
+        //     } else {
+        //         $('#div_kirim_barang').hide();
+        //     }
+        // });
 
-        $('body').on('click', '.edit', function(e) {
-            e.preventDefault();
-            var id = $(this).data('id');
+        // $('body').on('click', '.edit', function(e) {
+        //     e.preventDefault();
+        //     var id = $(this).data('id');
 
-            $.ajax({
-                url: `kreditnasabah/${id}/edit`,
-                type: "GET",
-                cache: false,
-                success: function(response) {
-                    // console.log(response);
-                    $('#editDataLabel').html("Perbarui Data");
-                    $('#id').val(response.id);
-                    $("#status_lunas").val(response.status_lunas).trigger('change');
-                    $('#tgl_lunas').val(response.tgl_lunas);
-                    $("#status_kirim_barang").val(response.status_kirim_barang).trigger('change');
-                    $('#tgl_kirim_barang').val(response.tgl_kirim_barang);
-                    $('#note_kirim_barang').val(response.note_kirim_barang);
-                    $('#editDataModal').modal('show');
-                }
-            });
-        });
+        //     $.ajax({
+        //         url: `kreditnasabah/${id}/edit`,
+        //         type: "GET",
+        //         cache: false,
+        //         success: function(response) {
+        //             $('#editDataLabel').html("Perbarui Data");
+        //             $('#id').val(response.id);
+        //             $("#status_lunas").val(response.status_lunas).trigger('change');
+        //             $('#tgl_lunas').val(response.tgl_lunas);
+        //             $("#status_kirim_barang").val(response.status_kirim_barang).trigger('change');
+        //             $('#tgl_kirim_barang').val(response.tgl_kirim_barang);
+        //             $('#note_kirim_barang').val(response.note_kirim_barang);
+        //             $('#editDataModal').modal('show');
+        //         }
+        //     });
+        // });
 
-        $('#update').click(function(e) {
-            e.preventDefault();
+        // $('#update').click(function(e) {
+        //     e.preventDefault();
 
-            let id = $('#id').val();
-            let status_lunas = $("#status_lunas option:selected").val();
-            let tgl_lunas = $('#tgl_lunas').val();
-            let status_kirim_barang = $("#status_kirim_barang option:selected").val();
-            let tgl_kirim_barang = $('#tgl_kirim_barang').val();
-            let note_kirim_barang = $('#note_kirim_barang').val();
+        //     let id = $('#id').val();
+        //     let status_lunas = $("#status_lunas option:selected").val();
+        //     let tgl_lunas = $('#tgl_lunas').val();
+        //     let status_kirim_barang = $("#status_kirim_barang option:selected").val();
+        //     let tgl_kirim_barang = $('#tgl_kirim_barang').val();
+        //     let note_kirim_barang = $('#note_kirim_barang').val();
 
-            $.ajax({
-                method: 'PUT',
-                url: `kreditnasabah/${id}`,
-                cache: false,
-                data: {
-                    "status_lunas": status_lunas,
-                    "tgl_lunas": tgl_lunas,
-                    "status_kirim_barang": status_kirim_barang,
-                    "tgl_kirim_barang": tgl_kirim_barang,
-                    "note_kirim_barang": note_kirim_barang
-                },
-                success: function(data) {
-                    //console.log(data)
-                    if (data.success == true) {
-                        Swal.fire(
-                            "{{ __('Perbarui Data !') }}",
-                            data.message,
-                            'success'
-                        ).then(() => {
-                            window.location.reload();
-                        });
-                    } else if (data.success == false) {
-                        Swal.fire(
-                            'Error!',
-                            data.message,
-                            'error'
-                        )
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        });
+        //     $.ajax({
+        //         method: 'PUT',
+        //         url: `kreditnasabah/${id}`,
+        //         cache: false,
+        //         data: {
+        //             "status_lunas": status_lunas,
+        //             "tgl_lunas": tgl_lunas,
+        //             "status_kirim_barang": status_kirim_barang,
+        //             "tgl_kirim_barang": tgl_kirim_barang,
+        //             "note_kirim_barang": note_kirim_barang
+        //         },
+        //         success: function(data) {
+        //             //console.log(data)
+        //             if (data.success == true) {
+        //                 Swal.fire(
+        //                     "{{ __('Perbarui Data !') }}",
+        //                     data.message,
+        //                     'success'
+        //                 ).then(() => {
+        //                     window.location.reload();
+        //                 });
+        //             } else if (data.success == false) {
+        //                 Swal.fire(
+        //                     'Error!',
+        //                     data.message,
+        //                     'error'
+        //                 )
+        //             }
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.error(error);
+        //         }
+        //     });
+        // });
     </script>
 @endpush
