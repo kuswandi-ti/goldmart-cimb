@@ -177,6 +177,9 @@
 
 @push('scripts')
     <script>
+        var total_nilai_kredit_graph = {{ Js::from($total_nilai_kredit_graph) }};
+        var total_nilai_pelunasan_graph = {{ Js::from($total_nilai_pelunasan_graph) }};
+
         Highcharts.chart('kreditstatistic1', {
             chart: {
                 type: 'line',
@@ -185,12 +188,15 @@
                 }
             },
             title: {
-                text: 'Statistik Pelunasan Kredit, tahun 2024'
+                text: 'Statistik Pelunasan Kredit, tahun {{ date('Y') }}'
             },
             subtitle: {
-                text: 'Source: goldmart'
+                text: 'Source: <a href="https://www.goldmart.co.id/" target="_blank">goldmart</a>'
             },
             xAxis: {
+                title: {
+                    text: 'Bulan'
+                },
                 categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
                     'October', 'November', 'December'
                 ]
@@ -214,21 +220,17 @@
                     animation: {
                         defer: 900
                     },
-                    enableMouseTracking: false
+                    enableMouseTracking: true
                 },
             },
             series: [{
                 name: 'Total Kredit',
-                data: [
-                    43934, 48656, 65165, 81827, 112143, 142383,
-                    171533, 165174, 155157, 161454, 154610, 168960
-                ]
+                data: total_nilai_kredit_graph,
+                lineWidth: 4
             }, {
                 name: 'Total Pelunasan',
-                data: [
-                    24916, 37941, 29742, 29851, 32490, 30282,
-                    38121, 36885, 33726, 34243, 31050, 33099
-                ]
+                data: total_nilai_pelunasan_graph,
+                lineWidth: 4
             }],
             responsive: {
                 rules: [{
@@ -254,12 +256,15 @@
                 }
             },
             title: {
-                text: 'Statistik Pelunasan Kredit, tahun 2024'
+                text: 'Statistik Pelunasan Kredit, tahun {{ date('Y') }}'
             },
             subtitle: {
-                text: 'Source: goldmart'
+                text: 'Source: <a href="https://www.goldmart.co.id/" target="_blank">goldmart</a>'
             },
             xAxis: {
+                title: {
+                    text: 'Bulan'
+                },
                 categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
                     'October', 'November', 'December'
                 ]
@@ -283,16 +288,10 @@
             },
             series: [{
                 name: 'Total Kredit',
-                data: [
-                    43934, 48656, 65165, 81827, 112143, 142383,
-                    171533, 165174, 155157, 161454, 154610, 168960
-                ]
+                data: total_nilai_kredit_graph
             }, {
                 name: 'Total Pelunasan',
-                data: [
-                    24916, 37941, 29742, 29851, 32490, 30282,
-                    38121, 36885, 33726, 34243, 31050, 33099
-                ]
+                data: total_nilai_pelunasan_graph
             }],
             responsive: {
                 rules: [{

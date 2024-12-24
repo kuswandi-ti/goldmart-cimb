@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\KreditNasabah;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -28,6 +29,43 @@ class DashboardController extends Controller
                             ->where('status_lunas', '=', 'Belum Lunas')
                             ->first();
 
-        return view('dashboard.index', compact('total_nasabah', 'total_nilai_kredit', 'total_margin_keuntungan', 'total_sudah_lunas', 'total_belum_lunas'));
+        $total_nilai_kredit_graph = array();
+        for($i=0; $i<12; $i++) {
+            $total_nilai_kredit_graph[] = DB::table('kredit_nasabah')
+                ->select(DB::raw('SUM(total_nilai_kredit) AS total_nilai_kredit'))
+                ->whereYear('tgl_pencairan', date('Y'))
+                ->whereMonth('tgl_pencairan', $i+1)
+                ->groupBy(DB::raw('MONTH(tgl_pencairan)'))
+                ->orderBy(DB::raw('MONTH(tgl_pencairan)'))
+                ->pluck('total_nilai_kredit')
+                ->first();
+        }
+        $total_nilai_kredit_graph = array_map('intval', $total_nilai_kredit_graph);
+
+        $total_nilai_pelunasan_graph = array();
+        for($i=0; $i<12; $i++) {
+            $total_nilai_pelunasan_graph[] = DB::table('kredit_nasabah')
+                ->select(DB::raw('SUM(total_nilai_kredit) AS total_nilai_kredit'))
+                ->whereYear('tgl_lunas', date('Y'))
+                ->where('status_lunas', 'Sudah Lunas')
+                ->whereMonth('tgl_lunas', $i+1)
+                ->groupBy(DB::raw('MONTH(tgl_lunas)'))
+                ->orderBy(DB::raw('MONTH(tgl_lunas)'))
+                ->pluck('total_nilai_kredit')
+                ->first();
+        }
+        $total_nilai_pelunasan_graph = array_map('intval', $total_nilai_pelunasan_graph);
+
+        // dd($total_nilai_pelunasan_graph);
+
+        return view('dashboard.index', compact(
+            'total_nasabah',
+            'total_nilai_kredit',
+            'total_margin_keuntungan',
+            'total_sudah_lunas',
+            'total_belum_lunas',
+            'total_nilai_kredit_graph',
+            'total_nilai_pelunasan_graph')
+        );
     }
 }

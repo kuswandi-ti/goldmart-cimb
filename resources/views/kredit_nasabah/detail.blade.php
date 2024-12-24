@@ -45,6 +45,8 @@
                                     <th scope="col">{{ __('Margin Keuntungan') }}</th>
                                     <th scope="col">{{ __('Angsuran') }}</th>
                                     <th scope="col">{{ __('Tenor') }}</th>
+                                    <th scope="col">{{ __('Tgl Pelunasan') }}</th>
+                                    <th scope="col">{{ __('Tgl Kirim Barang') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -105,6 +107,14 @@
                 sortable: true,
             }, {
                 data: 'tenor',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'tgl_lunas',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'tgl_kirim_barang',
                 searchable: true,
                 sortable: true,
             }],

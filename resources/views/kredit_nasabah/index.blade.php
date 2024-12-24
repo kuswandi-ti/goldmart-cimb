@@ -53,6 +53,9 @@
                                     <th scope="col">{{ __('Margin Keuntungan') }}</th>
                                     <th scope="col">{{ __('Angsuran') }}</th>
                                     <th scope="col">{{ __('Tenor') }}</th>
+                                    <th scope="col">{{ __('Tgl Pencairan') }}</th>
+                                    <th scope="col">{{ __('Tgl Pelunasan') }}</th>
+                                    <th scope="col">{{ __('Tgl Kirim Barang') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,91 +78,99 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-4 row gy-4">
-                        <div class="col-xl-12">
-                            <label for="status_lunas" class="form-label text-default">{{ __('Status Lunas') }}
-                                <x-all-not-null /></label>
-                            <select
-                                class="js-example-placeholder-single js-states form-control select2 @error('status_lunas') is-invalid @enderror"
-                                name="status_lunas" id="status_lunas" required>
-                                <option value="Belum Lunas">Belum Lunas</option>
-                                <option value="Sudah Lunas">Sudah Lunas</option>
-                            </select>
-                            @error('status_lunas')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div id="div_lunas">
-                            <div class="col-xl-12">
-                                <label for="tgl_lunas"
-                                    class="form-label text-default">{{ __('Tanggal Pelunasan') }}</label>
-                                <div class="input-group">
-                                    <div class="input-group-text text-muted">
-                                        <i class="ri-calendar-line"></i>
-                                    </div>
-                                    <input type="text"
-                                        class="form-control flatpickr @error('tgl_lunas') is-invalid @enderror"
-                                        name="tgl_lunas" id="tgl_lunas" value="{{ old('tgl_lunas') }}"
-                                        placeholder="{{ __('Tanggal Pelunasan') }}" required>
-                                    @error('tgl_lunas')
+                    <div class="row">
+                        <div class="col-xl-5">
+                            <div class="mb-4 row gy-4">
+                                <div class="col-xl-12">
+                                    <label for="status_lunas" class="form-label text-default">{{ __('Status Lunas') }}
+                                        <x-all-not-null /></label>
+                                    <select
+                                        class="js-example-placeholder-single js-states form-control select2 @error('status_lunas') is-invalid @enderror"
+                                        name="status_lunas" id="status_lunas" required>
+                                        <option value="Belum Lunas">Belum Lunas</option>
+                                        <option value="Sudah Lunas">Sudah Lunas</option>
+                                    </select>
+                                    @error('status_lunas')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-12">
-                            <label for="status_kirim_barang"
-                                class="form-label text-default">{{ __('Status Kirim Barang') }}
-                                <x-all-not-null /></label>
-                            <select
-                                class="js-example-placeholder-single js-states form-control select2 @error('status_kirim_barang') is-invalid @enderror"
-                                name="status_kirim_barang" id="status_kirim_barang" required>
-                                <option value="Belum Dikirim">Belum Dikirim</option>
-                                <option value="Sudah Dikirim">Sudah Dikirim</option>
-                            </select>
-                            @error('status_kirim_barang')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div id="div_kirim_barang">
-                            <div class="col-xl-12">
-                                <label for="tgl_kirim_barang"
-                                    class="form-label text-default">{{ __('Tanggal Kirim Barang') }}</label>
-                                <div class="input-group">
-                                    <div class="input-group-text text-muted">
-                                        <i class="ri-calendar-line"></i>
+                                <div id="div_lunas">
+                                    <div class="col-xl-12">
+                                        <label for="tgl_lunas"
+                                            class="form-label text-default">{{ __('Tanggal Pelunasan') }}</label>
+                                        <div class="input-group">
+                                            {{-- <div class="input-group-text text-muted">
+                                                <i class="ri-calendar-line"></i>
+                                            </div> --}}
+                                            <input type="text"
+                                                class="form-control flatpickr @error('tgl_lunas') is-invalid @enderror"
+                                                name="tgl_lunas" id="tgl_lunas" value="{{ old('tgl_lunas') }}"
+                                                placeholder="{{ __('Tanggal Pelunasan') }}" style="width:100%;">
+                                            @error('tgl_lunas')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
                                     </div>
-                                    <input type="text"
-                                        class="form-control flatpickr @error('tgl_kirim_barang') is-invalid @enderror"
-                                        name="tgl_kirim_barang" id="tgl_kirim_barang" value="{{ old('tgl_kirim_barang') }}"
-                                        placeholder="{{ __('Tanggal Kirim Barang') }}" required>
-                                    @error('tgl_kirim_barang')
+                                </div>
+                                <div class="col-xl-12">
+                                    <label for="status_kirim_barang"
+                                        class="form-label text-default">{{ __('Status Kirim Barang') }}
+                                        <x-all-not-null /></label>
+                                    <select
+                                        class="js-example-placeholder-single js-states form-control select2 @error('status_kirim_barang') is-invalid @enderror"
+                                        name="status_kirim_barang" id="status_kirim_barang" required>
+                                        <option value="Belum Dikirim">Belum Dikirim</option>
+                                        <option value="Sudah Dikirim">Sudah Dikirim</option>
+                                    </select>
+                                    @error('status_kirim_barang')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
-                            <br>
-                            <div class="col-xl-12">
-                                <label for="note_kirim_barang"
-                                    class="form-label text-default">{{ __('Note Kirim Barang') }}</label>
-                                <input type="text"
-                                    class="form-control @error('note_kirim_barang') is-invalid @enderror"
-                                    name="note_kirim_barang" id="note_kirim_barang"
-                                    value="{{ old('note_kirim_barang') }}" placeholder="{{ __('Note Kirim Barang') }}">
-                                @error('note_kirim_barang')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
+                                <div id="div_kirim_barang">
+                                    <div class="col-xl-12">
+                                        <label for="tgl_kirim_barang"
+                                            class="form-label text-default">{{ __('Tanggal Kirim Barang') }}</label>
+                                        <div class="input-group">
+                                            {{-- <div class="input-group-text text-muted">
+                                                <i class="ri-calendar-line"></i>
+                                            </div> --}}
+                                            <input type="text"
+                                                class="form-control flatpickr @error('tgl_kirim_barang') is-invalid @enderror"
+                                                name="tgl_kirim_barang" id="tgl_kirim_barang"
+                                                value="{{ old('tgl_kirim_barang') }}"
+                                                placeholder="{{ __('Tanggal Kirim Barang') }}">
+                                            @error('tgl_kirim_barang')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
                                     </div>
-                                @enderror
+                                    <br>
+                                    <div class="col-xl-12">
+                                        <label for="note_kirim_barang"
+                                            class="form-label text-default">{{ __('Note Kirim Barang') }}</label>
+                                        <textarea class="form-control @error('note_kirim_barang') is-invalid @enderror" name="note_kirim_barang"
+                                            id="note_kirim_barang" value="{{ old('note_kirim_barang') }}" placeholder="{{ __('Note Kirim Barang') }}"
+                                            rows="4">
+                                        </textarea>
+                                        @error('note_kirim_barang')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                        <div class="col-xl-7">
+                            Image
                         </div>
                     </div>
                 </div>
@@ -251,6 +262,18 @@
                 sortable: true,
             }, {
                 data: 'tenor',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'tgl_pencairan',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'tgl_lunas',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'tgl_kirim_barang',
                 searchable: true,
                 sortable: true,
             }],

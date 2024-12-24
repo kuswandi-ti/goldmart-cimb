@@ -13,6 +13,7 @@
         flatpickr(".flatpickr", {
             default_date_format: "{{ $setting_system['default_date_format'] }}",
             defaultDate: 'null',
+            static: true
         });
     </script>
 @endpush
