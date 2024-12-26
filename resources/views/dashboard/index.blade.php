@@ -123,19 +123,6 @@
             <div class="card custom-card">
                 <div class="card-header  justify-content-between">
                     <div class="card-title">Statistik Pelunasan Kredit</div>
-                    <div class="dropdown">
-                        <a aria-label="anchor" href="javascript:void(0);"
-                            class="btn btn-outline-light btn-icons btn-sm text-muted" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="fe fe-more-vertical"></i>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="border-bottom"><a class="dropdown-item" href="javascript:void(0);">Today</a></li>
-                            <li class="border-bottom"><a class="dropdown-item" href="javascript:void(0);">This Week</a>
-                            </li>
-                            <li><a class="dropdown-item" href="javascript:void(0);">Last Week</a></li>
-                        </ul>
-                    </div>
                 </div>
                 <div class="card-body">
                     <div id="kreditstatistic1"></div>
@@ -149,19 +136,6 @@
             <div class="card custom-card">
                 <div class="card-header  justify-content-between">
                     <div class="card-title">Statistik Pelunasan Kredit</div>
-                    <div class="dropdown">
-                        <a aria-label="anchor" href="javascript:void(0);"
-                            class="btn btn-outline-light btn-icons btn-sm text-muted" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="fe fe-more-vertical"></i>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="border-bottom"><a class="dropdown-item" href="javascript:void(0);">Today</a></li>
-                            <li class="border-bottom"><a class="dropdown-item" href="javascript:void(0);">This Week</a>
-                            </li>
-                            <li><a class="dropdown-item" href="javascript:void(0);">Last Week</a></li>
-                        </ul>
-                    </div>
                 </div>
                 <div class="card-body">
                     <div id="kreditstatistic2"></div>
