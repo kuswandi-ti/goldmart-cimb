@@ -191,7 +191,10 @@
                                     <tbody>
                                         @forelse ($kredit_detail as $kredit_details)
                                             <tr>
-                                                <td align="center">{{ $loop->iteration }}</td>
+                                                <td align="center">
+                                                    <input class="form-control form-control-sm" name="id_detail[]" type="text" value="{{ $kredit_details->id }}">
+                                                    {{ $loop->iteration }}
+                                                </td>
                                                 <td>
                                                     <input class="form-control form-control-sm" name="no_seri[]" type="text" value="{{ $kredit_details->no_seri }}">
                                                 </td>

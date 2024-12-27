@@ -59,6 +59,7 @@ class KreditNasabahController extends Controller
         $id = $request->id;
         $imagePath = $this->handleImageUpload($request, 'image_barang', $request->old_image_barang, 'barang');
 
+        $id_detail = $request->id_detail;
         $no_seri = $request->no_seri;
         $gramasi = $request->gramasi;
 
@@ -75,15 +76,31 @@ class KreditNasabahController extends Controller
             'updated_by' => auth()->user()->name,
         ]);
 
-        $update = DB::table('kredit_detail')->where('id_kredit_nasabah', '=', $id)->delete();
+        // $update = DB::table('kredit_detail')->where('id_kredit_nasabah', '=', $id)->delete();
 
         if (count($no_seri) > 0) {
             for ($i = 0; $i < count($no_seri); $i++) {
-                $update = KreditDetail::create([
-                    'id_kredit_nasabah' => $id,
-                    'gramasi' => $gramasi[$i],
-                    'no_seri' => $no_seri[$i]
-                ]);
+                // $update = KreditDetail::create([
+                //     'id_kredit_nasabah' => $id,
+                //     'gramasi' => $gramasi[$i],
+                //     'no_seri' => $no_seri[$i]
+                // ]);
+
+                // $detail = KreditDetail::find($id_detail[$i]);
+                // $update = $detail->update([
+                //     'gramasi' => $gramasi[$i],
+                //     'no_seri' => $no_seri[$i]
+                // ]);
+                // $detail->gramasi = $gramasi[$i];
+                // $detail->description = $no_seri[$i];
+
+                // $detail->save();
+
+                $update = KreditDetail::where('id', '=', $id_detail[$i])
+                    ->update([
+                        'gramasi' => $gramasi[$i],
+                        'no_seri' => $no_seri[$i]
+                    ]);
             }
         }
 
