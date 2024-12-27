@@ -99,7 +99,9 @@ class KreditNasabahController extends Controller
                 $update = KreditDetail::where('id', '=', $id_detail[$i])
                     ->update([
                         'gramasi' => $gramasi[$i],
-                        'no_seri' => $no_seri[$i]
+                        'no_seri' => $no_seri[$i],
+                        'updated_at' => saveDateTimeNow(),
+                        'updated_by' => auth()->user()->name,
                     ]);
             }
         }
