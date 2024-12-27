@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('kredit_nasabah', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_nasabah');
+            $table->bigInteger('id_nasabah');
+            /*$table->string('kode_nasabah');
             $table->string('nama_nasabah');
             $table->string('email')->nullable();
             $table->string('tlp_nasabah')->nullable();
-            $table->text('alamat_nasabah')->nullable();
+            $table->text('alamat_nasabah')->nullable();*/
             $table->date('tgl_pencairan')->nullable();
             $table->date('tgl_incoming')->nullable();
             $table->string('rekening_pencairan')->nullable();
@@ -32,7 +33,7 @@ return new class extends Migration
             $table->string('turun_plafon')->nullable();
             $table->string('periode_bulan')->nullable();
             $table->string('mitra')->nullable();
-            $table->enum('status_lunas', ['Belum Lunas', 'Sudah Lunas'])->default('Belum Lunas');
+            $table->enum('status_lunas', ['Berjalan', 'Lunas'])->default('Berjalan');
             $table->date('tgl_lunas')->nullable();
             // $table->enum('status_pengambilan_barang', ['Belum Diambil', 'Pending', 'Sudah Diambil']);
             $table->enum('status_kirim_barang', ['Belum Dikirim', 'Sudah Dikirim']);

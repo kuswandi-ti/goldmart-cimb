@@ -11,8 +11,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $total_nasabah = DB::table('kredit_nasabah')
-                        ->select(DB::raw('COUNT(DISTINCT kode_nasabah) as total_nasabah'))
+        $total_nasabah = DB::table('nasabah')
+                        ->select(DB::raw('COUNT(DISTINCT id) as total_nasabah'))
                         ->first();
         $total_nilai_kredit = DB::table('kredit_nasabah')
                             ->select(DB::raw('SUM(total_nilai_kredit) AS total_nilai_kredit'))
@@ -22,11 +22,11 @@ class DashboardController extends Controller
                                 ->first();
         $total_sudah_lunas = DB::table('kredit_nasabah')
                         ->select(DB::raw('SUM(total_nilai_kredit) AS total_pelunasan'))
-                        ->where('status_lunas', '=', 'Sudah Lunas')
+                        ->where('status_lunas', '=', 'Lunas')
                         ->first();
         $total_belum_lunas = DB::table('kredit_nasabah')
                             ->select(DB::raw('SUM(total_nilai_kredit) AS total_belum_lunas'))
-                            ->where('status_lunas', '=', 'Belum Lunas')
+                            ->where('status_lunas', '=', 'Berjalan')
                             ->first();
 
         $total_nilai_kredit_graph = array();

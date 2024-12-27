@@ -98,11 +98,11 @@ function setStatusLunasBadge($status)
     $status_lunas_badge = '';
 
     switch ($status) {
-        case 'Belum Lunas':
+        case 'Berjalan':
             $status_lunas_badge = 'danger';
             break;
 
-        case 'Sudah Lunas':
+        case 'Lunas':
             $status_lunas_badge = 'success';
             break;
 

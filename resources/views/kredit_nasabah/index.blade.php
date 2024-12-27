@@ -220,6 +220,39 @@
             </div>
         </div>
     </div> --}}
+
+    <div class="modal fade" id="viewDataModal" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="viewDataLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <input type="hidden" id="id"></input>
+                    <h6 class="modal-title" id="viewDataLabel"></h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-hover table-striped" id="table">
+                                <thead>
+                                    <tr>
+                                        <th width="15%" class="text-center">No.</th>
+                                        <th width="55%">No. Seri</th>
+                                        <th width="30%" class="text-end">Gramasi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Modal - End -->
 @endsection
 
@@ -270,7 +303,7 @@
                 searchable: true,
                 sortable: true,
             }, {
-                data: 'tlp_nasabah',
+                data: 'no_tlp',
                 searchable: true,
                 sortable: true,
             }, {
@@ -346,6 +379,53 @@
         //         $('#div_kirim_barang').hide();
         //     }
         // });
+
+        $('body').on('click', '#id_kredit_nasabah', function(e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+
+            $.ajax({
+                url: `kreditnasabah/${id}`,
+                type: "GET",
+                cache: false,
+                success: function(response) {
+                    $('#viewDataLabel').html("Detail Data Barang");
+
+                    // console.log(response);
+
+                    var $tableBody = $('#table tbody');
+                    var no = 1;
+
+                    $tableBody.empty();
+
+                    if (response.length > 0) {
+                        $.each(response, function(index, rowData) {
+                            var $newRow = $('<tr>');
+                            $newRow.append('<td align="center">' + no + '</td>');
+                            $newRow.append('<td>' + rowData.no_seri + '</td>');
+                            $newRow.append('<td align="right">' + formatAmount(rowData
+                                .gramasi) + '</td>');
+                            $tableBody.append($newRow);
+
+                            no++;
+                        });
+                    } else {
+                        var $newRow = $('<tr>');
+                        $newRow.append('<td colspan="3" align="center">Tidak ada data</td>');
+                        $tableBody.append($newRow);
+                    }
+
+                    // $('#id').val(response.id);
+                    // $("#status_lunas").val(response.status_lunas).trigger('change');
+                    // $('#tgl_lunas').val(response.tgl_lunas);
+                    // $("#status_kirim_barang").val(response.status_kirim_barang).trigger('change');
+                    // $('#tgl_kirim_barang').val(response.tgl_kirim_barang);
+                    // $('#note_kirim_barang').val(response.note_kirim_barang);
+
+                    $('#viewDataModal').modal('show');
+                }
+            });
+        });
 
         // $('body').on('click', '.edit', function(e) {
         //     e.preventDefault();

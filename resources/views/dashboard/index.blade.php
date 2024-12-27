@@ -23,8 +23,8 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <div>
-                                    <p class="mb-1 fw-medium text-muted">Total Nasabah</p>
-                                    <h3 class="mb-0">{{ $total_nasabah->total_nasabah }}</h3>
+                                    <p class="mb-1 fw-medium text-muted">Total Nasabah (orang)</p>
+                                    <h4 class="mb-0">{{ $total_nasabah->total_nasabah }}</h4>
                                 </div>
                                 <div class="avatar avatar-md br-4 bg-primary-transparent ms-auto">
                                     <i class='bx bxs-user-circle fs-20'></i>
@@ -44,7 +44,7 @@
                             <div class="d-flex">
                                 <div>
                                     <p class="mb-1 fw-medium text-muted">Total Nilai Kredit (Rp.)</p>
-                                    <h3 class="mb-0">{{ formatAmount($total_nilai_kredit->total_nilai_kredit) }}</h3>
+                                    <h4 class="mb-0">{{ formatAmount($total_nilai_kredit->total_nilai_kredit) }}</h4>
                                 </div>
                                 <div class="avatar avatar-md br-4 bg-secondary-transparent ms-auto">
                                     <i class='bx bx-credit-card fs-20'></i>
@@ -63,8 +63,8 @@
                             <div class="d-flex">
                                 <div>
                                     <p class="mb-1 fw-medium text-muted">Total Keuntungan (Rp.)</p>
-                                    <h3 class="mb-0">{{ formatAmount($total_margin_keuntungan->total_margin_keuntungan) }}
-                                    </h3>
+                                    <h4 class="mb-0">{{ formatAmount($total_margin_keuntungan->total_margin_keuntungan) }}
+                                    </h4>
                                 </div>
                                 <div class="avatar avatar-md br-4 bg-info-transparent ms-auto">
                                     <i class='bx bxs-wallet fs-20'></i>
@@ -83,7 +83,7 @@
                             <div class="d-flex">
                                 <div>
                                     <p class="mb-1 fw-medium text-muted">Sudah Pelunasan (Rp.)</p>
-                                    <h3 class="mb-0">{{ formatAmount($total_sudah_lunas->total_pelunasan) }}</h3>
+                                    <h4 class="mb-0">{{ formatAmount($total_sudah_lunas->total_pelunasan) }}</h4>
                                 </div>
                                 <div class="avatar avatar-md br-4 bg-warning-transparent ms-auto">
                                     <i class="bi bi-currency-dollar fs-20"></i>
@@ -102,7 +102,7 @@
                             <div class="d-flex">
                                 <div>
                                     <p class="mb-1 fw-medium text-muted">Belum Pelunasan (Rp.)</p>
-                                    <h3 class="mb-0">{{ formatAmount($total_belum_lunas->total_belum_lunas) }}</h3>
+                                    <h4 class="mb-0">{{ formatAmount($total_belum_lunas->total_belum_lunas) }}</h4>
                                 </div>
                                 <div class="avatar avatar-md br-4 bg-danger-transparent ms-auto">
                                     <i class="bi bi-bell fs-20"></i>
