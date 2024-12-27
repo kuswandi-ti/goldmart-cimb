@@ -41,7 +41,7 @@
                                 <tr>
                                     <th scope="col" width="5%">{{ __('Nomor') }}</th>
                                     <th scope="col" width="12%">{{ __('Aksi') }}</th>
-                                    <th scope="col" width="10%">{{ __('Status Pelunasan') }}</th>
+                                    <th scope="col" width="10%">{{ __('Status Kredit') }}</th>
                                     <th scope="col" width="10%">{{ __('Status Kirim Barang') }}</th>
                                     <th scope="col">{{ __('Nama Nasabah') }}</th>
                                     <th scope="col">{{ __('Alamat Nasabah') }}</th>
@@ -287,7 +287,7 @@
                 searchable: false,
                 sortable: false,
             }, {
-                data: 'status_lunas',
+                data: 'status_kredit',
                 searchable: true,
                 sortable: true,
             }, {

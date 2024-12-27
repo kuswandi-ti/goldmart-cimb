@@ -17,13 +17,17 @@ class KreditDetail extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'status_lunas',
-        'tgl_lunas',
-        'status_kirim_barang',
-        'tgl_kirim_barang',
-        'note_kirim_barang',
+        'id_kredit_nasabah',
+        'gramasi',
+        'no_seri',
         'image',
-        'updated_at',
+        'created_by',
         'updated_by',
+        'deleted_by',
+        'restored_by',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'restored_at',
     ];
 }

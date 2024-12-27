@@ -93,24 +93,24 @@ function getArrayAllPermission()
     ];
 }
 
-function setStatusLunasBadge($status)
+function setStatusKreditBadge($status)
 {
-    $status_lunas_badge = '';
+    $status_kredit_badge = '';
 
     switch ($status) {
         case 'Berjalan':
-            $status_lunas_badge = 'danger';
+            $status_kredit_badge = 'danger';
             break;
 
         case 'Lunas':
-            $status_lunas_badge = 'success';
+            $status_kredit_badge = 'success';
             break;
 
         default:
-            $status_lunas_badge = '';
+            $status_kredit_badge = '';
             break;
     }
-    return $status_lunas_badge;
+    return $status_kredit_badge;
 }
 
 function setStatusKirimBarangBadge($status)
@@ -229,7 +229,18 @@ function formatMonth($month_number)
 {
     $month_name = array(
         1 =>
-        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
     );
 
     return $month_name[(int) $month_number];

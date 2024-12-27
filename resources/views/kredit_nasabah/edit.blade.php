@@ -42,26 +42,27 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <input type="hidden" name="id" id="id" value="{{ old('id') ?? ($kredit_nasabah->id ?? '') }}">
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                         <div class="row mb-4">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
-                                                <label for="status_lunas"
-                                                    class="form-label text-default">{{ __('Status Lunas') }}
+                                                <label for="status_kredit"
+                                                    class="form-label text-default">{{ __('Status Kredit') }}
                                                     <x-all-not-null /></label>
                                                 <select
-                                                    class="js-example-placeholder-single js-states form-control select2 @error('status_lunas') is-invalid @enderror"
-                                                    name="status_lunas" id="status_lunas" required>
+                                                    class="js-example-placeholder-single js-states form-control select2 @error('status_kredit') is-invalid @enderror"
+                                                    name="status_kredit" id="status_kredit" required>
                                                     <option value="Berjalan"
-                                                        {{ old('status_lunas') == 'Berjalan' ? 'selected' : ($kredit_nasabah->status_lunas == 'Berjalan' ? 'selected' : '') }}>
+                                                        {{ old('status_kredit') == 'Berjalan' ? 'selected' : ($kredit_nasabah->status_kredit == 'Berjalan' ? 'selected' : '') }}>
                                                         Berjalan</option>
                                                     <option value="Lunas"
-                                                        {{ old('status_lunas') == 'Lunas' ? 'selected' : ($kredit_nasabah->status_lunas == 'Lunas' ? 'selected' : '') }}>
+                                                        {{ old('status_kredit') == 'Lunas' ? 'selected' : ($kredit_nasabah->status_kredit == 'Lunas' ? 'selected' : '') }}>
                                                         Lunas</option>
                                                 </select>
-                                                @error('status_lunas')
+                                                @error('status_kredit')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -183,16 +184,20 @@
                                     <thead>
                                         <tr>
                                             <th width="10%" class="text-center">No.</th>
-                                            <th width="60%">No. Seri</th>
-                                            <th width="30%" class="text-end">Gramasi</th>
+                                            <th width="80%">No. Seri</th>
+                                            <th width="20%" class="text-end">Gramasi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($kredit_detail as $kredit_details)
                                             <tr>
                                                 <td align="center">{{ $loop->iteration }}</td>
-                                                <td>{{ $kredit_details->no_seri }}</td>
-                                                <td align="right">{{ $kredit_details->gramasi }}</td>
+                                                <td>
+                                                    <input class="form-control form-control-sm" name="no_seri[]" type="text" value="{{ $kredit_details->no_seri }}">
+                                                </td>
+                                                <td align="right">
+                                                    <input class="form-control form-control-sm" name="gramasi[]" type="text" value="{{ $kredit_details->gramasi }}" readonly>
+                                                </td>
                                             </tr>
                                         @empty
                                             <tr>
@@ -220,11 +225,11 @@
 
 @push('scripts')
     <script>
-        var status_lunas = $("#status_lunas option:selected").val();
+        var status_kredit = $("#status_kredit option:selected").val();
         var status_kirim_barang = $("#status_kirim_barang option:selected").val();
 
         $(document).ready(function() {
-            if (status_lunas == 'Lunas') {
+            if (status_kredit == 'Lunas') {
                 $('#div_lunas').show();
             } else {
                 $('#div_lunas').hide();
@@ -237,7 +242,7 @@
             }
         });
 
-        $(document.body).on("change", "#status_lunas", function() {
+        $(document.body).on("change", "#status_kredit", function() {
             if (this.value == "Lunas") {
                 $('#div_lunas').show();
             } else {

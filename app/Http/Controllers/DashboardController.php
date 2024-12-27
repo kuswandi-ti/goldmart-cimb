@@ -12,29 +12,29 @@ class DashboardController extends Controller
     public function index()
     {
         $total_nasabah = DB::table('nasabah')
-                        ->select(DB::raw('COUNT(DISTINCT id) as total_nasabah'))
-                        ->first();
+            ->select(DB::raw('COUNT(DISTINCT id) as total_nasabah'))
+            ->first();
         $total_nilai_kredit = DB::table('kredit_nasabah')
-                            ->select(DB::raw('SUM(total_nilai_kredit) AS total_nilai_kredit'))
-                            ->first();
+            ->select(DB::raw('SUM(total_nilai_kredit) AS total_nilai_kredit'))
+            ->first();
         $total_margin_keuntungan = DB::table('kredit_nasabah')
-                                ->select(DB::raw('SUM(margin_keuntungan) AS total_margin_keuntungan'))
-                                ->first();
+            ->select(DB::raw('SUM(margin_keuntungan) AS total_margin_keuntungan'))
+            ->first();
         $total_sudah_lunas = DB::table('kredit_nasabah')
-                        ->select(DB::raw('SUM(total_nilai_kredit) AS total_pelunasan'))
-                        ->where('status_lunas', '=', 'Lunas')
-                        ->first();
+            ->select(DB::raw('SUM(total_nilai_kredit) AS total_pelunasan'))
+            ->where('status_kredit', '=', 'Lunas')
+            ->first();
         $total_belum_lunas = DB::table('kredit_nasabah')
-                            ->select(DB::raw('SUM(total_nilai_kredit) AS total_belum_lunas'))
-                            ->where('status_lunas', '=', 'Berjalan')
-                            ->first();
+            ->select(DB::raw('SUM(total_nilai_kredit) AS total_belum_lunas'))
+            ->where('status_kredit', '=', 'Berjalan')
+            ->first();
 
         $total_nilai_kredit_graph = array();
-        for($i=0; $i<12; $i++) {
+        for ($i = 0; $i < 12; $i++) {
             $total_nilai_kredit_graph[] = DB::table('kredit_nasabah')
                 ->select(DB::raw('SUM(total_nilai_kredit) AS total_nilai_kredit'))
                 ->whereYear('tgl_pencairan', date('Y'))
-                ->whereMonth('tgl_pencairan', $i+1)
+                ->whereMonth('tgl_pencairan', $i + 1)
                 ->groupBy(DB::raw('MONTH(tgl_pencairan)'))
                 ->orderBy(DB::raw('MONTH(tgl_pencairan)'))
                 ->pluck('total_nilai_kredit')
@@ -43,12 +43,12 @@ class DashboardController extends Controller
         $total_nilai_kredit_graph = array_map('intval', $total_nilai_kredit_graph);
 
         $total_nilai_pelunasan_graph = array();
-        for($i=0; $i<12; $i++) {
+        for ($i = 0; $i < 12; $i++) {
             $total_nilai_pelunasan_graph[] = DB::table('kredit_nasabah')
                 ->select(DB::raw('SUM(total_nilai_kredit) AS total_nilai_kredit'))
                 ->whereYear('tgl_lunas', date('Y'))
-                ->where('status_lunas', 'Sudah Lunas')
-                ->whereMonth('tgl_lunas', $i+1)
+                ->where('status_kredit', 'Lunas')
+                ->whereMonth('tgl_lunas', $i + 1)
                 ->groupBy(DB::raw('MONTH(tgl_lunas)'))
                 ->orderBy(DB::raw('MONTH(tgl_lunas)'))
                 ->pluck('total_nilai_kredit')
@@ -58,14 +58,17 @@ class DashboardController extends Controller
 
         // dd($total_nilai_pelunasan_graph);
 
-        return view('dashboard.index', compact(
-            'total_nasabah',
-            'total_nilai_kredit',
-            'total_margin_keuntungan',
-            'total_sudah_lunas',
-            'total_belum_lunas',
-            'total_nilai_kredit_graph',
-            'total_nilai_pelunasan_graph')
+        return view(
+            'dashboard.index',
+            compact(
+                'total_nasabah',
+                'total_nilai_kredit',
+                'total_margin_keuntungan',
+                'total_sudah_lunas',
+                'total_belum_lunas',
+                'total_nilai_kredit_graph',
+                'total_nilai_pelunasan_graph'
+            )
         );
     }
 }

@@ -33,9 +33,9 @@ class KreditNasabahController extends Controller
     public function show(string $id)
     {
         $kredit_detail = DB::table('kredit_detail')
-                            ->where('id_kredit_nasabah', $id)
-                            ->orderBy('id', 'ASC')
-                            ->get();
+            ->where('id_kredit_nasabah', $id)
+            ->orderBy('id', 'ASC')
+            ->get();
         return response()->json($kredit_detail);
     }
 
@@ -56,10 +56,16 @@ class KreditNasabahController extends Controller
      */
     public function update(Request $request, KreditNasabah $kreditnasabah)
     {
+        $id = $request->id;
         $imagePath = $this->handleImageUpload($request, 'image_barang', $request->old_image_barang, 'barang');
 
+        $no_seri = $request->no_seri;
+        $gramasi = $request->gramasi;
+
+        // dd(count($no_seri));
+
         $update = $kreditnasabah->update([
-            'status_lunas' => $request->status_lunas,
+            'status_kredit' => $request->status_kredit,
             'tgl_lunas' => $request->tgl_lunas,
             'status_kirim_barang' => $request->status_kirim_barang,
             'tgl_kirim_barang' => $request->tgl_kirim_barang,
@@ -68,6 +74,18 @@ class KreditNasabahController extends Controller
             'updated_at' => saveDateTimeNow(),
             'updated_by' => auth()->user()->name,
         ]);
+
+        $update = DB::table('kredit_detail')->where('id_kredit_nasabah', '=', $id)->delete();
+
+        if (count($no_seri) > 0) {
+            for ($i = 0; $i < count($no_seri); $i++) {
+                $update = KreditDetail::create([
+                    'id_kredit_nasabah' => $id,
+                    'gramasi' => $gramasi[$i],
+                    'no_seri' => $no_seri[$i]
+                ]);
+            }
+        }
 
         if ($update) {
             return redirect()->route('kreditnasabah.index')->with('success', __('Data berhasil diperbarui'));
@@ -149,8 +167,8 @@ class KreditNasabahController extends Controller
                     return '<span class="badge rounded-pill bg-outline-danger">' . __("Tidak ada akses") . '</span>';
                 }
             })
-            ->editColumn('status_lunas', function ($query) {
-                return '<h6><span class="badge bg-' . setStatusLunasBadge($query->status_lunas) . '">' . $query->status_lunas . '</span></h6>';
+            ->editColumn('status_kredit', function ($query) {
+                return '<h6><span class="badge bg-' . setStatusKreditBadge($query->status_kredit) . '">' . $query->status_kredit . '</span></h6>';
             })
             ->editColumn('status_kirim_barang', function ($query) {
                 return '<h6><span class="badge bg-' . setStatusKirimBarangBadge($query->status_kirim_barang) . '">' . $query->status_kirim_barang . '</span></h6>';
@@ -185,14 +203,14 @@ class KreditNasabahController extends Controller
                 //             ->get();
                 break;
             case 'sudah-lunas':
-                $query = ViewKreditNasabah::where('status_lunas', '=', 'Sudah Lunas')->orderBy('tgl_incoming', 'DESC');
+                $query = ViewKreditNasabah::where('status_kredit', '=', 'Lunas')->orderBy('tgl_incoming', 'DESC');
                 // $query = DB::table('view_kredit_nasabah')
                 //             ->where('status_lunas', 'Lunas')
                 //             ->orderBy('tgl_incoming', 'DESC')
                 //             ->get();
                 break;
             case 'belum-lunas':
-                $query = ViewKreditNasabah::where('status_lunas', '=', 'Belum Lunas')->orderBy('tgl_incoming', 'DESC');
+                $query = ViewKreditNasabah::where('status_kredit', '=', 'Berjalan')->orderBy('tgl_incoming', 'DESC');
                 // $query = DB::table('view_kredit_nasabah')
                 //             ->where('status_lunas', 'Berjalan')
                 //             ->orderBy('tgl_incoming', 'DESC')

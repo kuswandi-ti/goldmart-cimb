@@ -33,7 +33,7 @@ return new class extends Migration
             $table->string('turun_plafon')->nullable();
             $table->string('periode_bulan')->nullable();
             $table->string('mitra')->nullable();
-            $table->enum('status_lunas', ['Berjalan', 'Lunas'])->default('Berjalan');
+            $table->enum('status_kredit', ['Berjalan', 'Lunas'])->default('Berjalan');
             $table->date('tgl_lunas')->nullable();
             // $table->enum('status_pengambilan_barang', ['Belum Diambil', 'Pending', 'Sudah Diambil']);
             $table->enum('status_kirim_barang', ['Belum Dikirim', 'Sudah Dikirim']);
