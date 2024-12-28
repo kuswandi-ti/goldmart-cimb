@@ -32,11 +32,10 @@ class KreditNasabahController extends Controller
      */
     public function show(string $id)
     {
-        $kredit_detail = DB::table('kredit_detail')
-            ->where('id_kredit_nasabah', $id)
-            ->orderBy('id', 'ASC')
-            ->get();
-        return response()->json($kredit_detail);
+        $kredit_nasabah = KreditNasabah::findOrFail($id);
+        $kredit_detail = KreditDetail::where('id_kredit_nasabah', $id)->get();
+
+        return view('kredit_nasabah.show', compact('kredit_nasabah', 'kredit_detail'));
     }
 
     /**
@@ -98,7 +97,7 @@ class KreditNasabahController extends Controller
 
                 $update = KreditDetail::where('id', '=', $id_detail[$i])
                     ->update([
-                        'gramasi' => $gramasi[$i],
+                        // 'gramasi' => $gramasi[$i],
                         'no_seri' => $no_seri[$i],
                         'updated_at' => saveDateTimeNow(),
                         'updated_by' => auth()->user()->name,
@@ -164,6 +163,13 @@ class KreditNasabahController extends Controller
                             </li>
                         ';
                 }
+                $view = '
+                            <li>
+                                <a class="edit dropdown-item border-bottom" href="' . route('kreditnasabah.show', $query) . '" data-toggle="tooltip" data-id="' . $query->id . '">
+                                    <i class="bx bx-show fs-20"></i> ' . __("Lihat") . '
+                                </a>
+                            </li>
+                        ';
                 // } else {
                 //     $update = '
                 //             <li>
@@ -179,11 +185,19 @@ class KreditNasabahController extends Controller
                                     <i class="bx bx-cog fs-16"></i>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="">' .
-                        (!empty($update) ? $update : '') . '
+                        (!empty($update) ? $update : '') .
+                        (!empty($view) ? $view : '') . '
                                 </ul>
                             </div>';
                 } else {
-                    return '<span class="badge rounded-pill bg-outline-danger">' . __("Tidak ada akses") . '</span>';
+                    return '<div class="dropdown">
+                                <button class="btn btn-outline-primary btn-sm btn-wave waves-effect waves-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bx bx-cog fs-16"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="">' .
+                        (!empty($view) ? $view : '') . '
+                                </ul>
+                            </div>';
                 }
             })
             ->editColumn('status_kredit', function ($query) {
@@ -258,6 +272,15 @@ class KreditNasabahController extends Controller
             ->rawColumns(['action'])
             ->escapeColumns([])
             ->make(true);
+    }
+
+    public function show_detail(string $id)
+    {
+        $kredit_detail = DB::table('kredit_detail')
+            ->where('id_kredit_nasabah', $id)
+            ->orderBy('id', 'ASC')
+            ->get();
+        return response()->json($kredit_detail);
     }
 
     public function detail_data($filter)

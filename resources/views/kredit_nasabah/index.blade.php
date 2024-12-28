@@ -520,7 +520,7 @@
             var id = $(this).data('id');
 
             $.ajax({
-                url: `kreditnasabah/${id}`,
+                url: `kreditnasabah/detail/show_detail/${id}`,
                 type: "GET",
                 cache: false,
                 success: function(response) {

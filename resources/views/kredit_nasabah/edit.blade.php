@@ -57,10 +57,10 @@
                                                     name="status_kredit" id="status_kredit" required>
                                                     <option value="Berjalan"
                                                         {{ old('status_kredit') == 'Berjalan' ? 'selected' : ($kredit_nasabah->status_kredit == 'Berjalan' ? 'selected' : '') }}>
-                                                        Berjalan</option>
+                                                        {{ __('Berjalan') }}</option>
                                                     <option value="Lunas"
                                                         {{ old('status_kredit') == 'Lunas' ? 'selected' : ($kredit_nasabah->status_kredit == 'Lunas' ? 'selected' : '') }}>
-                                                        Lunas</option>
+                                                        {{ __('Lunas') }}</option>
                                                 </select>
                                                 @error('status_kredit')
                                                     <div class="invalid-feedback">
@@ -99,10 +99,10 @@
                                                     name="status_kirim_barang" id="status_kirim_barang" required>
                                                     <option value="Belum Dikirim"
                                                         {{ old('status_kirim_barang') == 'Belum Dikirim' ? 'selected' : ($kredit_nasabah->status_kirim_barang == 'Belum Dikirim' ? 'selected' : '') }}>
-                                                        Belum Dikirim</option>
+                                                        {{ __('Belum Dikirim') }}</option>
                                                     <option value="Sudah Dikirim"
                                                         {{ old('status_kirim_barang') == 'Sudah Dikirim' ? 'selected' : ($kredit_nasabah->status_kirim_barang == 'Sudah Dikirim' ? 'selected' : '') }}>
-                                                        Sudah Dikirim</option>
+                                                        {{ __('Sudah Dikirim') }}</option>
                                                 </select>
                                                 @error('status_kirim_barang')
                                                     <div class="invalid-feedback">
@@ -161,7 +161,7 @@
                                                                 {{ __('Foto / Image Barang (Emas)') }}
                                                             </span>
                                                             <span class="fs-10 d-block text-muted">
-                                                                (250 x 250)
+                                                                ({{ __('250 x 250') }})
                                                             </span>
                                                             <div class="mt-3">
                                                                 <input class="form-control" type="file"
@@ -184,9 +184,9 @@
                                 <table class="table table-hover table-striped" id="table">
                                     <thead>
                                         <tr>
-                                            <th width="10%" class="text-center">No.</th>
-                                            <th width="80%">No. Seri</th>
-                                            <th width="20%" class="text-end">Gramasi</th>
+                                            <th width="10%" class="text-center">{{ __('No.') }}</th>
+                                            <th width="80%">{{ __('No. Seri') }}</th>
+                                            <th width="20%" class="text-end">{{ __('Gramasi') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -200,12 +200,12 @@
                                                     <input class="form-control form-control-sm" name="no_seri[]" type="text" value="{{ $kredit_details->no_seri }}">
                                                 </td>
                                                 <td align="right">
-                                                    <input class="form-control form-control-sm" name="gramasi[]" type="text" value="{{ $kredit_details->gramasi }}" readonly>
+                                                    <input class="form-control form-control-sm" name="gramasi[]" type="text" value="{{ $kredit_details->gramasi }}" disabled>
                                                 </td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="3" align="center">Tidak ada data</td>
+                                                <td colspan="3" align="center">{{ __('Tidak ada data') }}</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -269,11 +269,13 @@
                         </div>
                     </div> --}}
 
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('Simpan') }}
-                        </button>
-                    </div>
+                    @can('kredit nasabah update')
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Simpan') }}
+                            </button>
+                        </div>
+                    @endcan
                 </div>
             </form>
         </div>

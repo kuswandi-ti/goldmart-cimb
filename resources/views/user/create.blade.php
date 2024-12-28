@@ -70,6 +70,20 @@
                             </div>
                         </div>
                         <div class="mb-4 row gy-4">
+                            <div class="col-xl-12">
+                                <label for="password" class="form-label text-default">{{ __('Password') }}
+                                    <x-all-not-null /></label>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                    name="password" placeholder="{{ __('Password') }}"
+                                    required>
+                                @error('password')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mb-4 row gy-4">
                             <div class="col-xl-6">
                                 <label for="role" class="form-label text-default">{{ __('Role') }}
                                     <x-all-not-null /></label>
@@ -96,7 +110,7 @@
                                     </div>
                                     <input type="text"
                                         class="form-control flatpickr @error('join_date') is-invalid @enderror"
-                                        name="join_date" value="{{ old('join_date') }}"
+                                        name="join_date" value="{{ old('join_date') ?? date('Y-m-d') }}"
                                         placeholder="{{ __('Tanggal Bergabung') }}" required>
                                     @error('join_date')
                                         <div class="invalid-feedback">
@@ -107,11 +121,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('Simpan') }}
-                        </button>
-                    </div>
+                    @can('user create')
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Simpan') }}
+                            </button>
+                        </div>
+                    @endcan
                 </div>
             </form>
         </div>

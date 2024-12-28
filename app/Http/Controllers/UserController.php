@@ -47,7 +47,9 @@ class UserController extends Controller
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'email' => $request->email,
+            'password' => bcrypt($request->password),
             'join_date' => $request->join_date,
+            'email_verified_at' => saveDateTimeNow(),
             'approved' => 1,
             'approved_at' => saveDateTimeNow(),
             'approved_by' => auth()->user()->name,
@@ -156,7 +158,7 @@ class UserController extends Controller
     {
         $query = User::orderBy('name', 'ASC')
             ->get()->filter(
-                fn ($user) => $user->roles->where('name', '!=', 'Super Admin')->toArray()
+                fn($user) => $user->roles->where('name', '!=', 'Super Admin')->toArray()
             );
 
         return datatables($query)

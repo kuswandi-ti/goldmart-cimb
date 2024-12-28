@@ -110,11 +110,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('Simpan') }}
-                        </button>
-                    </div>
+                    @can('user update')
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Simpan') }}
+                            </button>
+                        </div>
+                    @endcan
                 </div>
             </form>
         </div>

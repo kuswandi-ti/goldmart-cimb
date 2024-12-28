@@ -70,11 +70,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('Simpan') }}
-                        </button>
-                    </div>
+
+                    @can('permission create')
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Simpan') }}
+                            </button>
+                        </div>
+                    @endcan
                 </div>
             </form>
         </div>

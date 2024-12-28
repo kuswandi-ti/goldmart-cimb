@@ -300,11 +300,13 @@
                                                             </div>
                                                         </li>
                                                     </ul>
-                                                    <div class="gap-2 d-grid">
-                                                        <button class="btn btn-primary" type="submit">
-                                                            {{ __('Simpan') }}
-                                                        </button>
-                                                    </div>
+                                                    @can('setting system')
+                                                        <div class="gap-2 d-grid">
+                                                            <button class="btn btn-primary" type="submit">
+                                                                {{ __('Simpan') }}
+                                                            </button>
+                                                        </div>
+                                                    @endcan
                                                 </div>
                                             </div>
                                         </div>
@@ -406,11 +408,13 @@
                                                             </div>
                                                         </li>
                                                     </ul>
-                                                    <div class="gap-2 mt-2 d-grid">
-                                                        <button class="btn btn-primary" type="submit">
-                                                            {{ __('Simpan') }}
-                                                        </button>
-                                                    </div>
+                                                    @can('setting system')
+                                                        <div class="gap-2 mt-2 d-grid">
+                                                            <button class="btn btn-primary" type="submit">
+                                                                {{ __('Simpan') }}
+                                                            </button>
+                                                        </div>
+                                                    @endcan
                                                 </div>
                                             </div>
                                         </div>
@@ -505,11 +509,13 @@
                                                             </div>
                                                         </li>
                                                     </ul>
-                                                    <div class="gap-2 mt-2 d-grid">
-                                                        <button class="btn btn-primary" type="submit">
-                                                            {{ __('Simpan') }}
-                                                        </button>
-                                                    </div>
+                                                    @can('setting system')
+                                                        <div class="gap-2 mt-2 d-grid">
+                                                            <button class="btn btn-primary" type="submit">
+                                                                {{ __('Simpan') }}
+                                                            </button>
+                                                        </div>
+                                                    @endcan
                                                 </div>
                                             </div>
                                         </div>
@@ -576,11 +582,13 @@
                                                             </div>
                                                         </li>
                                                     </ul>
-                                                    <div class="gap-2 mt-2 d-grid">
-                                                        <button class="btn btn-primary" type="submit">
-                                                            {{ __('Simpan') }}
-                                                        </button>
-                                                    </div>
+                                                    @can('setting system')
+                                                        <div class="gap-2 mt-2 d-grid">
+                                                            <button class="btn btn-primary" type="submit">
+                                                                {{ __('Simpan') }}
+                                                            </button>
+                                                        </div>
+                                                    @endcan
                                                 </div>
                                             </div>
                                         </div>

@@ -100,11 +100,13 @@
                         </div>
                     </div>
 
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('Perbarui') }}
-                        </button>
-                    </div>
+                    @can('role update')
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Perbarui') }}
+                            </button>
+                        </div>
+                    @endcan
                 </div>
             </form>
         </div>
