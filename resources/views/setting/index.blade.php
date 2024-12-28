@@ -25,7 +25,7 @@
                             <i class="align-middle bx bx-info-circle me-2 fs-18"></i>
                             {{ __('Informasi Perusahaan') }}
                         </a>
-                        <a class="mt-3 nav-link" data-bs-toggle="tab" role="tab" aria-current="page" href="#tab2"
+                        {{-- <a class="mt-3 nav-link" data-bs-toggle="tab" role="tab" aria-current="page" href="#tab2"
                             aria-selected="false" tabindex="-1">
                             <i class="align-middle bx bx-hive me-2 fs-18"></i>
                             {{ __('Persentase Jasa') }}
@@ -34,7 +34,7 @@
                             aria-selected="false" tabindex="-1">
                             <i class="align-middle bx bx-receipt me-2 fs-18"></i>
                             {{ __('Penomoran Transaksi') }}
-                        </a>
+                        </a> --}}
                         <a class="mt-3 nav-link" data-bs-toggle="tab" role="tab" aria-current="page" href="#tab3"
                             aria-selected="false" tabindex="-1">
                             <i class="align-middle bx bx-cog me-2 fs-18"></i>
@@ -430,7 +430,7 @@
                                             <div class="border shadow-none card custom-card border-dashed-primary">
                                                 <div class="p-3 card-body">
                                                     <ul class="list-group list-group-flush">
-                                                        <li class="list-group-item">
+                                                        {{-- <li class="list-group-item">
                                                             <div
                                                                 class="row gy-2 d-sm-flex align-items-center justify-content-between">
                                                                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
@@ -454,8 +454,8 @@
                                                                     @enderror
                                                                 </div>
                                                             </div>
-                                                        </li>
-                                                        <li class="list-group-item">
+                                                        </li> --}}
+                                                        {{-- <li class="list-group-item">
                                                             <div
                                                                 class="row gy-2 d-sm-flex align-items-center justify-content-between">
                                                                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
@@ -472,6 +472,31 @@
                                                                         placeholder="{{ __('Digit Desimal Persen') }}"
                                                                         aria-describedby="basic-addon2" required>
                                                                     @error('decimal_digit_percent')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </li> --}}
+                                                        <li class="list-group-item">
+                                                            <div
+                                                                class="row gy-2 d-sm-flex align-items-center justify-content-between">
+                                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                                                    <span class="mb-0 fs-14 fw-semibold">
+                                                                        {{ __('Tahun Periode Aktif') }}
+                                                                        <x-all-not-null />
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-xl-9">
+                                                                    <input type="text"
+                                                                        class="form-control number-only default-number @error('tahun_periode_aktif') is-invalid @enderror"
+                                                                        name="tahun_periode_aktif"
+                                                                        id="tahun_periode_aktif"
+                                                                        value="{{ old('tahun_periode_aktif') ?? (!empty($setting_system['tahun_periode_aktif']) ? $setting_system['tahun_periode_aktif'] : '0') }}"
+                                                                        placeholder="{{ __('Tahun Periode Aktif') }}"
+                                                                        aria-describedby="basic-addon2" required>
+                                                                    @error('tahun_periode_aktif')
                                                                         <div class="invalid-feedback">
                                                                             {{ $message }}
                                                                         </div>

@@ -35,32 +35,77 @@
                     @endcan
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="table_data">
-                            <thead>
-                                <tr>
-                                    <th scope="col" width="5%">{{ __('Nomor') }}</th>
-                                    <th scope="col" width="12%">{{ __('Aksi') }}</th>
-                                    <th scope="col" width="10%">{{ __('Status Kredit') }}</th>
-                                    <th scope="col" width="10%">{{ __('Status Kirim Barang') }}</th>
-                                    <th scope="col">{{ __('Nama Nasabah') }}</th>
-                                    <th scope="col">{{ __('Alamat Nasabah') }}</th>
-                                    <th scope="col">{{ __('Telp. Nasabah') }}</th>
-                                    <th scope="col">{{ __('Rekening Pencairan') }}</th>
-                                    <th scope="col">{{ __('Nama Barang') }}</th>
-                                    <th scope="col">{{ __('Jumlah Barang') }}</th>
-                                    <th scope="col">{{ __('Total Nilai Kredit') }}</th>
-                                    <th scope="col">{{ __('Margin Keuntungan') }}</th>
-                                    <th scope="col">{{ __('Angsuran') }}</th>
-                                    <th scope="col">{{ __('Tenor') }}</th>
-                                    <th scope="col">{{ __('Tgl Pencairan') }}</th>
-                                    <th scope="col">{{ __('Tgl Pelunasan') }}</th>
-                                    <th scope="col">{{ __('Tgl Kirim Barang') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                    <ul class="nav nav-pills mb-3 nav-justified tab-style-5 d-sm-flex d-block" id="pills-tab" role="tablist">
+                        <li class="nav-item active" role="presentation">
+                            <a class="nav-link active" data-bs-toggle="tab" role="tab"
+                                href="#tab_kredit_berjalan" aria-selected="true">{{ __('Berjalan') }}</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" role="tab" href="#tab_kredit_lunas"
+                                aria-selected="false">{{ __('Lunas') }}</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane show active text-muted" id="tab_kredit_berjalan"
+                            role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="table_data">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" width="5%">{{ __('Nomor') }}</th>
+                                            <th scope="col" width="12%">{{ __('Aksi') }}</th>
+                                            <th scope="col" width="10%">{{ __('Status Kredit') }}</th>
+                                            <th scope="col" width="10%">{{ __('Status Kirim Barang') }}</th>
+                                            <th scope="col">{{ __('Nama Nasabah') }}</th>
+                                            <th scope="col">{{ __('Alamat Nasabah') }}</th>
+                                            <th scope="col">{{ __('Telp. Nasabah') }}</th>
+                                            <th scope="col">{{ __('Rekening Pencairan') }}</th>
+                                            <th scope="col">{{ __('Nama Barang') }}</th>
+                                            <th scope="col">{{ __('Jumlah Barang') }}</th>
+                                            <th scope="col">{{ __('Total Nilai Kredit') }}</th>
+                                            <th scope="col">{{ __('Margin Keuntungan') }}</th>
+                                            <th scope="col">{{ __('Angsuran') }}</th>
+                                            <th scope="col">{{ __('Tenor') }}</th>
+                                            <th scope="col">{{ __('Tgl Pencairan') }}</th>
+                                            <th scope="col">{{ __('Tgl Pelunasan') }}</th>
+                                            <th scope="col">{{ __('Tgl Kirim Barang') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane text-muted" id="tab_kredit_lunas" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="table_data_lunas">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" width="5%">{{ __('Nomor') }}</th>
+                                            <th scope="col" width="12%">{{ __('Aksi') }}</th>
+                                            <th scope="col" width="10%">{{ __('Status Kredit') }}</th>
+                                            <th scope="col" width="10%">{{ __('Status Kirim Barang') }}</th>
+                                            <th scope="col">{{ __('Nama Nasabah') }}</th>
+                                            <th scope="col">{{ __('Alamat Nasabah') }}</th>
+                                            <th scope="col">{{ __('Telp. Nasabah') }}</th>
+                                            <th scope="col">{{ __('Rekening Pencairan') }}</th>
+                                            <th scope="col">{{ __('Nama Barang') }}</th>
+                                            <th scope="col">{{ __('Jumlah Barang') }}</th>
+                                            <th scope="col">{{ __('Total Nilai Kredit') }}</th>
+                                            <th scope="col">{{ __('Margin Keuntungan') }}</th>
+                                            <th scope="col">{{ __('Angsuran') }}</th>
+                                            <th scope="col">{{ __('Tenor') }}</th>
+                                            <th scope="col">{{ __('Tgl Pencairan') }}</th>
+                                            <th scope="col">{{ __('Tgl Pelunasan') }}</th>
+                                            <th scope="col">{{ __('Tgl Kirim Barang') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -265,6 +310,7 @@
 @push('scripts')
     <script>
         let table_data;
+        let table_data_lunas;
 
         table_data = $('#table_data').DataTable({
             processing: true,
@@ -277,6 +323,95 @@
             },
             ajax: {
                 url: '{{ route('kreditnasabah.data') }}',
+            },
+            columns: [{
+                data: 'DT_RowIndex',
+                searchable: false,
+                sortable: false,
+            }, {
+                data: 'action',
+                searchable: false,
+                sortable: false,
+            }, {
+                data: 'status_kredit',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'status_kirim_barang',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'nama_nasabah',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'alamat_nasabah',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'no_tlp',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'rekening_pencairan',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'nama_barang',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'qty',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'total_nilai_kredit',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'margin_keuntungan',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'angsuran',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'tenor',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'tgl_pencairan',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'tgl_lunas',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'tgl_kirim_barang',
+                searchable: true,
+                sortable: true,
+            }],
+            "columnDefs": [{
+                "render": function(data, type, row) {
+                    return formatAmount(data);
+                },
+                "targets": [10, 11, 12]
+            }, ]
+        });
+
+        table_data_lunas = $('#table_data_lunas').DataTable({
+            processing: true,
+            autoWidth: false,
+            responsive: true,
+            serverSide: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+            },
+            ajax: {
+                url: '{{ route('kreditnasabah.datalunas') }}',
             },
             columns: [{
                 data: 'DT_RowIndex',

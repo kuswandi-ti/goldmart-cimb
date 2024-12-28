@@ -1,7 +1,6 @@
 <?php
 
 use Carbon\Carbon;
-use App\Models\Period;
 use Illuminate\Support\Str;
 use App\Models\SettingSystem;
 
@@ -90,6 +89,8 @@ function getArrayAllPermission()
         ['guard_name' => 'web', 'name' => 'kredit nasabah index', 'group_name' => 'Kredit Nasabah Permission'],
         ['guard_name' => 'web', 'name' => 'kredit nasabah update', 'group_name' => 'Kredit Nasabah Permission'],
         ['guard_name' => 'web', 'name' => 'setting system', 'group_name' => 'Setting System Permission'],
+        ['guard_name' => 'web', 'name' => 'nasabah index', 'group_name' => 'Nasabah Permission'],
+        ['guard_name' => 'web', 'name' => 'nasabah update', 'group_name' => 'Nasabah Permission'],
     ];
 }
 
@@ -264,4 +265,10 @@ function unformatAmount($str)
 {
     $str = str_replace(".", "", $str);
     return (float) $str;
+}
+
+function activePeriod(): ?String
+{
+    $setting_system = SettingSystem::pluck('value', 'key')->toArray();
+    return $setting_system['tahun_periode_aktif'];
 }

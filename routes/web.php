@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NasabahController;
 use App\Http\Controllers\PermissionController;
 
 /*
@@ -55,10 +56,15 @@ Route::group(['middleware' => ['auth_check', 'prevent_back_history']], function 
     Route::get('permission/data', [PermissionController::class, 'data'])->name('permission.data');
     Route::resource('permission', PermissionController::class);
 
+    /** Nasabah Routes */
+    Route::get('nasabah/data', [NasabahController::class, 'data'])->name('nasabah.data');
+    Route::resource('nasabah', NasabahController::class);
+
     /** Kredit Nasabah Routes */
     Route::get('kreditnasabah/detail/detail_data/{filter}', [KreditNasabahController::class, 'detail_data'])->name('kreditnasabah.detail_data');
     Route::get('kreditnasabah/detail/{filter}', [KreditNasabahController::class, 'detail'])->name('kreditnasabah.detail');
     Route::get('kreditnasabah/data', [KreditNasabahController::class, 'data'])->name('kreditnasabah.data');
+    Route::get('kreditnasabah/datalunas', [KreditNasabahController::class, 'data_lunas'])->name('kreditnasabah.datalunas');
     Route::resource('kreditnasabah', KreditNasabahController::class);
 
     /** Setting Routes */

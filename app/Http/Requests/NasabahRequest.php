@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SettingOtherUpdateRequest extends FormRequest
+class NasabahRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,10 +21,15 @@ class SettingOtherUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            // 'decimal_digit_amount' => ['required', 'numeric'],
-            // 'decimal_digit_percent' => ['required', 'numeric'],
-            'tahun_periode_aktif' => ['required', 'numeric'],
-        ];
+        switch ($this->method()) {
+            case 'POST':
+            case 'PATCH':
+            case 'PUT':
+                return [
+                    'nama' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'max:255', 'unique:nasabah,email,' . $this->nasabah->id],
+                ];
+                break;
+        }
     }
 }

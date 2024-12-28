@@ -43,6 +43,7 @@ class SettingSystemTableSeeder extends Seeder
             ['key' => 'midtrans_server_key', 'value' => config('common.midtrans_server_key'), 'created_by' => $user],
             ['key' => 'sale_prefix', 'value' => 'INV', 'created_by' => $user],
             ['key' => 'sale_last_number', 'value' => 0, 'created_by' => $user],
+            ['key' => 'tahun_periode_aktif', 'value' => date('Y'), 'created_by' => $user],
         ];
         foreach ($input as $item) {
             SettingSystem::create($item);

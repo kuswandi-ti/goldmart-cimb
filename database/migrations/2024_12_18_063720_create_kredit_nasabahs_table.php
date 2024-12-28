@@ -32,6 +32,8 @@ return new class extends Migration
             $table->integer('tenor')->default(0);
             $table->string('turun_plafon')->nullable();
             $table->string('periode_bulan')->nullable();
+            $table->integer('bulan')->default(0);
+            $table->integer('tahun')->default(0);
             $table->string('mitra')->nullable();
             $table->enum('status_kredit', ['Berjalan', 'Lunas'])->default('Berjalan');
             $table->date('tgl_lunas')->nullable();

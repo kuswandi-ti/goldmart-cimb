@@ -16,17 +16,21 @@ class DashboardController extends Controller
             ->first();
         $total_nilai_kredit = DB::table('kredit_nasabah')
             ->select(DB::raw('SUM(total_nilai_kredit) AS total_nilai_kredit'))
+            ->where('tahun', activePeriod())
             ->first();
         $total_margin_keuntungan = DB::table('kredit_nasabah')
             ->select(DB::raw('SUM(margin_keuntungan) AS total_margin_keuntungan'))
+            ->where('tahun', activePeriod())
             ->first();
         $total_sudah_lunas = DB::table('kredit_nasabah')
             ->select(DB::raw('SUM(total_nilai_kredit) AS total_pelunasan'))
             ->where('status_kredit', '=', 'Lunas')
+            ->where('tahun', activePeriod())
             ->first();
         $total_belum_lunas = DB::table('kredit_nasabah')
             ->select(DB::raw('SUM(total_nilai_kredit) AS total_belum_lunas'))
             ->where('status_kredit', '=', 'Berjalan')
+            ->where('tahun', activePeriod())
             ->first();
 
         $total_nilai_kredit_graph = array();
@@ -35,6 +39,7 @@ class DashboardController extends Controller
                 ->select(DB::raw('SUM(total_nilai_kredit) AS total_nilai_kredit'))
                 ->whereYear('tgl_pencairan', date('Y'))
                 ->whereMonth('tgl_pencairan', $i + 1)
+                ->where('tahun', activePeriod())
                 ->groupBy(DB::raw('MONTH(tgl_pencairan)'))
                 ->orderBy(DB::raw('MONTH(tgl_pencairan)'))
                 ->pluck('total_nilai_kredit')
@@ -49,6 +54,7 @@ class DashboardController extends Controller
                 ->whereYear('tgl_lunas', date('Y'))
                 ->where('status_kredit', 'Lunas')
                 ->whereMonth('tgl_lunas', $i + 1)
+                ->where('tahun', activePeriod())
                 ->groupBy(DB::raw('MONTH(tgl_lunas)'))
                 ->orderBy(DB::raw('MONTH(tgl_lunas)'))
                 ->pluck('total_nilai_kredit')

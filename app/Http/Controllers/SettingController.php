@@ -74,7 +74,7 @@ class SettingController extends Controller
 
     public function otherSettingUpdate(SettingOtherUpdateRequest $request)
     {
-        foreach ($request->only('decimal_digit_amount', 'decimal_digit_percent') as $key => $value) {
+        foreach ($request->only('decimal_digit_amount', 'decimal_digit_percent', 'tahun_periode_aktif') as $key => $value) {
             SettingSystem::updateOrCreate(
                 ['key' => $key],
                 ['value' => $value, 'updated_by' => auth()->user()->name],

@@ -10,4 +10,9 @@ class ViewKreditNasabah extends Model
     use HasFactory;
 
     protected $table = 'view_kredit_nasabah';
+
+    public function scopePeriode($query)
+    {
+        return $query->where('tahun', activePeriod());
+    }
 }

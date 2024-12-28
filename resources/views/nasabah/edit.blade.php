@@ -1,27 +1,27 @@
 @extends('layouts.master')
 
 @section('page_title')
-    {{ __('Kredit Nasabah') }}
+    {{ __('Nasabah') }}
 @endsection
 
 @section('section_header_title')
-    {{ __('Kredit Nasabah') }}
+    {{ __('Nasabah') }}
 @endsection
 
 @section('section_header_breadcrumb')
     @parent
     <li class="breadcrumb-item">
-        <a href="{{ route('kreditnasabah.index') }}" class="text-white-50">
-            {{ __('Kredit Nasabah') }}
+        <a href="{{ route('nasabah.index') }}" class="text-white-50">
+            {{ __('Nasabah') }}
         </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">{{ __('Memperbarui Data Kredit Nasabah') }}</li>
+    <li class="breadcrumb-item active" aria-current="page">{{ __('Memperbarui Data Nasabah') }}</li>
 @endsection
 
 @section('page_content')
     <div class="row">
         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-            <form method="POST" action="{{ route('kreditnasabah.update', $kredit_nasabah) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('nasabah.update', $nasabah) }}">
                 @csrf
                 @method('PUT')
 
@@ -29,21 +29,85 @@
                     <div class="flex-wrap card-header d-flex align-items-center flex-xxl-nowrap">
                         <div class="flex-fill">
                             <div class="card-title">
-                                {{ __('Memperbarui Data Kredit Nasabah') }}
+                                {{ __('Memperbarui Data Nasabah') }}
                                 <p class="subtitle text-muted fs-12 fw-normal">
-                                    {{ __('Silahkan input data untuk proses memperbarui data kredit nasabah') }}
+                                    {{ __('Silahkan input data untuk proses memperbarui data nasabah') }}
                                 </p>
                             </div>
                         </div>
                         <div class="d-flex">
-                            <a href="{{ route('kreditnasabah.index') }}" class="btn btn-warning">
+                            <a href="{{ route('nasabah.index') }}" class="btn btn-warning">
                                 {{ __('Kembali') }}
                             </a>
                         </div>
                     </div>
                     <div class="card-body">
-                        {{-- <input type="hidden" name="id" id="id" value="{{ old('id') ?? ($kredit_nasabah->id ?? '') }}"> --}}
-                        <div class="row">
+                        <div class="row gy-4">
+                            <div class="col-xl-12">
+                                <label for="kode" class="form-label text-default">{{ __('Kode Nasabah') }}
+                                    <x-all-not-null /></label>
+                                <input type="text" class="form-control @error('kode') is-invalid @enderror"
+                                    name="kode"
+                                    value="{{ old('kode') ?? (!empty($nasabah) ? $nasabah->kode : '') }}"
+                                    placeholder="{{ __('Kode Nasabah') }}" disabled>
+                                @error('kode')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="col-xl-12">
+                                <label for="nama" class="form-label text-default">{{ __('Nama Nasabah') }}
+                                    <x-all-not-null /></label>
+                                <input type="text" class="form-control @error('nama') is-invalid @enderror"
+                                    name="nama"
+                                    value="{{ old('nama') ?? (!empty($nasabah) ? $nasabah->nama : '') }}"
+                                    placeholder="{{ __('Nama Nasabah') }}" disabled>
+                                @error('nama')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="col-xl-12">
+                                <label for="email" class="form-label text-default">{{ __('Email') }}
+                                    <x-all-not-null /></label>
+                                <input type="text" class="form-control @error('email') is-invalid @enderror"
+                                    name="email"
+                                    value="{{ old('email') ?? (!empty($nasabah) ? $nasabah->email : '') }}"
+                                    placeholder="{{ __('Email') }}" required autofocus>
+                                @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="col-xl-12">
+                                <label for="no_tlp" class="form-label text-default">{{ __('No. Tlp') }}</label>
+                                <input type="text" class="form-control @error('no_tlp') is-invalid @enderror"
+                                    name="no_tlp"
+                                    value="{{ old('no_tlp') ?? (!empty($nasabah) ? $nasabah->no_tlp : '') }}"
+                                    placeholder="{{ __('No. Tlp') }}">
+                                @error('no_tlp')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="col-xl-12">
+                                <label for="alamat"
+                                    class="form-label text-default">{{ __('Alamat') }}</label>
+                                <textarea class="form-control @error('alamat') is-invalid @enderror" name="alamat"
+                                    id="alamat" placeholder="{{ __('Alamat') }}" rows="4">{{ old('alamat') ?? ($nasabah->alamat ?? '') }}</textarea>
+                                @error('alamat')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
@@ -180,7 +244,6 @@
                             </div>
 
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                                <h5>Detail Barang</h5>
                                 <table class="table table-hover table-striped" id="table">
                                     <thead>
                                         <tr>
@@ -211,7 +274,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">
@@ -223,43 +286,3 @@
         </div>
     </div>
 @endsection
-
-@include('layouts.includes.select2')
-@include('layouts.includes.flatpickr')
-
-@push('scripts')
-    <script>
-        var status_kredit = $("#status_kredit option:selected").val();
-        var status_kirim_barang = $("#status_kirim_barang option:selected").val();
-
-        $(document).ready(function() {
-            if (status_kredit == 'Lunas') {
-                $('#div_lunas').show();
-            } else {
-                $('#div_lunas').hide();
-            }
-
-            if (status_kirim_barang == 'Sudah Dikirim') {
-                $('#div_kirim_barang').show();
-            } else {
-                $('#div_kirim_barang').hide();
-            }
-        });
-
-        $(document.body).on("change", "#status_kredit", function() {
-            if (this.value == "Lunas") {
-                $('#div_lunas').show();
-            } else {
-                $('#div_lunas').hide();
-            }
-        });
-
-        $(document.body).on("change", "#status_kirim_barang", function() {
-            if (this.value == "Sudah Dikirim") {
-                $('#div_kirim_barang').show();
-            } else {
-                $('#div_kirim_barang').hide();
-            }
-        });
-    </script>
-@endpush

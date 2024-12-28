@@ -53,12 +53,23 @@
                 {{-- INPUT DATA - BEGIN --}}
                 {{-- ======================================================================================================= --}}
                 <!-- Start::slide__category -->
-                @if (canAccess(['kredit nasabah index']))
+                @if (canAccess(['nasabah index', 'kredit nasabah index']))
                     <li class="mt-4 slide__category"><span class="category-name">{{ __('Data') }}</span></li>
                 @endif
                 <!-- End::slide__category -->
 
                 <!-- Start::slide -->
+                @if (canAccess(['nasabah index']))
+                    <li class="slide {{ setSidebarActive(['nasabah.*']) }}">
+                        <a href="{{ route('nasabah.index') }}"
+                            class="side-menu__item {{ setSidebarActive(['nasabah.*']) }}">
+                            <span class="side-menu__icon">
+                                <i class='bx bxs-donate-heart'></i>
+                            </span>
+                            <span class="side-menu__label">{{ __('Nasabah') }}</span>
+                        </a>
+                    </li>
+                @endif
                 @if (canAccess(['kredit nasabah index']))
                     <li class="slide {{ setSidebarActive(['kreditnasabah.*']) }}">
                         <a href="{{ route('kreditnasabah.index') }}"

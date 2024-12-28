@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                             <div class="mt-2 d-flex">
-                                <a href="kreditnasabah/detail/nasabah"
+                                <a href="{{ route('nasabah.index') }}"
                                     class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">Lihat Detail
                                 </a>
                             </div>
@@ -162,7 +162,7 @@
                 }
             },
             title: {
-                text: 'Statistik Pelunasan Kredit, tahun {{ date('Y') }}'
+                text: 'Statistik Pelunasan Kredit, tahun {{ activePeriod() }}'
             },
             subtitle: {
                 text: 'Source: <a href="https://www.goldmart.co.id/" target="_blank">goldmart</a>'
@@ -230,7 +230,7 @@
                 }
             },
             title: {
-                text: 'Statistik Pelunasan Kredit, tahun {{ date('Y') }}'
+                text: 'Statistik Pelunasan Kredit, tahun {{ $setting_system['tahun_periode_aktif'] }}'
             },
             subtitle: {
                 text: 'Source: <a href="https://www.goldmart.co.id/" target="_blank">goldmart</a>'

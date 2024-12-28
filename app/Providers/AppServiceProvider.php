@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\SettingUser;
 use App\Models\SettingSystem;
 use Illuminate\Pagination\Paginator;
 use Barryvdh\Debugbar\Facades\Debugbar;

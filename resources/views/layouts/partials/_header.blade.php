@@ -16,6 +16,14 @@
                 <!-- End::header-link -->
             </div>
             <!-- End::header-element -->
+
+            <div class="main-header-center header-link">
+                <a aria-label="anchor" href="javascript:void(0);" class="header-link">
+                    <span class="text-light">{{ __('Periode Aktif') }}</span>
+                    <span class="text-light">&nbsp; : &nbsp;</span>
+                    <span class="badge bg-danger pulse pulse-secondary"><strong>{{ $setting_system['tahun_periode_aktif'] }}</strong></span>
+                </a>
+            </div>
         </div>
         <!-- End::header-content-left -->
 
