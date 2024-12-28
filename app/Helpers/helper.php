@@ -91,6 +91,7 @@ function getArrayAllPermission()
         ['guard_name' => 'web', 'name' => 'setting system', 'group_name' => 'Setting System Permission'],
         ['guard_name' => 'web', 'name' => 'nasabah index', 'group_name' => 'Nasabah Permission'],
         ['guard_name' => 'web', 'name' => 'nasabah update', 'group_name' => 'Nasabah Permission'],
+        ['guard_name' => 'web', 'name' => 'external update', 'group_name' => 'External Permission'],
     ];
 }
 
