@@ -59,7 +59,7 @@
                         <div class="mb-4 row gy-4">
                             <div class="col-xl-12">
                                 <label for="email"
-                                    class="form-label text-default">{{ __('Email (Sebagai identikasi saat login)') }}
+                                    class="form-label text-default">{{ __('Email (sebagai identifikasi saat login)') }}
                                     <x-all-not-null /></label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror"
                                     name="email" value="{{ old('email') ?? ($user->email ?? '') }}"
