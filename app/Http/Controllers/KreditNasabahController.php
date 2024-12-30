@@ -79,6 +79,15 @@ class KreditNasabahController extends Controller
 
         if (count($no_seri) > 0) {
             for ($i = 0; $i < count($no_seri); $i++) {
+                $cek = KreditDetail::where('no_seri', '=', $no_seri[$i])->first();
+                if ($cek) {
+                    return redirect()->back()->withInput()->withErrors('Data No. [' . $cek->no_seri . '] sudah pernah dipakai');
+                }
+            }
+        }
+
+        if (count($no_seri) > 0) {
+            for ($i = 0; $i < count($no_seri); $i++) {
                 // $update = KreditDetail::create([
                 //     'id_kredit_nasabah' => $id,
                 //     'gramasi' => $gramasi[$i],

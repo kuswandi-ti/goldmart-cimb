@@ -55,12 +55,12 @@ class AuthController extends Controller
 
         Mail::to($request->email)->send(new SendResetLinkMail($token, $request->email));
 
-        return redirect()->back()->with('success', __('admin.A mail has been sent to your email address. Please check your email.'));
+        return redirect()->back()->with('success', __('A mail has been sent to your email address. Please check your email.'));
     }
 
     public function resetPassword($token)
     {
-        return view('admin.auth.reset-password', compact('token'));
+        return view('auth.reset-password', compact('token'));
     }
 
     public function handleResetPassword(AdminAuthResetPasswordRequest $request)
@@ -71,14 +71,14 @@ class AuthController extends Controller
         ])->first();
 
         if (!$admin) {
-            return back()->with('error', __('admin.Token is invalid !'));
+            return back()->with('error', __('Token is invalid !'));
         }
 
         $admin->password = bcrypt($request->password);
         $admin->remember_token = null;
         $admin->save();
 
-        return redirect()->route('admin.login')->with('success', __('admin.Password reset successfully. Please login first'));
+        return redirect()->route('login')->with('success', __('Password reset successfully. Please login first'));
     }
 
     public function logout(Request $request): RedirectResponse

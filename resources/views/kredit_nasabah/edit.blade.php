@@ -181,6 +181,7 @@
 
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                 <h5>Detail Barang</h5>
+                                <x-web-alert-message />
                                 <table class="table table-hover table-striped" id="table">
                                     <thead>
                                         <tr>
@@ -193,14 +194,19 @@
                                         @forelse ($kredit_detail as $kredit_details)
                                             <tr>
                                                 <td align="center">
-                                                    <input class="form-control form-control-sm" name="id_detail[]" type="hidden" value="{{ $kredit_details->id }}">
+                                                    <input class="form-control form-control-sm" name="id_detail[]"
+                                                        type="hidden" value="{{ $kredit_details->id }}">
                                                     {{ $loop->iteration }}
                                                 </td>
                                                 <td>
-                                                    <input class="form-control form-control-sm" name="no_seri[]" type="text" value="{{ $kredit_details->no_seri }}">
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="no_seri[]" id="no_seri[]"
+                                                        value="{{ old('no_seri[]') ?? ($kredit_details->no_seri ?? '') }}"
+                                                        placeholder="{{ __('No. Seri') }}">
                                                 </td>
                                                 <td align="right">
-                                                    <input class="form-control form-control-sm" name="gramasi[]" type="text" value="{{ $kredit_details->gramasi }}" disabled>
+                                                    <input class="form-control form-control-sm" name="gramasi[]"
+                                                        type="text" value="{{ $kredit_details->gramasi }}" disabled>
                                                 </td>
                                             </tr>
                                         @empty
