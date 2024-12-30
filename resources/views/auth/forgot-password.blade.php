@@ -15,14 +15,15 @@
                                 <div class="p-5 card-body rectangle3">
                                     <div class="text-center">
                                         <img src="{{ !empty($setting_system['company_logo']) ? url(config('common.path_storage') . $setting_system['company_logo']) : url(config('common.path_template') . config('common.logo_company_main')) }}"
-                                            alt="logo" class="desktop-dark" style="width: 30%">
+                                            alt="logo" class="desktop-dark img-fluid rounded" width="200"
+                                            height="200">
                                     </div>
                                     <h6 class="mt-4 fs-15 op-9 text-fixed-white">
                                         {{ __('Lupa Password') }}
                                     </h6>
                                     <div class="mt-3 d-flex">
                                         <p class="mb-0 fw-normal fs-14 op-7 text-fixed-white">
-                                            {{ __('Lupa kata sandi Anda? Tidak masalah. Cukup beri tahu kami alamat email Anda dan kami akan mengirimkan email berisi tautan pengaturan ulang kata sandi yang memungkinkan Anda memilih yang baru') }}
+                                            {{ __('Lupa kata sandi Anda? Tidak masalah. Cukup beri tahu kami alamat email Anda.') }}
                                         </p>
                                     </div>
                                 </div>
@@ -38,6 +39,8 @@
                             <p class="mb-4 text-muted op-7 fw-normal">
                                 {{ __('Selamat datang di sistem kami') }}
                             </p>
+
+                            <x-web-alert-message />
 
                             <form method="POST" action="{{ route('forgot_password.send') }}">
                                 @csrf
@@ -81,3 +84,4 @@
         </div>
     </div>
 @endsection
+

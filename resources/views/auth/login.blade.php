@@ -60,7 +60,7 @@
                                         </label>
                                         <input type="email"
                                             class="form-control form-control-lg @error('email') is-invalid @enderror"
-                                            name="email" id="email" placeholder="{{ __('Email') }}" required
+                                            name="email" id="email" value="{{ old('email') }}" placeholder="{{ __('Email') }}" required
                                             autofocus>
                                         @error('email')
                                             <div class="invalid-feedback">

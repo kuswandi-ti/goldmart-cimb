@@ -27,7 +27,7 @@ class AuthController extends Controller
         if (!Auth::check()) {
             return view('auth.login');
         } else {
-            // return redirect()->route('admin.dashboard.index');
+            // return redirect()->route('dashboard.index');
             return Redirect::to(Session::get('url.intended'));
         }
     }
@@ -55,7 +55,7 @@ class AuthController extends Controller
 
         Mail::to($request->email)->send(new SendResetLinkMail($token, $request->email));
 
-        return redirect()->back()->with('success', __('A mail has been sent to your email address. Please check your email.'));
+        return redirect()->back()->with('success', __('Email telah dikirim ke alamat email Anda. Silakan periksa email Anda.'));
     }
 
     public function resetPassword($token)
@@ -63,22 +63,22 @@ class AuthController extends Controller
         return view('auth.reset-password', compact('token'));
     }
 
-    public function handleResetPassword(AdminAuthResetPasswordRequest $request)
+    public function handleResetPassword(AuthResetPasswordRequest $request)
     {
-        $admin = User::where([
+        $user = User::where([
             'email' => $request->email,
             'remember_token' => $request->token,
         ])->first();
 
-        if (!$admin) {
+        if (!$user) {
             return back()->with('error', __('Token is invalid !'));
         }
 
-        $admin->password = bcrypt($request->password);
-        $admin->remember_token = null;
-        $admin->save();
+        $user->password = bcrypt($request->password);
+        $user->remember_token = null;
+        $user->save();
 
-        return redirect()->route('login')->with('success', __('Password reset successfully. Please login first'));
+        return redirect()->route('login')->with('success', __('Reset kata sandi berhasil. Silakan login terlebih dahulu'));
     }
 
     public function logout(Request $request): RedirectResponse

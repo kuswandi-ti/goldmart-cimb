@@ -25,6 +25,11 @@
                             <i class="align-middle bx bx-info-circle me-2 fs-18"></i>
                             {{ __('Informasi Perusahaan') }}
                         </a>
+                        {{-- <a class="mt-3 nav-link" data-bs-toggle="tab" role="tab" aria-current="page" href="#tab5"
+                            aria-selected="false" tabindex="-1">
+                            <i class="align-middle bx bxs-envelope me-2 fs-18"></i>
+                            {{ __('Email') }}
+                        </a> --}}
                         {{-- <a class="mt-3 nav-link" data-bs-toggle="tab" role="tab" aria-current="page" href="#tab2"
                             aria-selected="false" tabindex="-1">
                             <i class="align-middle bx bx-hive me-2 fs-18"></i>
@@ -315,7 +320,7 @@
                             </form>
                         </div>
 
-                        <div class="tab-pane text-muted" id="tab2" role="tabpanel">
+                        {{-- <div class="tab-pane text-muted" id="tab2" role="tabpanel">
                             <form method="POST" action="{{ route('fee_setting.update') }}">
                                 @csrf
                                 @method('PUT')
@@ -421,7 +426,7 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
+                        </div> --}}
 
                         <div class="tab-pane text-muted" id="tab3" role="tabpanel">
                             <form method="POST" action="{{ route('other_setting.update') }}">
@@ -434,55 +439,6 @@
                                             <div class="border shadow-none card custom-card border-dashed-primary">
                                                 <div class="p-3 card-body">
                                                     <ul class="list-group list-group-flush">
-                                                        {{-- <li class="list-group-item">
-                                                            <div
-                                                                class="row gy-2 d-sm-flex align-items-center justify-content-between">
-                                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
-                                                                    <span class="mb-0 fs-14 fw-semibold">
-                                                                        {{ __('Digit Desimal Nominal') }}
-                                                                        <x-all-not-null />
-                                                                    </span>
-                                                                </div>
-                                                                <div class="col-xl-9">
-                                                                    <input type="text"
-                                                                        class="form-control number-only default-number @error('decimal_digit_amount') is-invalid @enderror"
-                                                                        name="decimal_digit_amount"
-                                                                        id="decimal_digit_amount"
-                                                                        value="{{ old('decimal_digit_amount') ?? (!empty($setting_system['decimal_digit_amount']) ? $setting_system['decimal_digit_amount'] : '0') }}"
-                                                                        placeholder="{{ __('Digit Desimal Nominal') }}"
-                                                                        aria-describedby="basic-addon2" required>
-                                                                    @error('decimal_digit_amount')
-                                                                        <div class="invalid-feedback">
-                                                                            {{ $message }}
-                                                                        </div>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-                                                        </li> --}}
-                                                        {{-- <li class="list-group-item">
-                                                            <div
-                                                                class="row gy-2 d-sm-flex align-items-center justify-content-between">
-                                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
-                                                                    <span class="mb-0 fs-14 fw-semibold">
-                                                                        {{ __('Digit Desimal Persen') }} <x-all-not-null />
-                                                                    </span>
-                                                                </div>
-                                                                <div class="col-xl-9">
-                                                                    <input type="text"
-                                                                        class="form-control number-only default-number @error('decimal_digit') is-invalid @enderror"
-                                                                        name="decimal_digit_percent"
-                                                                        id="decimal_digit_percent"
-                                                                        value="{{ old('decimal_digit_percent') ?? (!empty($setting_system['decimal_digit_percent']) ? $setting_system['decimal_digit_percent'] : '0') }}"
-                                                                        placeholder="{{ __('Digit Desimal Persen') }}"
-                                                                        aria-describedby="basic-addon2" required>
-                                                                    @error('decimal_digit_percent')
-                                                                        <div class="invalid-feedback">
-                                                                            {{ $message }}
-                                                                        </div>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-                                                        </li> --}}
                                                         <li class="list-group-item">
                                                             <div
                                                                 class="row gy-2 d-sm-flex align-items-center justify-content-between">
@@ -524,7 +480,7 @@
                             </form>
                         </div>
 
-                        <div class="tab-pane text-muted" id="tab4" role="tabpanel">
+                        {{-- <div class="tab-pane text-muted" id="tab4" role="tabpanel">
                             <form method="POST" action="{{ route('transaction_setting.update') }}">
                                 @csrf
                                 @method('PUT')
@@ -595,7 +551,218 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
+                        </div> --}}
+
+                        {{-- <div class="tab-pane text-muted" id="tab5" role="tabpanel">
+                            <form method="POST" action="{{ route('email_setting.update') }}">
+                                @csrf
+                                @method('PUT')
+
+                                <div class="p-3">
+                                    <div class="mb-3 row">
+                                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12">
+                                            <div class="border shadow-none card custom-card border-dashed-primary">
+                                                <div class="p-3 card-body">
+                                                    <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item">
+                                                            <div
+                                                                class="row gy-2 d-sm-flex align-items-center justify-content-between">
+                                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                                                    <span class="mb-0 fs-14 fw-semibold">
+                                                                        {{ __('Tipe Email') }} <x-all-not-null />
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-xl-9">
+                                                                    <input type="text"
+                                                                        class="form-control @error('mail_type') is-invalid @enderror"
+                                                                        name="mail_type" id="mail_type"
+                                                                        value="{{ old('mail_type') ?? (!empty($setting_system['mail_type']) ? $setting_system['mail_type'] : '') }}"
+                                                                        placeholder="{{ __('Tipe Email') }}"
+                                                                        aria-describedby="basic-addon2" required>
+                                                                    @error('mail_type')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div
+                                                                class="row gy-2 d-sm-flex align-items-center justify-content-between">
+                                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                                                    <span class="mb-0 fs-14 fw-semibold">
+                                                                        {{ __('Host Email') }} <x-all-not-null />
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-xl-9">
+                                                                    <input type="text"
+                                                                        class="form-control @error('mail_host') is-invalid @enderror"
+                                                                        name="mail_host" id="mail_host"
+                                                                        value="{{ old('mail_host') ?? (!empty($setting_system['mail_host']) ? $setting_system['mail_host'] : '') }}"
+                                                                        placeholder="{{ __('Host Email') }}"
+                                                                        aria-describedby="basic-addon2" required>
+                                                                    @error('mail_host')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div
+                                                                class="row gy-2 d-sm-flex align-items-center justify-content-between">
+                                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                                                    <span class="mb-0 fs-14 fw-semibold">
+                                                                        {{ __('Username Email') }} <x-all-not-null />
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-xl-9">
+                                                                    <input type="text"
+                                                                        class="form-control @error('mail_username') is-invalid @enderror"
+                                                                        name="mail_username" id="mail_username"
+                                                                        value="{{ old('mail_username') ?? (!empty($setting_system['mail_username']) ? $setting_system['mail_username'] : '') }}"
+                                                                        placeholder="{{ __('Username Email') }}"
+                                                                        aria-describedby="basic-addon2" required>
+                                                                    @error('mail_username')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div
+                                                                class="row gy-2 d-sm-flex align-items-center justify-content-between">
+                                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                                                    <span class="mb-0 fs-14 fw-semibold">
+                                                                        {{ __('Password Email') }} <x-all-not-null />
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-xl-9">
+                                                                    <input type="password"
+                                                                        class="form-control @error('mail_password') is-invalid @enderror"
+                                                                        name="mail_password" id="mail_password"
+                                                                        value="{{ old('mail_password') ?? (!empty($setting_system['mail_password']) ? $setting_system['mail_password'] : '') }}"
+                                                                        placeholder="{{ __('Password Email') }}"
+                                                                        aria-describedby="basic-addon2" required>
+                                                                    @error('mail_password')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div
+                                                                class="row gy-2 d-sm-flex align-items-center justify-content-between">
+                                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                                                    <span class="mb-0 fs-14 fw-semibold">
+                                                                        {{ __('Enkripsi Email') }} <x-all-not-null />
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-xl-9">
+                                                                    <input type="text"
+                                                                        class="form-control @error('mail_encryption') is-invalid @enderror"
+                                                                        name="mail_encryption" id="mail_encryption"
+                                                                        value="{{ old('mail_encryption') ?? (!empty($setting_system['mail_encryption']) ? $setting_system['mail_encryption'] : '') }}"
+                                                                        placeholder="{{ __('Enkripsi Email') }}"
+                                                                        aria-describedby="basic-addon2" required>
+                                                                    @error('mail_encryption')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div
+                                                                class="row gy-2 d-sm-flex align-items-center justify-content-between">
+                                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                                                    <span class="mb-0 fs-14 fw-semibold">
+                                                                        {{ __('Port Email') }} <x-all-not-null />
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-xl-9">
+                                                                    <input type="text"
+                                                                        class="form-control @error('mail_port') is-invalid @enderror"
+                                                                        name="mail_port" id="mail_port"
+                                                                        value="{{ old('mail_port') ?? (!empty($setting_system['mail_port']) ? $setting_system['mail_port'] : '') }}"
+                                                                        placeholder="{{ __('Port Email') }}"
+                                                                        aria-describedby="basic-addon2" required>
+                                                                    @error('mail_port')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div
+                                                                class="row gy-2 d-sm-flex align-items-center justify-content-between">
+                                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                                                    <span class="mb-0 fs-14 fw-semibold">
+                                                                        {{ __('Email Pengirim') }} <x-all-not-null />
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-xl-9">
+                                                                    <input type="text"
+                                                                        class="form-control @error('mail_from_address') is-invalid @enderror"
+                                                                        name="mail_from_address" id="mail_from_address"
+                                                                        value="{{ old('mail_from_address') ?? (!empty($setting_system['mail_from_address']) ? $setting_system['mail_from_address'] : '') }}"
+                                                                        placeholder="{{ __('Email Pengirim') }}"
+                                                                        aria-describedby="basic-addon2" required>
+                                                                    @error('mail_from_address')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div
+                                                                class="row gy-2 d-sm-flex align-items-center justify-content-between">
+                                                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                                                    <span class="mb-0 fs-14 fw-semibold">
+                                                                        {{ __('Nama Pengirim') }} <x-all-not-null />
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-xl-9">
+                                                                    <input type="text"
+                                                                        class="form-control @error('mail_from_name') is-invalid @enderror"
+                                                                        name="mail_from_name" id="mail_from_name"
+                                                                        value="{{ old('mail_from_name') ?? (!empty($setting_system['mail_from_name']) ? $setting_system['mail_from_name'] : '') }}"
+                                                                        placeholder="{{ __('Nama Pengirim') }}"
+                                                                        aria-describedby="basic-addon2" required>
+                                                                    @error('mail_from_name')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    @can('setting system')
+                                                        <div class="gap-2 mt-2 d-grid">
+                                                            <button class="btn btn-primary" type="submit">
+                                                                {{ __('Simpan') }}
+                                                            </button>
+                                                        </div>
+                                                    @endcan
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -605,7 +772,7 @@
 
 <x-web-sweet-alert />
 
-@push('scripts')
+{{-- @push('scripts')
     <script>
         $(document).ready(function() {
             $(".default-number").keyup(
@@ -634,4 +801,4 @@
                 });
         });
     </script>
-@endpush
+@endpush --}}

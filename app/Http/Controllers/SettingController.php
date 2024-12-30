@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SettingSystem;
 use App\Traits\FileUploadTrait;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SettingEmailUpdateRequest;
 use App\Http\Requests\SettingFeeUpdateRequest;
 use App\Http\Requests\SettingOtherUpdateRequest;
 use App\Http\Requests\SettingGeneralUpdateRequest;
@@ -99,5 +100,17 @@ class SettingController extends Controller
         }
 
         return redirect()->route('setting.index')->with('success', __('Pengaturan transaksi berhasil diperbarui'));
+    }
+
+    public function emailSettingUpdate(SettingEmailUpdateRequest $request)
+    {
+        foreach ($request->only('mail_type', 'mail_host', 'mail_username', 'mail_password', 'mail_encryption', 'mail_port', 'mail_from_address', 'mail_from_name') as $key => $value) {
+            SettingSystem::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value, 'updated_by' => auth()->user()->name],
+            );
+        }
+
+        return redirect()->route('setting.index')->with('success', __('Pengaturan persentase email berhasil diperbarui'));
     }
 }
