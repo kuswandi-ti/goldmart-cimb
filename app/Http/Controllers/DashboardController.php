@@ -37,7 +37,7 @@ class DashboardController extends Controller
         for ($i = 0; $i < 12; $i++) {
             $total_nilai_kredit_graph[] = DB::table('kredit_nasabah')
                 ->select(DB::raw('SUM(total_nilai_kredit) AS total_nilai_kredit'))
-                ->whereYear('tgl_pencairan', date('Y'))
+                ->whereYear('tgl_pencairan', activePeriod())
                 ->whereMonth('tgl_pencairan', $i + 1)
                 ->where('tahun', activePeriod())
                 ->groupBy(DB::raw('MONTH(tgl_pencairan)'))
@@ -51,7 +51,7 @@ class DashboardController extends Controller
         for ($i = 0; $i < 12; $i++) {
             $total_nilai_pelunasan_graph[] = DB::table('kredit_nasabah')
                 ->select(DB::raw('SUM(total_nilai_kredit) AS total_nilai_kredit'))
-                ->whereYear('tgl_lunas', date('Y'))
+                ->whereYear('tgl_lunas', activePeriod())
                 ->where('status_kredit', 'Lunas')
                 ->whereMonth('tgl_lunas', $i + 1)
                 ->where('tahun', activePeriod())
