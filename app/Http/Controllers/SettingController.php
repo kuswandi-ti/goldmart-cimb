@@ -17,7 +17,7 @@ class SettingController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:system setting', ['only' => ['index', 'generalSettingUpdate', 'feeSettingUpdate']]);
+        $this->middleware('permission:setting system', ['only' => ['index', 'generalSettingUpdate', 'feeSettingUpdate']]);
     }
 
     public function index()

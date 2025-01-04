@@ -14,16 +14,18 @@
                             <div class="p-0 card-img-overlay d-flex align-items-center rounded-0">
                                 <div class="p-5 card-body rectangle3">
                                     <div class="text-center">
-                                        <img src="{{ !empty($setting_system['company_logo']) ? url(config('common.path_storage') . $setting_system['company_logo']) : url(config('common.path_template') . config('common.logo_company_main')) }}"
+                                        {{-- <img src="{{ !empty($setting_system['company_logo']) ? url(config('common.path_storage') . $setting_system['company_logo']) : url(config('common.path_template') . config('common.logo_company_main')) }}"
                                             alt="logo" class="desktop-dark img-fluid rounded" width="200"
-                                            height="200">
+                                            height="200"> --}}
+                                        <img src="{{ url(config('common.path_template') . 'assets/images/dashboard.jpg') }}"
+                                            alt="logo" class="desktop-dark img-fluid rounded" width="350">
                                     </div>
-                                    <h6 class="mt-4 fs-15 op-9 text-fixed-white">
+                                    {{-- <h6 class="mt-4 fs-15 op-9 text-fixed-white">
                                         {{ __('Login') }}
-                                    </h6>
+                                    </h6> --}}
                                     <div class="mt-3 d-flex">
-                                        <p class="mb-0 fw-normal fs-14 op-7 text-fixed-white">
-                                            {{ __('Selamat datang kembali di sistem') }}
+                                        <p class="mb-0 fw-normal fs-14 op-7 text-fixed-white text-center">
+                                            {{ __('Selamat datang kembali di ') }}
                                             <strong>{{ $setting_system['site_title'] ?? config('app.name') }}</strong><br><br>
                                             {{ __('Masukkan email dan password akun anda agar bisa menggunakan fasilitas-fasilitas menu yang ada di sistem') }}
                                             <strong>{{ $setting_system['site_title'] ?? config('app.name') }}</strong>
@@ -34,7 +36,12 @@
                         </div>
                     </div>
                     <div class="col-xl-6 col-md-6 pe-sm-0">
-                        <div class="p-3 p-sm-5">
+                        {{-- <div class="p-3 p-sm-5"> --}}
+                        <div class="p-sm-5">
+                            <div class="text-center mb-4">
+                                <img src="{{ url(config('common.path_template') . 'assets/images/gds.png') }}" alt="" class="desktop-dark img-fluid rounded" width="220">
+                            </div>
+
                             <p class="mb-2 h4 fw-semibold">
                                 {{ __('Login') }}
                             </p>
@@ -43,10 +50,10 @@
                                 {{ __('Selamat datang di sistem kami') }}
                             </p>
 
-                            <div class="alert alert-solid-warning alert-dismissible fade show">
+                            {{-- <div class="alert alert-solid-warning alert-dismissible fade show">
                                 Email : <strong>superadmin@mail.com</strong><br>
                                 Password : <strong>password</strong>
-                            </div>
+                            </div> --}}
 
                             <x-web-alert-message />
 
@@ -101,12 +108,12 @@
                                 </div>
                             </form>
 
-                            <div class="text-center ">
+                            {{-- <div class="text-center ">
                                 <p class="mt-4 mb-0 fs-12 text-muted">
                                     {{ __('Anda belum terdaftar sebagai user ?') }} <br>
                                     {{ __('Silahkan hubungi admin') }}
                                 </p>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
