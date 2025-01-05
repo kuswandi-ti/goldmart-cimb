@@ -18,11 +18,11 @@
                                             alt="logo" class="desktop-dark img-fluid rounded" width="200"
                                             height="200">
                                     </div>
-                                    <h6 class="mt-4 fs-15 op-9 text-fixed-white">
+                                    <h6 class="mt-4 fs-15 op-9 text-fixed-white text-center">
                                         {{ __('Lupa Password') }}
                                     </h6>
                                     <div class="mt-3 d-flex">
-                                        <p class="mb-0 fw-normal fs-14 op-7 text-fixed-white">
+                                        <p class="mb-0 fw-normal fs-14 op-7 text-fixed-white text-center">
                                             {{ __('Lupa kata sandi Anda? Tidak masalah. Cukup beri tahu kami alamat email Anda.') }}
                                         </p>
                                     </div>
@@ -31,6 +31,15 @@
                         </div>
                     </div>
                     <div class="col-xl-6 col-md-6 pe-sm-0">
+                        <div class="text-center">
+                            {{-- <img src="{{ url(config('common.path_template') . 'assets/images/gds.png') }}" alt="" class="desktop-dark img-fluid rounded" width="220"> --}}
+                            <img src="{{ url(config('common.path_template') . 'assets/images/dashboard.jpg') }}"
+                                        alt="logo" class="desktop-dark img-fluid rounded mb-2" width="350">
+                            <p class="fw-semibold">
+                                {{ $setting_system['site_title'] ?? config('app.name') }}
+                            </p>
+                        </div>
+
                         <div class="p-3 p-sm-5">
                             <p class="mb-2 h4 fw-semibold">
                                 {{ __('Lupa Password') }}

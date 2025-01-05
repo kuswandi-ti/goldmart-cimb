@@ -14,11 +14,11 @@
                             <div class="p-0 card-img-overlay d-flex align-items-center rounded-0">
                                 <div class="p-5 card-body rectangle3">
                                     <div class="text-center">
-                                        {{-- <img src="{{ !empty($setting_system['company_logo']) ? url(config('common.path_storage') . $setting_system['company_logo']) : url(config('common.path_template') . config('common.logo_company_main')) }}"
+                                        <img src="{{ !empty($setting_system['company_logo']) ? url(config('common.path_storage') . $setting_system['company_logo']) : url(config('common.path_template') . config('common.logo_company_main')) }}"
                                             alt="logo" class="desktop-dark img-fluid rounded" width="200"
-                                            height="200"> --}}
-                                        <img src="{{ url(config('common.path_template') . 'assets/images/dashboard.jpg') }}"
-                                            alt="logo" class="desktop-dark img-fluid rounded" width="350">
+                                            height="200">
+                                        {{-- <img src="{{ url(config('common.path_template') . 'assets/images/dashboard.jpg') }}"
+                                            alt="logo" class="desktop-dark img-fluid rounded" width="350"> --}}
                                     </div>
                                     {{-- <h6 class="mt-4 fs-15 op-9 text-fixed-white">
                                         {{ __('Login') }}
@@ -36,12 +36,16 @@
                         </div>
                     </div>
                     <div class="col-xl-6 col-md-6 pe-sm-0">
-                        {{-- <div class="p-3 p-sm-5"> --}}
-                        <div class="p-sm-5">
-                            <div class="text-center mb-4">
-                                <img src="{{ url(config('common.path_template') . 'assets/images/gds.png') }}" alt="" class="desktop-dark img-fluid rounded" width="220">
-                            </div>
+                        <div class="text-center">
+                            {{-- <img src="{{ url(config('common.path_template') . 'assets/images/gds.png') }}" alt="" class="desktop-dark img-fluid rounded" width="220"> --}}
+                            <img src="{{ url(config('common.path_template') . 'assets/images/dashboard.jpg') }}"
+                                        alt="logo" class="desktop-dark img-fluid rounded mb-2" width="350">
+                            <p class="fw-semibold">
+                                {{ $setting_system['site_title'] ?? config('app.name') }}
+                            </p>
+                        </div>
 
+                        <div class="p-sm-5">
                             <p class="mb-2 h4 fw-semibold">
                                 {{ __('Login') }}
                             </p>
