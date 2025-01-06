@@ -238,7 +238,7 @@
             },
             xAxis: {
                 title: {
-                    text: 'Gramasi Emas'
+                    text: 'Gramasi'
                 },
                 categories: ['0,5', '1', '2', '3', '5', '10', '25', '50', '100']
             },
@@ -260,7 +260,7 @@
                 },
             },
             series: [{
-                name: 'Total Gramasi Emas',
+                name: 'Total Emas',
                 data: total_emas_graph
             }],
             responsive: {
