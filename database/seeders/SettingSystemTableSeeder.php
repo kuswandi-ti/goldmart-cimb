@@ -17,7 +17,7 @@ class SettingSystemTableSeeder extends Seeder
 
         $input = [
             ['key' => 'company_name', 'value' => 'PT. Gold Martindo', 'created_by' => $user],
-            ['key' => 'site_title', 'value' => 'Goldmart System', 'created_by' => $user],
+            ['key' => 'site_title', 'value' => 'Goldmart Dashboard System (GDS)', 'created_by' => $user],
             ['key' => 'company_email', 'value' => 'admin@goldmart.com', 'created_by' => $user],
             ['key' => 'company_phone', 'value' => '62-21-6508688', 'created_by' => $user],
             ['key' => 'company_address', 'value' => 'Jl Mitra Sunter Boulevard, Sunter, Jakarta Utara', 'created_by' => $user],
