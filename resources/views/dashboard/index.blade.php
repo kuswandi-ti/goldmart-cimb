@@ -121,9 +121,9 @@
     <div class="row">
         <div class="col-xxl-12 col-xl-12">
             <div class="card custom-card">
-                <div class="card-header  justify-content-between">
+                {{-- <div class="card-header  justify-content-between">
                     <div class="card-title">Statistik Pelunasan Kredit</div>
-                </div>
+                </div> --}}
                 <div class="card-body">
                     <div id="kreditstatistic1"></div>
                 </div>
@@ -134,9 +134,9 @@
     <div class="row">
         <div class="col-xxl-12 col-xl-12">
             <div class="card custom-card">
-                <div class="card-header  justify-content-between">
+                {{-- <div class="card-header  justify-content-between">
                     <div class="card-title">Statistik Pelunasan Kredit</div>
-                </div>
+                </div> --}}
                 <div class="card-body">
                     <div id="kreditstatistic2"></div>
                 </div>
