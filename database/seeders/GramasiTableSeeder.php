@@ -16,15 +16,15 @@ class GramasiTableSeeder extends Seeder
         $user = 'Super Admin';
 
         $input = [
-            ['kode' => '0,5','created_by' => $user],
-            ['kode' => '1','created_by' => $user],
-            ['kode' => '2','created_by' => $user],
-            ['kode' => '3','created_by' => $user],
-            ['kode' => '5','created_by' => $user],
-            ['kode' => '10','created_by' => $user],
-            ['kode' => '25','created_by' => $user],
-            ['kode' => '50','created_by' => $user],
-            ['kode' => '100','created_by' => $user],
+            ['kode' => '0,5', 'gramasi' => 0.5, 'created_by' => $user],
+            ['kode' => '1', 'gramasi' => 1, 'created_by' => $user],
+            ['kode' => '2', 'gramasi' => 2, 'created_by' => $user],
+            ['kode' => '3', 'gramasi' => 3, 'created_by' => $user],
+            ['kode' => '5', 'gramasi' => 5, 'created_by' => $user],
+            ['kode' => '10', 'gramasi' => 10, 'created_by' => $user],
+            ['kode' => '25', 'gramasi' => 25, 'created_by' => $user],
+            ['kode' => '50', 'gramasi' => 50, 'created_by' => $user],
+            ['kode' => '100', 'gramasi' => 100, 'created_by' => $user],
         ];
         foreach ($input as $item) {
             Gramasi::create($item);

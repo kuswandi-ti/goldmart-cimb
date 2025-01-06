@@ -153,6 +153,7 @@
     <script>
         var total_nilai_kredit_graph = {{ Js::from($total_nilai_kredit_graph) }};
         var total_nilai_pelunasan_graph = {{ Js::from($total_nilai_pelunasan_graph) }};
+        var total_emas_graph = {{ Js::from($total_emas_graph) }};
 
         Highcharts.chart('kreditstatistic1', {
             chart: {
@@ -162,7 +163,7 @@
                 }
             },
             title: {
-                text: 'Statistik Pelunasan Kredit, tahun {{ activePeriod() }}'
+                text: 'Statistik Pelunasan Kredit<br>{{ activePeriod() }}'
             },
             subtitle: {
                 text: 'Source: <a href="https://www.goldmart.co.id/" target="_blank">goldmart</a>'
@@ -230,22 +231,20 @@
                 }
             },
             title: {
-                text: 'Statistik Pelunasan Kredit, tahun {{ $setting_system['tahun_periode_aktif'] }}'
+                text: 'Statistik Total Emas (Belum Pelunasan)<br>{{ $setting_system['tahun_periode_aktif'] }}'
             },
             subtitle: {
                 text: 'Source: <a href="https://www.goldmart.co.id/" target="_blank">goldmart</a>'
             },
             xAxis: {
                 title: {
-                    text: 'Bulan'
+                    text: 'Gramasi Emas'
                 },
-                categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
-                    'October', 'November', 'December'
-                ]
+                categories: ['0,5', '1', '2', '3', '5', '10', '25', '50', '100']
             },
             yAxis: {
                 title: {
-                    text: 'Rupiah'
+                    text: 'Jumlah'
                 }
             },
             plotOptions: {
@@ -261,11 +260,8 @@
                 },
             },
             series: [{
-                name: 'Total Kredit',
-                data: total_nilai_kredit_graph
-            }, {
-                name: 'Total Pelunasan',
-                data: total_nilai_pelunasan_graph
+                name: 'Total Gramasi Emas',
+                data: total_emas_graph
             }],
             responsive: {
                 rules: [{

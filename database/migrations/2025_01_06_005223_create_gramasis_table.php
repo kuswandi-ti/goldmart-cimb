@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('gramasi', function (Blueprint $table) {
             $table->id();
             $table->string('kode');
+            $table->decimal('gramasi', 20, 2)->default(0);
             $table->string('note')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();

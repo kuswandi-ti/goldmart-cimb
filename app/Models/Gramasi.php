@@ -18,6 +18,7 @@ class Gramasi extends Model
      */
     protected $fillable = [
         'kode',
+        'gramasi',
         'note',
         'created_by',
         'updated_by',
