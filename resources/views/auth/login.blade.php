@@ -39,7 +39,7 @@
                         <div class="text-center">
                             {{-- <img src="{{ url(config('common.path_template') . 'assets/images/gds.png') }}" alt="" class="desktop-dark img-fluid rounded" width="220"> --}}
                             <img src="{{ url(config('common.path_template') . 'assets/images/dashboard.jpg') }}"
-                                        alt="logo" class="desktop-dark img-fluid rounded mb-2" width="350">
+                                alt="logo" class="desktop-dark img-fluid rounded mb-2 mt-4" width="350">
                             <p class="fw-semibold">
                                 {{ $setting_system['site_title'] ?? config('app.name') }}
                             </p>
@@ -71,8 +71,8 @@
                                         </label>
                                         <input type="email"
                                             class="form-control form-control-lg @error('email') is-invalid @enderror"
-                                            name="email" id="email" value="{{ old('email') }}" placeholder="{{ __('Email') }}" required
-                                            autofocus>
+                                            name="email" id="email" value="{{ old('email') }}"
+                                            placeholder="{{ __('Email') }}" required autofocus>
                                         @error('email')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
