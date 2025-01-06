@@ -23,6 +23,7 @@ class MainDataSeeder extends Seeder
 
         $create_role_super_admin = 'Super Admin';
         $create_role_admin = 'Admin';
+        $create_role_manajemen = 'Manajemen';
         $create_role_user = 'User';
 
         /** Reset Cached Roles and Permissions */
@@ -45,6 +46,11 @@ class MainDataSeeder extends Seeder
             'name' => $create_role_admin,
         ]);
 
+        $role_manajemen = Role::create([
+            'guard_name' => 'web',
+            'name' => $create_role_manajemen,
+        ]);
+
         $role_user = Role::create([
             'guard_name' => 'web',
             'name' => $create_role_user,
@@ -54,7 +60,7 @@ class MainDataSeeder extends Seeder
         $user_super_admin = User::create([
             'name' => 'Super Admin',
             'slug' => Str::slug('Super Admin'),
-            'email' => 'superadmin@mail.com',
+            'email' => 'kuswandi.ti@gmail.com',
             'email_verified_at' => saveDateTimeNow(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             // 'image' => config('common.no_image'),
@@ -68,9 +74,25 @@ class MainDataSeeder extends Seeder
         ]);
 
         $user_admin = User::create([
-            'name' => 'Admin',
-            'slug' => Str::slug('Admin'),
-            'email' => 'admin@mail.com',
+            'name' => 'Rudi',
+            'slug' => Str::slug('Rudi'),
+            'email' => 'rudi@goldmart.co.id',
+            'email_verified_at' => saveDateTimeNow(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            // 'image' => config('common.no_image'),
+            'join_date' => saveDateNow(),
+            'approved' => 1,
+            'approved_at' => saveDateTimeNow(),
+            'approved_by' => $default_user,
+            'status' => 1,
+            'remember_token' => Str::random(10),
+            'created_by' => $default_user,
+        ]);
+
+        $user_manajemen = User::create([
+            'name' => 'Awi',
+            'slug' => Str::slug('Awi'),
+            'email' => 'awi@goldmart.co.id',
             'email_verified_at' => saveDateTimeNow(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             // 'image' => config('common.no_image'),
@@ -102,6 +124,7 @@ class MainDataSeeder extends Seeder
         /** Assign Role to User */
         $user_super_admin->assignRole($role_super_admin);
         $user_admin->assignRole($role_admin);
+        $user_manajemen->assignRole($role_manajemen);
         $user_user->assignRole($role_user);
     }
 }

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\MainDataSeeder;
+use Database\Seeders\GramasiTableSeeder;
 use Database\Seeders\FormatDateTableSeeder;
 use Database\Seeders\FormatTimeTableSeeder;
 use Database\Seeders\SettingSystemTableSeeder;
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FormatTimeTableSeeder::class);
         $this->call(MainDataSeeder::class);
         $this->call(SettingSystemTableSeeder::class);
+        $this->call(GramasiTableSeeder::class);
         $this->call(IndonesiaDatabaseSeeder::class);
     }
 }
