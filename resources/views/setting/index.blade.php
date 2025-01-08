@@ -446,6 +446,7 @@
                                                                     <span class="mb-0 fs-14 fw-semibold">
                                                                         {{ __('Tahun Periode Aktif') }}
                                                                         <x-all-not-null />
+                                                                        {{ __('(di aplikasi ini)') }}
                                                                     </span>
                                                                 </div>
                                                                 <div class="col-xl-9">
