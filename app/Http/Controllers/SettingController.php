@@ -17,7 +17,8 @@ class SettingController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:setting system', ['only' => ['index', 'generalSettingUpdate', 'feeSettingUpdate']]);
+        $this->middleware('permission:setting info perusahaan', ['only' => ['generalSettingUpdate']]);
+        $this->middleware('permission:setting lainnya', ['only' => ['otherSettingUpdate']]);
     }
 
     public function index()

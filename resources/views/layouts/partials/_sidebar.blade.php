@@ -90,7 +90,7 @@
                 {{-- PENGATURAN - BEGIN --}}
                 {{-- ======================================================================================================= --}}
                 <!-- Start::slide__category -->
-                @if (canAccess(['user index', 'role index', 'permission index', 'setting system']))
+                @if (canAccess(['user index', 'role index', 'permission index', 'setting info perusahaan', 'setting lainnya']))
                     <li class="mt-4 slide__category"><span class="category-name">{{ __('Pengaturan') }}</span>
                     </li>
                 @endif
@@ -142,7 +142,7 @@
                         </ul>
                     </li>
                 @endif
-                @if (canAccess(['setting system']))
+                @if (canAccess(['setting info perusahaan', 'setting lainnya']))
                     <li class="slide {{ setSidebarActive(['setting.*']) }}">
                         <a href="{{ route('setting.index') }}"
                             class="side-menu__item {{ setSidebarActive(['setting.*']) }}">

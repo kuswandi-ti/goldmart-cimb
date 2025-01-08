@@ -305,7 +305,7 @@
                                                             </div>
                                                         </li>
                                                     </ul>
-                                                    @can('setting system')
+                                                    @can('setting info perusahaan')
                                                         <div class="gap-2 d-grid">
                                                             <button class="btn btn-primary" type="submit">
                                                                 {{ __('Simpan') }}
@@ -465,7 +465,7 @@
                                                             </div>
                                                         </li>
                                                     </ul>
-                                                    @can('setting system')
+                                                    @can('setting lainnya')
                                                         <div class="gap-2 mt-2 d-grid">
                                                             <button class="btn btn-primary" type="submit">
                                                                 {{ __('Simpan') }}
