@@ -15,7 +15,7 @@ class KreditNasabahController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:kredit nasabah index', ['only' => ['index', 'show', 'data']]);
+        $this->middleware('permission:kredit nasabah index', ['only' => ['index', 'show', 'data', 'dataLunas', 'showDetail', 'detailData']]);
         $this->middleware('permission:kredit nasabah update', ['only' => ['edit', 'update']]);
     }
 
@@ -75,8 +75,6 @@ class KreditNasabahController extends Controller
             'updated_by' => auth()->user()->name,
         ]);
 
-        // $update = DB::table('kredit_detail')->where('id_kredit_nasabah', '=', $id)->delete();
-
         if (count($no_seri) > 0) {
             for ($i = 0; $i < count($no_seri); $i++) {
                 $cek = KreditDetail::where('no_seri', '=', $no_seri[$i])->first();
@@ -88,25 +86,8 @@ class KreditNasabahController extends Controller
 
         if (count($no_seri) > 0) {
             for ($i = 0; $i < count($no_seri); $i++) {
-                // $update = KreditDetail::create([
-                //     'id_kredit_nasabah' => $id,
-                //     'gramasi' => $gramasi[$i],
-                //     'no_seri' => $no_seri[$i]
-                // ]);
-
-                // $detail = KreditDetail::find($id_detail[$i]);
-                // $update = $detail->update([
-                //     'gramasi' => $gramasi[$i],
-                //     'no_seri' => $no_seri[$i]
-                // ]);
-                // $detail->gramasi = $gramasi[$i];
-                // $detail->description = $no_seri[$i];
-
-                // $detail->save();
-
                 $update = KreditDetail::where('id', '=', $id_detail[$i])
                     ->update([
-                        // 'gramasi' => $gramasi[$i],
                         'no_seri' => $no_seri[$i],
                         'updated_at' => saveDateTimeNow(),
                         'updated_by' => auth()->user()->name,
@@ -150,20 +131,21 @@ class KreditNasabahController extends Controller
 
     public function data(Request $request)
     {
-        $query = ViewKreditNasabah::periode()->where('status_kredit', 'Berjalan')->orderBy('tgl_incoming', 'DESC');
+        $query = ViewKreditNasabah::periodeaktif()->belumlunas();
+
+        // $query = KreditNasabah::select('kredit_nasabah.id AS id, kredit_nasabah.status_kredit AS status_kredit', 'kredit_nasabah.status_kirim_barang AS status_kirim_barang',
+        //         'nasabah.nama AS nama_nasabah', 'nasabah.alamat AS alamat_nasabah', 'nasabah.no_tlp AS no_tlp',
+        //         'kredit_nasabah.rekening_pencairan AS rekening_pencairan', 'kredit_nasabah.nama_barang AS nama_barang', 'kredit_nasabah.qty AS qty',
+        //         'kredit_nasabah.total_nilai_kredit AS total_nilai_kredit', 'kredit_nasabah.margin_keuntungan AS margin_keuntungan',
+        //         'kredit_nasabah.angsuran AS angsuran', 'kredit_nasabah.tenor AS tenor', 'kredit_nasabah.tgl_pencairan AS tgl_pencairan',
+        //         'kredit_nasabah.tgl_lunas AS tgl_lunas', 'kredit_nasabah.tgl_kirim_barang AS tgl_kirim_barang')
+        //     ->leftJoin('nasabah', 'kredit_nasabah.id_nasabah', '=', 'nasabah.id')
+        //     ->where('kredit_nasabah.status_kredit', 'Berjalan');
 
         return datatables($query)
             ->addIndexColumn()
             ->addColumn('action', function ($query) {
-                // if ($query->status_lunas == 'Belum Lunas' || $query->status_kirim_barang == 'Belum Dikirim') {
                 if (canAccess(['kredit nasabah update'])) {
-                    // $update = '
-                    //     <li>
-                    //         <a class="edit dropdown-item border-bottom" href="javascript:void(0);" data-toggle="tooltip" data-id="' . $query->id . '">
-                    //             <i class="bx bx-edit-alt fs-20"></i> ' . __("Perbarui") . '
-                    //         </a>
-                    //     </li>
-                    // ';
                     $update = '
                             <li>
                                 <a class="edit dropdown-item border-bottom" href="' . route('kreditnasabah.edit', $query) . '" data-toggle="tooltip" data-id="' . $query->id . '">
@@ -179,15 +161,6 @@ class KreditNasabahController extends Controller
                                 </a>
                             </li>
                         ';
-                // } else {
-                //     $update = '
-                //             <li>
-                //                 <a class="dropdown-item border-bottom">
-                //                     <i class="bx bx-minus-circle fs-20"></i> ' . __("Tidak Ada Aksi") . '
-                //                 </a>
-                //             </li>
-                //         ';
-                // }
                 if (canAccess(['kredit nasabah update'])) {
                     return '<div class="dropdown">
                                 <button class="btn btn-outline-primary btn-sm btn-wave waves-effect waves-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -223,22 +196,14 @@ class KreditNasabahController extends Controller
             ->make(true);
     }
 
-    public function data_lunas(Request $request)
+    public function dataLunas(Request $request)
     {
-        $query = ViewKreditNasabah::periode()->where('status_kredit', 'Lunas')->orderBy('tgl_incoming', 'DESC');
+        $query = ViewKreditNasabah::periodeaktif()->lunas();
 
         return datatables($query)
             ->addIndexColumn()
             ->addColumn('action', function ($query) {
-                // if ($query->status_lunas == 'Belum Lunas' || $query->status_kirim_barang == 'Belum Dikirim') {
                 if (canAccess(['kredit nasabah update'])) {
-                    // $update = '
-                    //     <li>
-                    //         <a class="edit dropdown-item border-bottom" href="javascript:void(0);" data-toggle="tooltip" data-id="' . $query->id . '">
-                    //             <i class="bx bx-edit-alt fs-20"></i> ' . __("Perbarui") . '
-                    //         </a>
-                    //     </li>
-                    // ';
                     $update = '
                             <li>
                                 <a class="edit dropdown-item border-bottom" href="' . route('kreditnasabah.edit', $query) . '" data-toggle="tooltip" data-id="' . $query->id . '">
@@ -247,15 +212,6 @@ class KreditNasabahController extends Controller
                             </li>
                         ';
                 }
-                // } else {
-                //     $update = '
-                //             <li>
-                //                 <a class="dropdown-item border-bottom">
-                //                     <i class="bx bx-minus-circle fs-20"></i> ' . __("Tidak Ada Aksi") . '
-                //                 </a>
-                //             </li>
-                //         ';
-                // }
                 if (canAccess(['kredit nasabah update'])) {
                     return '<div class="dropdown">
                                 <button class="btn btn-outline-primary btn-sm btn-wave waves-effect waves-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -283,7 +239,7 @@ class KreditNasabahController extends Controller
             ->make(true);
     }
 
-    public function show_detail(string $id)
+    public function showDetail(string $id)
     {
         $kredit_detail = DB::table('kredit_detail')
             ->where('id_kredit_nasabah', $id)
@@ -292,40 +248,23 @@ class KreditNasabahController extends Controller
         return response()->json($kredit_detail);
     }
 
-    public function detail_data($filter)
+    public function detailData($filter)
     {
         switch ($filter) {
             case 'nasabah':
-                $query = ViewKreditNasabah::periode()->orderBy('tgl_incoming', 'DESC');
-                // $query = DB::table('view_kredit_nasabah')
-                //             ->orderBy('tgl_incoming', 'DESC')
-                //             ->get();
+                $query = ViewKreditNasabah::periodeaktif()->orderBy('tgl_incoming', 'DESC');
                 break;
             case 'kredit':
-                $query = ViewKreditNasabah::periode()->orderBy('tgl_incoming', 'DESC');
-                // $query = DB::table('view_kredit_nasabah')
-                //             ->orderBy('tgl_incoming', 'DESC')
-                //             ->get();
+                $query = ViewKreditNasabah::periodeaktif()->orderBy('tgl_incoming', 'DESC');
                 break;
             case 'keuntungan':
-                $query = ViewKreditNasabah::periode()->orderBy('tgl_incoming', 'DESC');
-                // $query = DB::table('view_kredit_nasabah')
-                //             ->orderBy('tgl_incoming', 'DESC')
-                //             ->get();
+                $query = ViewKreditNasabah::periodeaktif()->orderBy('tgl_incoming', 'DESC');
                 break;
             case 'sudah-lunas':
-                $query = ViewKreditNasabah::periode()->where('status_kredit', '=', 'Lunas')->orderBy('tgl_incoming', 'DESC');
-                // $query = DB::table('view_kredit_nasabah')
-                //             ->where('status_lunas', 'Lunas')
-                //             ->orderBy('tgl_incoming', 'DESC')
-                //             ->get();
+                $query = ViewKreditNasabah::periodeaktif()->lunas()->orderBy('tgl_incoming', 'DESC');
                 break;
             case 'belum-lunas':
-                $query = ViewKreditNasabah::periode()->where('status_kredit', '=', 'Berjalan')->orderBy('tgl_incoming', 'DESC');
-                // $query = DB::table('view_kredit_nasabah')
-                //             ->where('status_lunas', 'Berjalan')
-                //             ->orderBy('tgl_incoming', 'DESC')
-                //             ->get();
+                $query = ViewKreditNasabah::periodeaktif()->belumlunas()->orderBy('tgl_incoming', 'DESC');
                 break;
             default:
                 $query = "";

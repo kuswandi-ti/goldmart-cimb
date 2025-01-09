@@ -74,8 +74,7 @@
                                 <label for="password" class="form-label text-default">{{ __('Password') }}
                                     <x-all-not-null /></label>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                    name="password" placeholder="{{ __('Password') }}"
-                                    required>
+                                    name="password" placeholder="{{ __('Password') }}" required>
                                 @error('password')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -138,28 +137,5 @@
 @include('layouts.includes.flatpickr')
 
 @push('scripts')
-    <script>
-        $(document).ready(function() {
-            $(".default-number").keyup(
-                function() {
-                    var simpanan_pokok = $("#simpanan_pokok").val();
-                    var simpanan_wajib = $("#simpanan_wajib").val();
-                    var simpanan_sukarela = $("#simpanan_sukarela").val();
-                    var simpanan_sukarela_tetap = $("#simpanan_sukarela_tetap").val();
-
-                    if (simpanan_pokok.length == 0) {
-                        $("#simpanan_pokok").val(0);
-                    }
-                    if (simpanan_wajib.length == 0) {
-                        $("#simpanan_wajib").val(0);
-                    }
-                    if (simpanan_sukarela.length == 0) {
-                        $("#simpanan_sukarela").val(0);
-                    }
-                    if (simpanan_sukarela_tetap.length == 0) {
-                        $("#simpanan_sukarela_tetap").val(0);
-                    }
-                });
-        });
-    </script>
+    <script></script>
 @endpush

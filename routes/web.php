@@ -61,11 +61,11 @@ Route::group(['middleware' => ['auth_check', 'prevent_back_history']], function 
     Route::resource('nasabah', NasabahController::class);
 
     /** Kredit Nasabah Routes */
-    Route::get('kreditnasabah/detail/show_detail/{id}', [KreditNasabahController::class, 'show_detail'])->name('kreditnasabah.show_detail');
-    Route::get('kreditnasabah/detail/detail_data/{filter}', [KreditNasabahController::class, 'detail_data'])->name('kreditnasabah.detail_data');
+    Route::get('kreditnasabah/detail/show_detail/{id}', [KreditNasabahController::class, 'showDetail'])->name('kreditnasabah.show_detail');
+    Route::get('kreditnasabah/detail/detail_data/{filter}', [KreditNasabahController::class, 'detailData'])->name('kreditnasabah.detail_data');
     Route::get('kreditnasabah/detail/{filter}', [KreditNasabahController::class, 'detail'])->name('kreditnasabah.detail');
     Route::get('kreditnasabah/data', [KreditNasabahController::class, 'data'])->name('kreditnasabah.data');
-    Route::get('kreditnasabah/datalunas', [KreditNasabahController::class, 'data_lunas'])->name('kreditnasabah.datalunas');
+    Route::get('kreditnasabah/datalunas', [KreditNasabahController::class, 'dataLunas'])->name('kreditnasabah.datalunas');
     Route::resource('kreditnasabah', KreditNasabahController::class);
 
     /** Setting Routes */

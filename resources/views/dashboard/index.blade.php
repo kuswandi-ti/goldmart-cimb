@@ -121,9 +121,6 @@
     <div class="row">
         <div class="col-xxl-12 col-xl-12">
             <div class="card custom-card">
-                {{-- <div class="card-header  justify-content-between">
-                    <div class="card-title">Statistik Pelunasan Kredit</div>
-                </div> --}}
                 <div class="card-body">
                     <div id="kreditstatistic1"></div>
                 </div>
@@ -134,9 +131,6 @@
     <div class="row">
         <div class="col-xxl-12 col-xl-12">
             <div class="card custom-card">
-                {{-- <div class="card-header  justify-content-between">
-                    <div class="card-title">Statistik Pelunasan Kredit</div>
-                </div> --}}
                 <div class="card-body">
                     <div id="kreditstatistic2"></div>
                 </div>
@@ -231,7 +225,7 @@
                 }
             },
             title: {
-                text: 'Statistik Total Emas (Belum Pelunasan)<br>{{ $setting_system['tahun_periode_aktif'] }}'
+                text: 'Statistik Total Emas (Belum Pelunasan)<br>{{ activePeriod() }}'
             },
             subtitle: {
                 text: 'Source: <a href="https://www.goldmart.co.id/" target="_blank">goldmart</a>'

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\KreditNasabah;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Nasabah extends Model
 {
@@ -31,4 +32,9 @@ class Nasabah extends Model
         'deleted_at',
         'restored_at',
     ];
+
+    public function kredit_nasabahs()
+    {
+        return $this->hasMany(KreditNasabah::class, 'id_nasabah', 'id');
+    }
 }

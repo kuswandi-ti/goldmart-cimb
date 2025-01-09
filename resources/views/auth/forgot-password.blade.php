@@ -32,9 +32,8 @@
                     </div>
                     <div class="col-xl-6 col-md-6 pe-sm-0">
                         <div class="text-center">
-                            {{-- <img src="{{ url(config('common.path_template') . 'assets/images/gds.png') }}" alt="" class="desktop-dark img-fluid rounded" width="220"> --}}
                             <img src="{{ url(config('common.path_template') . 'assets/images/dashboard.jpg') }}"
-                                        alt="logo" class="desktop-dark img-fluid rounded mb-2" width="350">
+                                alt="logo" class="desktop-dark img-fluid rounded mb-2" width="350">
                             <p class="fw-semibold">
                                 {{ $setting_system['site_title'] ?? config('app.name') }}
                             </p>
@@ -93,4 +92,3 @@
         </div>
     </div>
 @endsection
-

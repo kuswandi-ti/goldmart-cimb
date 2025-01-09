@@ -220,61 +220,6 @@
                         </div>
                     </div>
 
-                    {{-- <div class="card-body">
-                        <div class="row">
-                            @forelse ($kredit_detail as $kredit_details)
-                                <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                                    <div class="border card border-primary custom-card">
-                                        <div class="card-body">
-                                            <div class="text-center">
-                                                <div class="justify-content-between">
-                                                    <div class="mb-2 file-format-icon">
-                                                        <div class="text-center">
-                                                            <img src="{{ !empty($kredit_details->image) ? url(config('common.path_storage') . $kredit_details->image) : url(config('common.path_template') . config('common.image_user_profile_big')) }}"
-                                                                class="rounded img-fluid preview-path_image_barang_detail"
-                                                                width="150" height="150">
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <span class="fw-semibold">
-                                                            {{ __('Foto / Image Barang (Emas)') }}
-                                                        </span>
-                                                        <span class="fs-10 d-block text-muted">
-                                                            (150 x 150)
-                                                        </span>
-                                                        <div class="mt-3">
-                                                            <input class="form-control" type="file"
-                                                                name="image_barang_detail[]">
-                                                            <input type="hidden" name="old_image_barang_detail[]"
-                                                                value="{{ $kredit_details->image ?? '' }}">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mt-2 text-center">
-                                                    <h6 class="mb-1 product-code fs-16 fw-semibold align-items-center text-danger">
-                                                        0000000011
-                                                    </h6>
-                                                    <h6 class="mb-1 product-name fs-16 fw-semibold align-items-center">
-                                                        111200 HB Black Matt...
-                                                    </h6>
-                                                    <p class="mb-2 product-description fs-13 text-muted">
-                                                        111200 HB Black Matt R/T...
-                                                    </p>
-                                                    <h6 class="text-success fw-semibold">
-                                                        <span>
-                                                            11.100
-                                                        </span>
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @empty
-                            @endforelse
-                        </div>
-                    </div> --}}
-
                     @can('kredit nasabah update')
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">

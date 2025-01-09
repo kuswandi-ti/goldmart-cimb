@@ -35,10 +35,11 @@
                     @endcan
                 </div>
                 <div class="card-body">
-                    <ul class="nav nav-pills mb-3 nav-justified tab-style-5 d-sm-flex d-block" id="pills-tab" role="tablist">
+                    <ul class="nav nav-pills mb-3 nav-justified tab-style-5 d-sm-flex d-block" id="pills-tab"
+                        role="tablist">
                         <li class="nav-item active" role="presentation">
-                            <a class="nav-link active" data-bs-toggle="tab" role="tab"
-                                href="#tab_kredit_berjalan" aria-selected="true">{{ __('Berjalan') }}</a>
+                            <a class="nav-link active" data-bs-toggle="tab" role="tab" href="#tab_kredit_berjalan"
+                                aria-selected="true">{{ __('Berjalan') }}</a>
                         </li>
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" data-bs-toggle="tab" role="tab" href="#tab_kredit_lunas"
@@ -47,8 +48,7 @@
                     </ul>
 
                     <div class="tab-content">
-                        <div class="tab-pane show active text-muted" id="tab_kredit_berjalan"
-                            role="tabpanel">
+                        <div class="tab-pane show active text-muted" id="tab_kredit_berjalan" role="tabpanel">
                             <div class="table-responsive">
                                 <table class="table table-striped" id="table_data">
                                     <thead>
@@ -112,160 +112,6 @@
         </div>
     </div>
 
-    <!-- Modal - Begin -->
-    {{-- <div class="modal fade" id="editDataModal" data-bs-backdrop="static" data-bs-keyboard="false"
-        aria-labelledby="editDataLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <input type="hidden" id="id"></input>
-                    <h6 class="modal-title" id="editDataLabel"></h6>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-xl-5">
-                            <div class="mb-4 row gy-4">
-                                <div class="col-xl-12">
-                                    <label for="status_lunas" class="form-label text-default">{{ __('Status Lunas') }}
-                                        <x-all-not-null /></label>
-                                    <select
-                                        class="js-example-placeholder-single js-states form-control select2 @error('status_lunas') is-invalid @enderror"
-                                        name="status_lunas" id="status_lunas" required>
-                                        <option value="Belum Lunas">Belum Lunas</option>
-                                        <option value="Sudah Lunas">Sudah Lunas</option>
-                                    </select>
-                                    @error('status_lunas')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div id="div_lunas">
-                                    <div class="col-xl-12">
-                                        <label for="tgl_lunas"
-                                            class="form-label text-default">{{ __('Tanggal Pelunasan') }}</label>
-                                        <div class="input-group">
-                                            <div class="input-group-text text-muted">
-                                                <i class="ri-calendar-line"></i>
-                                            </div>
-                                            <input type="text"
-                                                class="form-control flatpickr @error('tgl_lunas') is-invalid @enderror"
-                                                name="tgl_lunas" id="tgl_lunas" value="{{ old('tgl_lunas') }}"
-                                                placeholder="{{ __('Tanggal Pelunasan') }}" style="width:100%;">
-                                            @error('tgl_lunas')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12">
-                                    <label for="status_kirim_barang"
-                                        class="form-label text-default">{{ __('Status Kirim Barang') }}
-                                        <x-all-not-null /></label>
-                                    <select
-                                        class="js-example-placeholder-single js-states form-control select2 @error('status_kirim_barang') is-invalid @enderror"
-                                        name="status_kirim_barang" id="status_kirim_barang" required>
-                                        <option value="Belum Dikirim">Belum Dikirim</option>
-                                        <option value="Sudah Dikirim">Sudah Dikirim</option>
-                                    </select>
-                                    @error('status_kirim_barang')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div id="div_kirim_barang">
-                                    <div class="col-xl-12">
-                                        <label for="tgl_kirim_barang"
-                                            class="form-label text-default">{{ __('Tanggal Kirim Barang') }}</label>
-                                        <div class="input-group">
-                                            <div class="input-group-text text-muted">
-                                                <i class="ri-calendar-line"></i>
-                                            </div>
-                                            <input type="text"
-                                                class="form-control flatpickr @error('tgl_kirim_barang') is-invalid @enderror"
-                                                name="tgl_kirim_barang" id="tgl_kirim_barang"
-                                                value="{{ old('tgl_kirim_barang') }}"
-                                                placeholder="{{ __('Tanggal Kirim Barang') }}">
-                                            @error('tgl_kirim_barang')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="col-xl-12">
-                                        <label for="note_kirim_barang"
-                                            class="form-label text-default">{{ __('Note Kirim Barang') }}</label>
-                                        <textarea class="form-control @error('note_kirim_barang') is-invalid @enderror" name="note_kirim_barang"
-                                            id="note_kirim_barang" value="{{ old('note_kirim_barang') }}" placeholder="{{ __('Note Kirim Barang') }}"
-                                            rows="4">
-                                        </textarea>
-                                        @error('note_kirim_barang')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-7">
-                            <div
-                                class="border shadow-none card custom-card border-dashed-primary">
-                                <div class="p-3 text-center card-body">
-                                    <a href="javascript:void(0);">
-                                        <div
-                                            class="justify-content-between">
-                                            <div
-                                                class="mb-2 file-format-icon">
-                                                <div class="text-center">
-                                                    <img src="{{ !empty($setting_system['company_logo']) ? url(config('common.path_storage') . $setting_system['company_logo']) : url(config('common.path_template') . config('common.logo_company_main')) }}"
-                                                        class="rounded img-fluid preview-path_image_barang"
-                                                        width="200"
-                                                        height="200">
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <span class="fw-semibold">
-                                                    {{ __('Foto / Image Barang (Emas)') }}
-                                                </span>
-                                                <span
-                                                    class="fs-10 d-block text-muted">
-                                                    (200 x 200)
-                                                </span>
-                                                <div class="mt-3">
-                                                    <input
-                                                        class="form-control"
-                                                        type="file"
-                                                        name="image_barang"
-                                                        onchange="preview('.preview-path_image_barang', this.files[0])">
-                                                    <input type="hidden"
-                                                        name="old_image_barang"
-                                                        value="{{ $setting_system['company_logo'] ?? '' }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="update">
-                        {{ __('Simpan') }}
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
     <div class="modal fade" id="viewDataModal" data-bs-backdrop="static" data-bs-keyboard="false"
         aria-labelledby="viewDataLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -298,7 +144,6 @@
             </div>
         </div>
     </div>
-    <!-- Modal - End -->
 @endsection
 
 <x-web-sweet-alert />

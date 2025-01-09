@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Nasabah;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class KreditNasabah extends Model
 {
@@ -32,4 +33,24 @@ class KreditNasabah extends Model
         'deleted_at',
         'restored_at',
     ];
+
+    public function nasabah()
+    {
+        return $this->belongsTo(Nasabah::class, 'id_brand', 'id');
+    }
+
+    public function scopePeriodeAktif($query)
+    {
+        return $query->where('tahun', activePeriod());
+    }
+
+    public function scopeLunas($query)
+    {
+        return $query->where('status_kredit', 'Lunas');
+    }
+
+    public function scopeBelumLunas($query)
+    {
+        return $query->where('status_kredit', 'Berjalan');
+    }
 }

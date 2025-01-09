@@ -11,8 +11,18 @@ class ViewKreditNasabah extends Model
 
     protected $table = 'view_kredit_nasabah';
 
-    public function scopePeriode($query)
+    public function scopePeriodeAktif($query)
     {
         return $query->where('tahun', activePeriod());
+    }
+
+    public function scopeLunas($query)
+    {
+        return $query->where('status_kredit', 'Lunas');
+    }
+
+    public function scopeBelumLunas($query)
+    {
+        return $query->where('status_kredit', 'Berjalan');
     }
 }
