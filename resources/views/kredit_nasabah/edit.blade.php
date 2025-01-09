@@ -180,7 +180,7 @@
                             </div>
 
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                                <h5>Detail Barang</h5>
+                                <h5>{{ __('Detail Barang') }}</h5>
                                 <x-web-alert-message />
                                 <table class="table table-hover table-striped" id="table">
                                     <thead>
