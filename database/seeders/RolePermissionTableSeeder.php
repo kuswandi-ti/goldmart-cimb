@@ -60,6 +60,7 @@ class RolePermissionTableSeeder extends Seeder
             'name' => 'Super Admin',
             'slug' => Str::slug('Super Admin'),
             'email' => 'kuswandi.ti@gmail.com',
+            'username' => 'superadmin',
             'email_verified_at' => saveDateTimeNow(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             // 'image' => config('common.no_image'),
@@ -76,6 +77,7 @@ class RolePermissionTableSeeder extends Seeder
             'name' => 'Rudi',
             'slug' => Str::slug('Rudi'),
             'email' => 'rudi@goldmart.co.id',
+            'username' => 'rudi',
             'email_verified_at' => saveDateTimeNow(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             // 'image' => config('common.no_image'),
@@ -92,6 +94,7 @@ class RolePermissionTableSeeder extends Seeder
             'name' => 'Awi',
             'slug' => Str::slug('Awi'),
             'email' => 'awi@goldmart.co.id',
+            'username' => 'awi',
             'email_verified_at' => saveDateTimeNow(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             // 'image' => config('common.no_image'),
@@ -108,6 +111,7 @@ class RolePermissionTableSeeder extends Seeder
             'name' => 'User',
             'slug' => Str::slug('User'),
             'email' => 'user@mail.com',
+            'username' => 'user',
             'email_verified_at' => saveDateTimeNow(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             // 'image' => config('common.no_image'),
