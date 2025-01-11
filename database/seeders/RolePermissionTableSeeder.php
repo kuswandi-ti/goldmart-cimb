@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Section;
-use App\Models\Department;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -45,6 +43,7 @@ class RolePermissionTableSeeder extends Seeder
             'guard_name' => 'web',
             'name' => $create_role_admin,
         ]);
+        $role_admin->givePermissionTo(Permission::all());
 
         $role_manajemen = Role::create([
             'guard_name' => 'web',
