@@ -53,7 +53,6 @@ class UserController extends Controller
             'approved' => 1,
             'approved_at' => saveDateTimeNow(),
             'approved_by' => auth()->user()->name,
-            'status' => 1,
             'created_by' => auth()->user()->name,
         ]);
 
@@ -115,7 +114,7 @@ class UserController extends Controller
     {
         try {
             $destroy = $user->update([
-                'status' => 0,
+                'status_aktif' => 0,
                 'deleted_at' => saveDateTimeNow(),
                 'deleted_by' => auth()->user()->name,
             ]);
@@ -134,7 +133,7 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return response([
                 'status' => 'error',
-                'message' => __('Data pengurus koperasi gagal dihapus')
+                'message' => __('Data user gagal dihapus')
             ]);
         }
     }
@@ -142,7 +141,7 @@ class UserController extends Controller
     public function restore(User $user)
     {
         $restore = $user->update([
-            'status' => 1,
+            'status_aktif' => 1,
             'restored_at' => saveDateTimeNow(),
             'restored_by' => auth()->user()->name,
         ]);
@@ -166,11 +165,11 @@ class UserController extends Controller
             ->editColumn('role', function ($query) {
                 return $query->getRoleNames()->first();
             })
-            ->editColumn('status', function ($query) {
-                return '<h6><span class="badge bg-' . setStatusBadge($query->status) . '">' . setStatusText($query->status) . '</span></h6>';
+            ->editColumn('status_aktif', function ($query) {
+                return '<h6><span class="badge bg-' . setStatusBadge($query->status_aktif) . '">' . setStatusText($query->status_aktif) . '</span></h6>';
             })
             ->addColumn('action', function ($query) {
-                if ($query->status == 1) {
+                if ($query->status_aktif == 1) {
                     if (canAccess(['user update'])) {
                         $update = '
                             <li>

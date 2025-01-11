@@ -44,7 +44,7 @@
                                     <th scope="col">{{ __('Nama') }}</th>
                                     <th scope="col">{{ __('Tgl Bergabung') }}</th>
                                     <th scope="col">{{ __('Role') }}</th>
-                                    <th scope="col" width="10%">{{ __('Status') }}</th>
+                                    <th scope="col" width="10%">{{ __('Status Aktif') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -98,7 +98,7 @@
                 searchable: true,
                 sortable: true,
             }, {
-                data: 'status',
+                data: 'status_aktif',
                 searchable: true,
                 sortable: true,
             }],

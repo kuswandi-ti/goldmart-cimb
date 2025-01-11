@@ -67,7 +67,6 @@ class RolePermissionTableSeeder extends Seeder
             'approved' => 1,
             'approved_at' => saveDateTimeNow(),
             'approved_by' => $default_user,
-            'status' => 1,
             'remember_token' => Str::random(10),
             'created_by' => $default_user,
         ]);
@@ -83,7 +82,6 @@ class RolePermissionTableSeeder extends Seeder
             'approved' => 1,
             'approved_at' => saveDateTimeNow(),
             'approved_by' => $default_user,
-            'status' => 1,
             'remember_token' => Str::random(10),
             'created_by' => $default_user,
         ]);
@@ -99,7 +97,6 @@ class RolePermissionTableSeeder extends Seeder
             'approved' => 1,
             'approved_at' => saveDateTimeNow(),
             'approved_by' => $default_user,
-            'status' => 1,
             'remember_token' => Str::random(10),
             'created_by' => $default_user,
         ]);
@@ -115,7 +112,6 @@ class RolePermissionTableSeeder extends Seeder
             'approved' => 1,
             'approved_at' => saveDateTimeNow(),
             'approved_by' => $default_user,
-            'status' => 1,
             'remember_token' => Str::random(10),
             'created_by' => $default_user,
         ]);

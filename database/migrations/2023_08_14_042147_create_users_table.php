@@ -24,7 +24,7 @@ return new class extends Migration
             $table->boolean('approved')->default(0)->comment('0 = Not Yet Approved, 1 = Approved, 2 = Rejected');
             $table->timestamp('approved_at')->nullable();
             $table->string('approved_by')->nullable();
-            $table->boolean('status')->default(0)->comment('1 = Active, 0 = Inactive');
+            $table->boolean('status_aktif')->default(1)->comment('1 = Active, 0 = Inactive');
             $table->rememberToken();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
