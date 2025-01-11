@@ -12,7 +12,7 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class MainDataSeeder extends Seeder
+class RolePermissionTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
