@@ -42,7 +42,8 @@
                                     class="form-control me-2 number-only default-number @error('tahun_periode_aktif') is-invalid @enderror"
                                     name="tahun_periode_aktif" id="tahun_periode_aktif"
                                     value="{{ old('tahun_periode_aktif') ?? (!empty(activePeriod()) ? activePeriod() : '0') }}"
-                                    placeholder="{{ __('Tahun Periode Aktif') }}" aria-describedby="basic-addon2" required>
+                                    placeholder="{{ __('Tahun Periode Aktif') }}" aria-describedby="basic-addon2"
+                                    size="4" required>
                                 <button class="btn btn-primary" type="submit">
                                     {{ __('Update') }}
                                 </button>
