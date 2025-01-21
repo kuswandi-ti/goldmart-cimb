@@ -83,7 +83,7 @@ class SettingController extends Controller
             );
         }
 
-        return redirect()->route('setting.index')->with('success', __('Pengaturan lainnya berhasil diperbarui'));
+        return redirect()->route('dashboard.index')->with('success', __('Pengaturan lainnya berhasil diperbarui'));
     }
 
     public function transactionSettingUpdate(SettingTransactionUpdateRequest $request)
