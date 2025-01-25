@@ -13,8 +13,6 @@
 @endsection
 
 @section('page_content')
-    <x-web-alert-message />
-
     <div class="row">
         <div class="col-xl-12">
             <div class="row row-cols-xxl-5 row-cols-xl-3 row-cols-md-2">
@@ -139,6 +137,8 @@
         </div>
     </div>
 @endsection
+
+<x-web-sweet-alert />
 
 @push('scripts_vendor')
     <script src="{{ asset(config('common.path_template') . 'assets/libs/highcharts/highcharts.js') }}"></script>

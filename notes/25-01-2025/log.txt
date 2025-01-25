@@ -28,6 +28,7 @@ GDS, per 25 Januari 2025
     -   resources\views\role\ (semua file)
     -   resources\views\setting\ (semua file)
     -   resources\views\user\ (semua file)
+    -   resources\views\dashboard\ (semua file)
 
 3.  Database
     - Buat database baru khusus untuk GDS
