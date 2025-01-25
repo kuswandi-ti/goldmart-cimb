@@ -10,7 +10,8 @@
 
 @section('section_header_breadcrumb')
     @parent
-    <li class="breadcrumb-item active" aria-current="page">{{ __('Pengaturan Sistem') }}</li>
+    {{-- <li class="breadcrumb-item active" aria-current="page">{{ __('Pengaturan Sistem') }}</li> --}}
+    <x-breadcrumb-active title="{{ __('Pengaturan Sistem') }}" />
 @endsection
 
 @section('page_content')
@@ -159,7 +160,7 @@
                                                                 </div>
                                                             </div>
                                                         </li>
-                                                        <li class="list-group-item">
+                                                        {{-- <li class="list-group-item">
                                                             <div
                                                                 class="row gy-2 d-sm-flex align-items-center justify-content-between">
                                                                 <div class="col-xl-3">
@@ -292,7 +293,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </li>
+                                                        </li> --}}
                                                     </ul>
                                                     @can('setting info perusahaan')
                                                         <div class="gap-2 d-grid">

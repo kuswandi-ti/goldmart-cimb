@@ -10,7 +10,8 @@
 
 @section('section_header_breadcrumb')
     @parent
-    <li class="breadcrumb-item active" aria-current="page">{{ __('Daftar Data Kredit Nasabah') }}</li>
+    {{-- <li class="breadcrumb-item active" aria-current="page">{{ __('Daftar Data Kredit Nasabah') }}</li> --}}
+    <x-breadcrumb-active title="{{ __('Daftar Data Kredit Nasabah') }}" />
 @endsection
 
 @section('page_content')

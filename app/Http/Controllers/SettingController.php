@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\SettingSystem;
 use App\Traits\FileUploadTrait;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SettingEmailUpdateRequest;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\SettingFeeUpdateRequest;
+use App\Http\Requests\SettingEmailUpdateRequest;
 use App\Http\Requests\SettingOtherUpdateRequest;
 use App\Http\Requests\SettingGeneralUpdateRequest;
 use App\Http\Requests\SettingTransactionUpdateRequest;
@@ -83,7 +85,8 @@ class SettingController extends Controller
             );
         }
 
-        return redirect()->route('dashboard.index')->with('success', __('Pengaturan lainnya berhasil diperbarui'));
+        // return redirect()->route('dashboard.index')->with('success', __('Pengaturan lainnya berhasil diperbarui'));
+        return redirect()->back()->with('success', __('Pengaturan berhasil diperbarui'));
     }
 
     public function transactionSettingUpdate(SettingTransactionUpdateRequest $request)

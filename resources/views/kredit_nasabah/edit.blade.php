@@ -10,12 +10,14 @@
 
 @section('section_header_breadcrumb')
     @parent
-    <li class="breadcrumb-item">
+    {{-- <li class="breadcrumb-item">
         <a href="{{ route('kreditnasabah.index') }}" class="text-white-50">
             {{ __('Kredit Nasabah') }}
         </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">{{ __('Memperbarui Data Kredit Nasabah') }}</li>
+    <li class="breadcrumb-item active" aria-current="page">{{ __('Memperbarui Data Kredit Nasabah') }}</li> --}}
+    <x-breadcrumb-item url="{{ route('kreditnasabah.index') }}" title="{{ __('Kredit Nasabah') }}" />
+    <x-breadcrumb-active title="{{ __('Memperbarui Data Kredit Nasabah') }}" />
 @endsection
 
 @section('page_content')

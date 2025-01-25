@@ -10,12 +10,14 @@
 
 @section('section_header_breadcrumb')
     @parent
-    <li class="breadcrumb-item">
+    {{-- <li class="breadcrumb-item">
         <a href="{{ route('nasabah.index') }}" class="text-white-50">
             {{ __('Nasabah') }}
         </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">{{ __('Memperbarui Data Nasabah') }}</li>
+    <li class="breadcrumb-item active" aria-current="page">{{ __('Memperbarui Data Nasabah') }}</li> --}}
+    <x-breadcrumb-item url="{{ route('nasabah.index') }}" title="{{ __('Nasabah') }}" />
+    <x-breadcrumb-active title="{{ __('Memperbarui Data Nasabah') }}" />
 @endsection
 
 @section('page_content')
