@@ -30,4 +30,5 @@ GDS, per 25 Januari 2025
     -   resources\views\user\ (semua file)
 
 3.  Database
-
+    - Buat database baru khusus untuk GDS
+    - Update file .env, sesuaikan nama databasenya
