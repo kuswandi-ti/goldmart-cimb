@@ -15,9 +15,9 @@
                 alt="logo" class="desktop-logo" width="125" height="33">
             <img src="{{ !empty(url(config('common.path_template') . 'assets/images/logo-toggle.png')) ? url(config('common.path_template') . 'assets/images/logo-toggle.png') : url(config('common.path_template') . config('common.logo_company_toggle')) }}"
                 alt="logo" class="toggle-logo" width="38" height="33">
-            <img src="{{ !empty(url(config('common.path_template') . 'assets/images/logo-desktop.png')) ? url(config('common.path_template') . 'assets/images/logo-toggle.png') : url(config('common.path_template') . config('common.logo_company_desktop')) }}"
+            <img src="{{ !empty(url(config('common.path_template') . 'assets/images/logo-desktop.png')) ? url(config('common.path_template') . 'assets/images/logo-desktop.png') : url(config('common.path_template') . config('common.logo_company_desktop')) }}"
                 alt="logo" class="desktop-dark" width="125" height="33">
-            <img src="{{ !empty(url(config('common.path_template') . 'assets/images/logo-toggle.png')) ? url(config('common.path_template') . 'assets/images/logo-desktop.jpg') : url(config('common.path_template') . config('common.logo_company_toggle')) }}"
+            <img src="{{ !empty(url(config('common.path_template') . 'assets/images/logo-toggle.png')) ? url(config('common.path_template') . 'assets/images/logo-toggle.png') : url(config('common.path_template') . config('common.logo_company_toggle')) }}"
                 alt="logo" class="toggle-dark" width="38" height="33">
         </a>
     </div>
