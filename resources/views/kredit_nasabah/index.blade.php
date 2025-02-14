@@ -1,17 +1,17 @@
 @extends('layouts.master')
 
 @section('page_title')
-    {{ __('Kredit Nasabah') }}
+    {{ __('Outstanding & Jaminan') }}
 @endsection
 
 @section('section_header_title')
-    {{ __('Kredit Nasabah') }}
+    {{ __('Outstanding & Jaminan') }}
 @endsection
 
 @section('section_header_breadcrumb')
     @parent
     {{-- <li class="breadcrumb-item active" aria-current="page">{{ __('Daftar Data Kredit Nasabah') }}</li> --}}
-    <x-breadcrumb-active title="{{ __('Daftar Data Kredit Nasabah') }}" />
+    <x-breadcrumb-active title="{!! __('Daftar Data Outstanding & Jaminan') !!}" />
 @endsection
 
 @section('page_content')
@@ -21,9 +21,9 @@
                 <div class="flex-wrap card-header d-flex align-items-center flex-xxl-nowrap">
                     <div class="flex-fill">
                         <div class="card-title">
-                            {{ __('Daftar Data Kredit Nasabah') }}
+                            {{ __('Daftar Data Outstanding & Jaminan') }}
                             <p class="subtitle text-muted fs-12 fw-normal">
-                                {{ __('Menampilkan semua data kredit nasabah') }}
+                                {{ __('Menampilkan semua data Outstanding & Jaminan') }}
                             </p>
                         </div>
                     </div>
@@ -54,18 +54,18 @@
                                 <table class="table table-striped" id="table_data">
                                     <thead>
                                         <tr>
-                                            <th scope="col" width="5%">{{ __('Nomor') }}</th>
+                                            <th scope="col" width="5%">{{ __('No.') }}</th>
                                             <th scope="col" width="12%">{{ __('Aksi') }}</th>
                                             <th scope="col" width="10%">{{ __('Status Kredit') }}</th>
                                             <th scope="col" width="10%">{{ __('Status Kirim Barang') }}</th>
                                             <th scope="col">{{ __('Nama Nasabah') }}</th>
                                             <th scope="col">{{ __('Alamat Nasabah') }}</th>
                                             <th scope="col">{{ __('Telp. Nasabah') }}</th>
-                                            <th scope="col">{{ __('Rekening Pencairan') }}</th>
-                                            <th scope="col">{{ __('Nama Barang') }}</th>
+                                            {{-- <th scope="col">{{ __('Rekening Pencairan') }}</th> --}}
+                                            {{-- <th scope="col">{{ __('Nama Barang') }}</th> --}}
                                             <th scope="col">{{ __('Jumlah Barang') }}</th>
                                             <th scope="col">{{ __('Total Nilai Kredit') }}</th>
-                                            <th scope="col">{{ __('Margin Keuntungan') }}</th>
+                                            {{-- <th scope="col">{{ __('Margin Keuntungan') }}</th> --}}
                                             <th scope="col">{{ __('Angsuran') }}</th>
                                             <th scope="col">{{ __('Tenor') }}</th>
                                             <th scope="col">{{ __('Tgl Pencairan') }}</th>
@@ -83,7 +83,7 @@
                                 <table class="table table-striped" id="table_data_lunas">
                                     <thead>
                                         <tr>
-                                            <th scope="col" width="5%">{{ __('Nomor') }}</th>
+                                            <th scope="col" width="5%">{{ __('No.') }}</th>
                                             <th scope="col" width="12%">{{ __('Aksi') }}</th>
                                             <th scope="col" width="10%">{{ __('Status Kredit') }}</th>
                                             <th scope="col" width="10%">{{ __('Status Kirim Barang') }}</th>
@@ -128,9 +128,9 @@
                             <table class="table table-hover table-striped" id="table">
                                 <thead>
                                     <tr>
-                                        <th width="15%" class="text-center">No.</th>
-                                        <th width="55%">No. Seri</th>
-                                        <th width="30%" class="text-end">Gramasi</th>
+                                        <th width="15%" class="text-center">{{ __('No.') }}</th>
+                                        <th width="55%">{{ __('No. Seri') }}</th>
+                                        <th width="30%" class="text-end">{{ __('Gramasi') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -171,79 +171,86 @@
                 url: '{{ route('kreditnasabah.data') }}',
             },
             columns: [{
-                data: 'DT_RowIndex',
-                searchable: false,
-                sortable: false,
-            }, {
-                data: 'action',
-                searchable: false,
-                sortable: false,
-            }, {
-                data: 'status_kredit',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'status_kirim_barang',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'nama_nasabah',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'alamat_nasabah',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'no_tlp',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'rekening_pencairan',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'nama_barang',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'qty',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'total_nilai_kredit',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'margin_keuntungan',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'angsuran',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'tenor',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'tgl_pencairan',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'tgl_lunas',
-                searchable: true,
-                sortable: true,
-            }, {
-                data: 'tgl_kirim_barang',
-                searchable: true,
-                sortable: true,
-            }],
+                    data: 'DT_RowIndex',
+                    searchable: false,
+                    sortable: false,
+                }, {
+                    data: 'action',
+                    searchable: false,
+                    sortable: false,
+                }, {
+                    data: 'status_kredit',
+                    searchable: true,
+                    sortable: true,
+                }, {
+                    data: 'status_kirim_barang',
+                    searchable: true,
+                    sortable: true,
+                }, {
+                    data: 'nama_nasabah',
+                    searchable: true,
+                    sortable: true,
+                }, {
+                    data: 'alamat_nasabah',
+                    searchable: true,
+                    sortable: true,
+                }, {
+                    data: 'no_tlp',
+                    searchable: true,
+                    sortable: true,
+                },
+                // {
+                //     data: 'rekening_pencairan',
+                //     searchable: true,
+                //     sortable: true,
+                // },
+                // {
+                //     data: 'nama_barang',
+                //     searchable: true,
+                //     sortable: true,
+                // },
+                {
+                    data: 'qty',
+                    searchable: true,
+                    sortable: true,
+                }, {
+                    data: 'total_nilai_kredit',
+                    searchable: true,
+                    sortable: true,
+                },
+                // {
+                //     data: 'margin_keuntungan',
+                //     searchable: true,
+                //     sortable: true,
+                // },
+                {
+                    data: 'angsuran',
+                    searchable: true,
+                    sortable: true,
+                }, {
+                    data: 'tenor',
+                    searchable: true,
+                    sortable: true,
+                }, {
+                    data: 'tgl_pencairan',
+                    searchable: true,
+                    sortable: true,
+                }, {
+                    data: 'tgl_lunas',
+                    searchable: true,
+                    sortable: true,
+                }, {
+                    data: 'tgl_kirim_barang',
+                    searchable: true,
+                    sortable: true,
+                }
+            ],
             "columnDefs": [{
                 "render": function(data, type, row) {
                     return formatAmount(data);
                 },
-                "targets": [10, 11, 12]
+                // "targets": [10, 11, 12]
+                "targets": [8, 9]
             }, ]
         });
 
@@ -372,16 +379,16 @@
                 success: function(response) {
                     $('#viewDataLabel').html("Detail Data Barang");
 
-                    // console.log(response);
-
                     var $tableBody = $('#table tbody');
                     var no = 1;
+                    var total = 0;
 
                     $tableBody.empty();
 
                     if (response.length > 0) {
                         $.each(response, function(index, rowData) {
                             var $newRow = $('<tr>');
+                            total = total + Number(rowData.gramasi);
                             $newRow.append('<td align="center">' + no + '</td>');
                             $newRow.append('<td>' + rowData.no_seri + '</td>');
                             $newRow.append('<td align="right">' + formatAmount(rowData
@@ -390,6 +397,10 @@
 
                             no++;
                         });
+                        var $newRow = $('<tr>');
+                        $newRow.append('<td colspan="2"><b>Total</b></td>');
+                        $newRow.append('<td align="right"><b>' + formatAmount(total) + '</b></td>');
+                        $tableBody.append($newRow);
                     } else {
                         var $newRow = $('<tr>');
                         $newRow.append('<td colspan="3" align="center">Tidak ada data</td>');

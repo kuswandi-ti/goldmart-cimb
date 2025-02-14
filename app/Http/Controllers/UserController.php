@@ -47,6 +47,7 @@ class UserController extends Controller
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'email' => $request->email,
+            'username' => $request->email,
             'password' => bcrypt($request->password),
             'join_date' => $request->join_date,
             'email_verified_at' => saveDateTimeNow(),
@@ -94,6 +95,7 @@ class UserController extends Controller
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'email' => $request->email,
+            'username' => $request->email,
             'join_date' => $request->join_date,
             'updated_by' => auth()->user()->name,
         ]);

@@ -24,14 +24,14 @@
                     <span class="badge bg-danger pulse pulse-secondary"><strong>{{ activePeriod() }}</strong></span>
                 </a>
             </div> --}}
-            <a aria-label="anchor" href="javascript:void(0);" class="header-link dropdown-toggle"
+            {{-- <a aria-label="anchor" href="javascript:void(0);" class="header-link dropdown-toggle"
                 data-bs-toggle="dropdown" data-bs-auto-close="outside">
                 <span class="text-dark">{{ __('Periode Aktif') }}</span>
                 <span class="text-dark">&nbsp; : &nbsp;</span>
                 <span class="badge bg-danger pulse pulse-secondary"><strong>{{ activePeriod() }}</strong></span>
-            </a>
+            </a> --}}
             <!-- End::header-link|dropdown-toggle -->
-            @can('setting lainnya')
+            {{-- @can('setting lainnya')
                 <form method="POST" action="{{ route('other_setting.update') }}">
                     @csrf
                     @method('PUT')
@@ -57,7 +57,7 @@
                         </li>
                     </ul>
                 </form>
-            @endcan
+            @endcan --}}
         </div>
         <!-- End::header-content-left -->
 

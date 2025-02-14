@@ -33,7 +33,7 @@
                         <table class="table table-striped" id="table_data">
                             <thead>
                                 <tr>
-                                    <th scope="col" width="5%">{{ __('Nomor') }}</th>
+                                    <th scope="col" width="5%">{{ __('No.') }}</th>
                                     <th scope="col" width="12%">{{ __('Aksi') }}</th>
                                     <th scope="col">{{ __('Kode Nasabah') }}</th>
                                     <th scope="col">{{ __('Nama Nasabah') }}</th>

@@ -1,17 +1,17 @@
 @extends('layouts.master')
 
 @section('page_title')
-    {{ __('Detail Data Kredit Nasabah') }}
+    {{ __('Detail Data Outstanding & Jaminan') }}
 @endsection
 
 @section('section_header_title')
-    {{ __('Detail Data Kredit Nasabah') }}
+    {{ __('Detail Data Outstanding & Jaminan') }}
 @endsection
 
 @section('section_header_breadcrumb')
     @parent
     {{-- <li class="breadcrumb-item active" aria-current="page">{{ __('Daftar Detail Data Kredit Nasabah') }}</li> --}}
-    <x-breadcrumb-active title="{{ __('Daftar Detail Data Kredit Nasabah') }}" />
+    <x-breadcrumb-active title="{{ __('Daftar Detail Data Outstanding & Jaminan') }}" />
 @endsection
 
 @section('page_content')
@@ -21,9 +21,9 @@
                 <div class="flex-wrap card-header d-flex align-items-center flex-xxl-nowrap">
                     <div class="flex-fill">
                         <div class="card-title">
-                            {{ __('Daftar Detail Data Kredit Nasabah') }} - {{ $text }}
+                            {{ __('Daftar Detail Data Outstanding & Jaminan') }} - {{ $text }}
                             <p class="subtitle text-muted fs-12 fw-normal">
-                                {{ __('Menampilkan semua detail data kredit nasabah') }} - {{ $text }}
+                                {{ __('Menampilkan semua detail data Outstanding & Jaminan') }} - {{ $text }}
                             </p>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                         <table class="table table-striped" id="table_data">
                             <thead>
                                 <tr>
-                                    <th scope="col" width="5%">{{ __('Nomor') }}</th>
+                                    <th scope="col" width="5%">{{ __('No.') }}</th>
                                     <th scope="col">{{ __('Nama Nasabah') }}</th>
                                     <th scope="col">{{ __('Nama Barang') }}</th>
                                     <th scope="col">{{ __('Jumlah Barang') }}</th>

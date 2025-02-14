@@ -131,7 +131,9 @@ class KreditNasabahController extends Controller
 
     public function data(Request $request)
     {
-        $query = ViewKreditNasabah::periodeaktif()->belumlunas();
+        // $query = ViewKreditNasabah::periodeaktif()->belumlunas();
+
+        $query = ViewKreditNasabah::belumlunas();
 
         // $query = KreditNasabah::select('kredit_nasabah.id AS id, kredit_nasabah.status_kredit AS status_kredit', 'kredit_nasabah.status_kirim_barang AS status_kirim_barang',
         //         'nasabah.nama AS nama_nasabah', 'nasabah.alamat AS alamat_nasabah', 'nasabah.no_tlp AS no_tlp',
@@ -198,7 +200,9 @@ class KreditNasabahController extends Controller
 
     public function dataLunas(Request $request)
     {
-        $query = ViewKreditNasabah::periodeaktif()->lunas();
+        // $query = ViewKreditNasabah::periodeaktif()->lunas();
+
+        $query = ViewKreditNasabah::lunas();
 
         return datatables($query)
             ->addIndexColumn()
@@ -250,21 +254,41 @@ class KreditNasabahController extends Controller
 
     public function detailData($filter)
     {
+        // switch ($filter) {
+        //     case 'nasabah':
+        //         $query = ViewKreditNasabah::periodeaktif()->orderBy('tgl_incoming', 'DESC');
+        //         break;
+        //     case 'kredit':
+        //         $query = ViewKreditNasabah::periodeaktif()->orderBy('tgl_incoming', 'DESC');
+        //         break;
+        //     case 'keuntungan':
+        //         $query = ViewKreditNasabah::periodeaktif()->orderBy('tgl_incoming', 'DESC');
+        //         break;
+        //     case 'sudah-lunas':
+        //         $query = ViewKreditNasabah::periodeaktif()->lunas()->orderBy('tgl_incoming', 'DESC');
+        //         break;
+        //     case 'belum-lunas':
+        //         $query = ViewKreditNasabah::periodeaktif()->belumlunas()->orderBy('tgl_incoming', 'DESC');
+        //         break;
+        //     default:
+        //         $query = "";
+        // }
+
         switch ($filter) {
             case 'nasabah':
-                $query = ViewKreditNasabah::periodeaktif()->orderBy('tgl_incoming', 'DESC');
+                $query = ViewKreditNasabah::orderBy('tgl_incoming', 'DESC');
                 break;
             case 'kredit':
-                $query = ViewKreditNasabah::periodeaktif()->orderBy('tgl_incoming', 'DESC');
+                $query = ViewKreditNasabah::orderBy('tgl_incoming', 'DESC');
                 break;
             case 'keuntungan':
-                $query = ViewKreditNasabah::periodeaktif()->orderBy('tgl_incoming', 'DESC');
+                $query = ViewKreditNasabah::orderBy('tgl_incoming', 'DESC');
                 break;
             case 'sudah-lunas':
-                $query = ViewKreditNasabah::periodeaktif()->lunas()->orderBy('tgl_incoming', 'DESC');
+                $query = ViewKreditNasabah::lunas()->orderBy('tgl_incoming', 'DESC');
                 break;
             case 'belum-lunas':
-                $query = ViewKreditNasabah::periodeaktif()->belumlunas()->orderBy('tgl_incoming', 'DESC');
+                $query = ViewKreditNasabah::belumlunas()->orderBy('tgl_incoming', 'DESC');
                 break;
             default:
                 $query = "";

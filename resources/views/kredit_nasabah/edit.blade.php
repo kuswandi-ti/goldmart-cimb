@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('page_title')
-    {{ __('Kredit Nasabah') }}
+    {{ __('Outstanding & Jaminan') }}
 @endsection
 
 @section('section_header_title')
-    {{ __('Kredit Nasabah') }}
+    {{ __('Outstanding & Jaminan') }}
 @endsection
 
 @section('section_header_breadcrumb')
@@ -16,8 +16,8 @@
         </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">{{ __('Memperbarui Data Kredit Nasabah') }}</li> --}}
-    <x-breadcrumb-item url="{{ route('kreditnasabah.index') }}" title="{{ __('Kredit Nasabah') }}" />
-    <x-breadcrumb-active title="{{ __('Memperbarui Data Kredit Nasabah') }}" />
+    <x-breadcrumb-item url="{{ route('kreditnasabah.index') }}" title="{{ __('Outstanding & Jaminan') }}" />
+    <x-breadcrumb-active title="{!! __('Memperbarui Data Outstanding & Jaminan') !!}" />
 @endsection
 
 @section('page_content')
@@ -31,9 +31,9 @@
                     <div class="flex-wrap card-header d-flex align-items-center flex-xxl-nowrap">
                         <div class="flex-fill">
                             <div class="card-title">
-                                {{ __('Memperbarui Data Kredit Nasabah') }}
+                                {{ __('Memperbarui Data Outstanding & Jaminan') }}
                                 <p class="subtitle text-muted fs-12 fw-normal">
-                                    {{ __('Silahkan input data untuk proses memperbarui data kredit nasabah') }}
+                                    {{ __('Silahkan input data untuk proses memperbarui data Outstanding & Jaminan') }}
                                 </p>
                             </div>
                         </div>

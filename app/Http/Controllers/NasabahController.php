@@ -85,7 +85,9 @@ class NasabahController extends Controller
 
     public function data(Request $request)
     {
-        $query = Nasabah::orderBy('nama', 'DESC');
+        // $query = Nasabah::orderBy('nama', 'DESC');
+
+        $query = Nasabah::where('id', '<>', 0);
 
         return datatables($query)
             ->addIndexColumn()

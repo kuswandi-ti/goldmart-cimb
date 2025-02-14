@@ -28,13 +28,13 @@
                                 {{ __('Informasi Perusahaan') }}
                             </a>
                         @endcan
-                        @can('setting lainnya')
+                        {{-- @can('setting lainnya')
                             <a class="mt-3 nav-link" data-bs-toggle="tab" role="tab" aria-current="page" href="#tab3"
                                 aria-selected="false" tabindex="-1">
                                 <i class="align-middle bx bx-cog me-2 fs-18"></i>
                                 {{ __('Lainnya') }}
                             </a>
-                        @endcan
+                        @endcan --}}
                     </nav>
                 </div>
                 <div class="col-xl-9 col-lg-8">

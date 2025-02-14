@@ -85,7 +85,7 @@
                             <span class="side-menu__icon">
                                 <i class='bx bxs-credit-card'></i>
                             </span>
-                            <span class="side-menu__label">{{ __('Kredit Nasabah') }}</span>
+                            <span class="side-menu__label">{{ __('Outstanding & Jaminan') }}</span>
                         </a>
                     </li>
                 @endif

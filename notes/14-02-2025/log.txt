@@ -1,0 +1,18 @@
+GDS, per 14 Februari 2025
+=============================
+1.  Request Update
+    -   https://docs.google.com/document/d/12r8o4WlNNmfk4850wQGk_WtHT3cmg8rWp2ErggsxE0U/edit?tab=t.0
+
+2.  File Update
+    -   app\Http\Controllers\DashboardController.php
+    -   app\Http\Controllers\KreditNasabahController.php
+    -   app\Http\Controllers\NasabahController.php
+    -   app\Http\Controllers\UserController.php
+    -   resources\views\dashboard\index.blade.php
+    -   resources\views\kredit_nasabah\ (semua file)
+    -   resources\views\layouts\partials\_header.blade.php
+    -   resources\views\layouts\partials\_sidebar.blade.php
+    -   resources\views\nasabah\index.blade.php
+    -   resources\views\setting\index.blade.php
+
+3.  Database

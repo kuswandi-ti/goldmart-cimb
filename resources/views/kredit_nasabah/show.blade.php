@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('page_title')
-    {{ __('Kredit Nasabah') }}
+    {{ __('Outstanding & Jaminan') }}
 @endsection
 
 @section('section_header_title')
-    {{ __('Kredit Nasabah') }}
+    {{ __('Outstanding & Jaminan') }}
 @endsection
 
 @section('section_header_breadcrumb')
@@ -16,8 +16,8 @@
         </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">{{ __('Lihat Data Kredit Nasabah') }}</li> --}}
-    <x-breadcrumb-item url="{{ route('kreditnasabah.index') }}" title="{{ __('Kredit Nasabah') }}" />
-    <x-breadcrumb-active title="{{ __('Lihat Data Kredit Nasabah') }}" />
+    <x-breadcrumb-item url="{{ route('kreditnasabah.index') }}" title="{{ __('Outstanding & Jaminan') }}" />
+    <x-breadcrumb-active title="{!! __('Lihat Data Outstanding & Jaminan') !!}" />
 @endsection
 
 @section('page_content')
@@ -27,9 +27,9 @@
                 <div class="flex-wrap card-header d-flex align-items-center flex-xxl-nowrap">
                     <div class="flex-fill">
                         <div class="card-title">
-                            {{ __('Lihat Data Kredit Nasabah') }}
+                            {{ __('Lihat Data Outstanding & Jaminan') }}
                             <p class="subtitle text-muted fs-12 fw-normal">
-                                {{ __('Silahkan lihat data kredit nasabah') }}
+                                {{ __('Silahkan lihat data Outstanding & Jaminan') }}
                             </p>
                         </div>
                     </div>
@@ -180,14 +180,17 @@
                                     @forelse ($kredit_detail as $kredit_details)
                                         <tr>
                                             <td align="center">
-                                                <input class="form-control form-control-sm" name="id_detail[]" type="hidden" value="{{ $kredit_details->id }}" disabled>
+                                                <input class="form-control form-control-sm" name="id_detail[]"
+                                                    type="hidden" value="{{ $kredit_details->id }}" disabled>
                                                 {{ $loop->iteration }}
                                             </td>
                                             <td>
-                                                <input class="form-control form-control-sm" name="no_seri[]" type="text" value="{{ $kredit_details->no_seri }}" disabled>
+                                                <input class="form-control form-control-sm" name="no_seri[]"
+                                                    type="text" value="{{ $kredit_details->no_seri }}" disabled>
                                             </td>
                                             <td align="right">
-                                                <input class="form-control form-control-sm" name="gramasi[]" type="text" value="{{ $kredit_details->gramasi }}" disabled>
+                                                <input class="form-control form-control-sm" name="gramasi[]"
+                                                    type="text" value="{{ $kredit_details->gramasi }}" disabled>
                                             </td>
                                         </tr>
                                     @empty
