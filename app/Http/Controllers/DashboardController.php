@@ -40,18 +40,19 @@ class DashboardController extends Controller
         $total_nilai_kredit = DB::table('kredit_nasabah')
             ->select(DB::raw('SUM(total_nilai_kredit) AS total_nilai_kredit'))
             ->first();
-        /* Widget 2 - End */
-
-        /* Widget 3 - Start */
         $total_gramasi = DB::table('kredit_detail')
             ->select(DB::raw('SUM(gramasi) AS total_gramasi'))
             ->first();
         $total_kepingan = DB::table('kredit_nasabah')
             ->select(DB::raw('SUM(qty) AS total_kepingan'))
             ->first();
-        /* Widget 3 - End */
+        /* Widget 2 - End */
 
-        /* Widget 4 - Start */
+        /* Widget 3 - Start */
+        $total_sudah_lunas = DB::table('kredit_nasabah')
+            ->select(DB::raw('SUM(total_nilai_kredit) AS total_sudah_lunas'))
+            ->where('status_kredit', '=', 'Lunas')
+            ->first();
         $total_gramasi_sudah_pelunasan = DB::table('kredit_detail')
             ->select(DB::raw('SUM(gramasi) AS total_gramasi_sudah_pelunasan'))
             ->leftJoin('kredit_nasabah', 'kredit_detail.id_kredit_nasabah', '=', 'kredit_nasabah.id')
@@ -61,9 +62,13 @@ class DashboardController extends Controller
             ->select(DB::raw('SUM(qty) AS total_kepingan_sudah_pelunasan'))
             ->where('status_kredit', 'Lunas')
             ->first();
-        /* Widget 4 - End */
+        /* Widget 3 - End */
 
-        /* Widget 5 - Start */
+        /* Widget 4 - Start */
+        $total_belum_lunas = DB::table('kredit_nasabah')
+            ->select(DB::raw('SUM(total_nilai_kredit) AS total_belum_lunas'))
+            ->where('status_kredit', '=', 'Berjalan')
+            ->first();
         $total_gramasi_belum_pelunasan = DB::table('kredit_detail')
             ->select(DB::raw('SUM(gramasi) AS total_gramasi_belum_pelunasan'))
             ->leftJoin(
@@ -78,9 +83,7 @@ class DashboardController extends Controller
             ->select(DB::raw('SUM(qty) AS total_kepingan_belum_pelunasan'))
             ->where('status_kredit', 'Berjalan')
             ->first();
-        /* Widget 5 - End */
-
-
+        /* Widget 4 - End */
 
         // $total_margin_keuntungan = DB::table('kredit_nasabah')
         //     ->select(DB::raw('SUM(margin_keuntungan) AS total_margin_keuntungan'))
@@ -154,8 +157,10 @@ class DashboardController extends Controller
                 'total_nilai_kredit',
                 'total_gramasi',
                 'total_kepingan',
+                'total_sudah_lunas',
                 'total_gramasi_sudah_pelunasan',
                 'total_kepingan_sudah_pelunasan',
+                'total_belum_lunas',
                 'total_gramasi_belum_pelunasan',
                 'total_kepingan_belum_pelunasan',
                 // 'total_margin_keuntungan',

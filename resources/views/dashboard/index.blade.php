@@ -14,9 +14,167 @@
 
 @section('page_content')
     <div class="row">
+        <div class="col-xxl-3 col-xl-3 col-md-12">
+            <div class="col card-background">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div>
+                                <p class="mb-1 fw-medium text-muted">{{ __('Total Nasabah (orang)') }}</p>
+                                <h4 class="mb-0">{{ $total_nasabah->total_nasabah }}</h4>
+                            </div>
+                            <div class="avatar avatar-md br-4 bg-primary-transparent ms-auto">
+                                <i class='bx bxs-user-circle fs-20'></i>
+                            </div>
+                        </div>
+                        <div class="mt-2 d-flex">
+                            <p class="h6 badge bg-primary-transparent rounded-pill">{{ __('Belum Pelunasan : ') }}</p>
+                            <h4 class="h6 badge bg-primary-transparent rounded-pill">
+                                {{ $total_nasabah_belum_pelunasan->total_nasabah_belum_pelunasan }}
+                            </h4>
+                            <a href="{{ route('kreditnasabah.index') }}"
+                                class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
+                            </a>
+                        </div>
+                        <div class="mt-2 d-flex">
+                            <p class="h6 badge bg-primary-transparent rounded-pill">{{ __('Sudah Pelunasan : ') }}</p>
+                            <h4 class="h6 badge bg-primary-transparent rounded-pill">
+                                {{ $total_nasabah_sudah_pelunasan->total_nasabah_sudah_pelunasan }}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xxl-3 col-xl-3 col-md-12">
+            <div class="col card-background">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div>
+                                <p class="mb-1 fw-medium text-muted">{{ __('Total Nilai Kredit (Rp.)') }}</p>
+                                <h4 class="mb-0">{{ formatAmount($total_nilai_kredit->total_nilai_kredit) }}</h4>
+                            </div>
+                            <div class="avatar avatar-md br-4 bg-secondary-transparent ms-auto">
+                                <i class='bx bx-credit-card fs-20'></i>
+                            </div>
+                        </div>
+                        <div class="mt-2 d-flex">
+                            <p class="h6 badge bg-secondary-transparent rounded-pill">{{ __('Total Gramasi : ') }}
+                            </p>
+                            <h4 class="h6 badge bg-secondary-transparent rounded-pill">
+                                {{ formatAmount($total_gramasi->total_gramasi, 2) }}
+                            </h4>
+                            <a href="kreditnasabah/detail/kredit"
+                                class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
+                            </a>
+                        </div>
+                        <div class="mt-2 d-flex">
+                            <p class="h6 badge bg-secondary-transparent rounded-pill">{{ __('Total Kepingan : ') }}
+                            </p>
+                            <h4 class="h6 badge bg-secondary-transparent rounded-pill">
+                                {{ formatAmount($total_kepingan->total_kepingan) }}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xxl-3 col-xl-3 col-md-12">
+            <div class="col card-background">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div>
+                                <p class="mb-1 fw-medium text-muted">{{ __('Sudah Pelunasan (Rp.)') }}</p>
+                                <h4 class="mb-0">{{ formatAmount($total_sudah_lunas->total_sudah_lunas) }}</h4>
+                            </div>
+                            <div class="avatar avatar-md br-4 bg-info-transparent ms-auto">
+                                <i class="bi bi-currency-dollar fs-20"></i>
+                            </div>
+                        </div>
+                        <div class="mt-2 d-flex">
+                            <p class="h6 badge bg-info-transparent rounded-pill">{{ __('Total Gramasi : ') }}
+                            </p>
+                            <h4 class="h6 badge bg-info-transparent rounded-pill">
+                                {{ formatAmount($total_gramasi_sudah_pelunasan->total_gramasi_sudah_pelunasan, 2) }}
+                            </h4>
+                            <a href="kreditnasabah/detail/sudah-lunas"
+                                class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
+                            </a>
+                        </div>
+                        <div class="mt-2 d-flex">
+                            <p class="h6 badge bg-info-transparent rounded-pill">{{ __('Total Kepingan : ') }}
+                            </p>
+                            <h4 class="h6 badge bg-info-transparent rounded-pill">
+                                {{ formatAmount($total_kepingan_sudah_pelunasan->total_kepingan_sudah_pelunasan) }}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xxl-3 col-xl-3 col-md-12">
+            <div class="col card-background">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div>
+                                <p class="mb-1 fw-medium text-muted">{{ __('Belum Pelunasan (Rp.)') }}</p>
+                                <h4 class="mb-0">{{ formatAmount($total_belum_lunas->total_belum_lunas) }}</h4>
+                            </div>
+                            <div class="avatar avatar-md br-4 bg-danger-transparent ms-auto">
+                                <i class="bi bi-bell fs-20"></i>
+                            </div>
+                        </div>
+                        <div class="mt-2 d-flex">
+                            <p class="h6 badge bg-danger-transparent rounded-pill">{{ __('Total Gramasi : ') }}
+                            </p>
+                            <h4 class="h6 badge bg-danger-transparent rounded-pill">
+                                {{ formatAmount($total_gramasi_belum_pelunasan->total_gramasi_belum_pelunasan, 2) }}
+                            </h4>
+                            <a href="kreditnasabah/detail/belum-lunas"
+                                class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
+                            </a>
+                        </div>
+                        <div class="mt-2 d-flex">
+                            <p class="h6 badge bg-danger-transparent rounded-pill">{{ __('Total Kepingan : ') }}
+                            </p>
+                            <h4 class="h6 badge bg-danger-transparent rounded-pill">
+                                {{ formatAmount($total_kepingan_belum_pelunasan->total_kepingan_belum_pelunasan) }}
+                            </h4>
+                        </div>
+                        {{-- <div class="mt-2 d-flex">
+                            <span class="badge bg-danger-transparent rounded-pill">
+                                {{ __('Total Gramasi : ') }}
+                            </span>
+                            <span class="badge bg-danger-transparent rounded-pill">
+                                <b>{{ formatAmount($total_gramasi_belum_pelunasan->total_gramasi_belum_pelunasan, 2) }}</b>
+                            </span>
+                            <a href="kreditnasabah/detail/belum-lunas"
+                                class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}</a>
+                        </div>
+                        <div class="mt-2 d-flex">
+                            <span class="badge bg-danger-transparent rounded-pill">
+                                {{ __('Total Kepingan : ') }}
+                            </span>
+                            <span class="badge bg-danger-transparent rounded-pill">
+                                <b>{{ formatAmount($total_kepingan_belum_pelunasan->total_kepingan_belum_pelunasan) }}</b>
+                            </span>
+                        </div> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-xl-12">
             <div class="row row-cols-xxl-5 row-cols-xl-3 row-cols-md-2">
-                <div class="col card-background">
+                {{-- <div class="col card-background">
                     <div class="card custom-card">
                         <div class="card-body">
                             <div class="d-flex">
@@ -29,28 +187,24 @@
                                 </div>
                             </div>
                             <div class="mt-2 d-flex">
-                                <span class="badge bg-primary-transparent rounded-pill">
-                                    {{ __('Belum Pelunasan : ') }}
-                                </span>
-                                <span class="badge bg-primary-transparent rounded-pill">
-                                    <b>{{ $total_nasabah_belum_pelunasan->total_nasabah_belum_pelunasan }}</b>
-                                </span>
+                                <p class="h6 badge bg-primary-transparent rounded-pill">{{ __('Belum Pelunasan : ') }}</p>
+                                <h4 class="h6 badge bg-primary-transparent rounded-pill">
+                                    {{ $total_nasabah_belum_pelunasan->total_nasabah_belum_pelunasan }}
+                                </h4>
                                 <a href="{{ route('kreditnasabah.index') }}"
                                     class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
                                 </a>
                             </div>
                             <div class="mt-2 d-flex">
-                                <span class="badge bg-primary-transparent rounded-pill">
-                                    {{ __('Sudah Pelunasan : ') }}
-                                </span>
-                                <span class="badge bg-primary-transparent rounded-pill">
-                                    <b>{{ $total_nasabah_sudah_pelunasan->total_nasabah_sudah_pelunasan }}</b>
-                                </span>
+                                <p class="h6 badge bg-primary-transparent rounded-pill">{{ __('Sudah Pelunasan : ') }}</p>
+                                <h4 class="h6 badge bg-primary-transparent rounded-pill">
+                                    {{ $total_nasabah_sudah_pelunasan->total_nasabah_sudah_pelunasan }}
+                                </h4>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col card-background">
+                </div> --}}
+                {{-- <div class="col card-background">
                     <div class="card custom-card">
                         <div class="card-body">
                             <div class="d-flex">
@@ -63,13 +217,26 @@
                                 </div>
                             </div>
                             <div class="mt-2 d-flex">
+                                <p class="h6 badge bg-secondary-transparent rounded-pill">{{ __('Total Gramasi : ') }}
+                                </p>
+                                <h4 class="h6 badge bg-secondary-transparent rounded-pill">
+                                    {{ formatAmount($total_gramasi->total_gramasi, 2) }}
+                                </h4>
                                 <a href="kreditnasabah/detail/kredit"
-                                    class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}</a>
+                                    class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
+                                </a>
+                            </div>
+                            <div class="mt-2 d-flex">
+                                <p class="h6 badge bg-secondary-transparent rounded-pill">{{ __('Total Kepingan : ') }}
+                                </p>
+                                <h4 class="h6 badge bg-secondary-transparent rounded-pill">
+                                    {{ formatAmount($total_kepingan->total_kepingan) }}
+                                </h4>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col card-background">
+                </div> --}}
+                {{-- <div class="col card-background">
                     <div class="card custom-card">
                         <div class="card-body">
                             <div class="d-flex">
@@ -100,8 +267,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col card-background">
+                </div> --}}
+                {{-- <div class="col card-background">
                     <div class="card custom-card">
                         <div class="card-body">
                             <div class="d-flex">
@@ -132,8 +299,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col card-background">
+                </div> --}}
+                {{-- <div class="col card-background">
                     <div class="card custom-card">
                         <div class="card-body">
                             <div class="d-flex">
@@ -164,7 +331,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
