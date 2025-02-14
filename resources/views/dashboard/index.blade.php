@@ -28,18 +28,18 @@
                             </div>
                         </div>
                         <div class="mt-2 d-flex">
-                            <p class="h6 badge bg-primary-transparent rounded-pill">{{ __('Belum Pelunasan : ') }}</p>
-                            <h4 class="h6 badge bg-primary-transparent rounded-pill">
-                                {{ $total_nasabah_belum_pelunasan->total_nasabah_belum_pelunasan }}
+                            <p class="h5 bg-primary-transparent rounded-pill">{{ __('Belum Pelunasan : ') }}</p>
+                            <h4 class="h5 bg-primary-transparent rounded-pill">
+                                &nbsp;{{ $total_nasabah_belum_pelunasan->total_nasabah_belum_pelunasan }}
                             </h4>
                             <a href="{{ route('kreditnasabah.index') }}"
                                 class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
                             </a>
                         </div>
                         <div class="mt-2 d-flex">
-                            <p class="h6 badge bg-primary-transparent rounded-pill">{{ __('Sudah Pelunasan : ') }}</p>
-                            <h4 class="h6 badge bg-primary-transparent rounded-pill">
-                                {{ $total_nasabah_sudah_pelunasan->total_nasabah_sudah_pelunasan }}
+                            <p class="h5 bg-primary-transparent rounded-pill">{{ __('Sudah Pelunasan : ') }}</p>
+                            <h4 class="h5 bg-primary-transparent rounded-pill">
+                                &nbsp;{{ $total_nasabah_sudah_pelunasan->total_nasabah_sudah_pelunasan }}
                             </h4>
                         </div>
                     </div>
@@ -61,20 +61,20 @@
                             </div>
                         </div>
                         <div class="mt-2 d-flex">
-                            <p class="h6 badge bg-secondary-transparent rounded-pill">{{ __('Total Gramasi : ') }}
+                            <p class="h5 bg-secondary-transparent rounded-pill">{{ __('Total Gramasi : ') }}
                             </p>
-                            <h4 class="h6 badge bg-secondary-transparent rounded-pill">
-                                {{ formatAmount($total_gramasi->total_gramasi, 2) }}
+                            <h4 class="h5 bg-secondary-transparent rounded-pill">
+                                &nbsp;{{ formatAmount($total_gramasi->total_gramasi, 2) }}
                             </h4>
                             <a href="kreditnasabah/detail/kredit"
                                 class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
                             </a>
                         </div>
                         <div class="mt-2 d-flex">
-                            <p class="h6 badge bg-secondary-transparent rounded-pill">{{ __('Total Kepingan : ') }}
+                            <p class="h5 bg-secondary-transparent rounded-pill">{{ __('Total Kepingan : ') }}
                             </p>
-                            <h4 class="h6 badge bg-secondary-transparent rounded-pill">
-                                {{ formatAmount($total_kepingan->total_kepingan) }}
+                            <h4 class="h5 bg-secondary-transparent rounded-pill">
+                                &nbsp;{{ formatAmount($total_kepingan->total_kepingan) }}
                             </h4>
                         </div>
                     </div>
@@ -96,20 +96,20 @@
                             </div>
                         </div>
                         <div class="mt-2 d-flex">
-                            <p class="h6 badge bg-info-transparent rounded-pill">{{ __('Total Gramasi : ') }}
+                            <p class="h5 bg-info-transparent rounded-pill">{{ __('Total Gramasi : ') }}
                             </p>
-                            <h4 class="h6 badge bg-info-transparent rounded-pill">
-                                {{ formatAmount($total_gramasi_sudah_pelunasan->total_gramasi_sudah_pelunasan, 2) }}
+                            <h4 class="h5 bg-info-transparent rounded-pill">
+                                &nbsp;{{ formatAmount($total_gramasi_sudah_pelunasan->total_gramasi_sudah_pelunasan, 2) }}
                             </h4>
                             <a href="kreditnasabah/detail/sudah-lunas"
                                 class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
                             </a>
                         </div>
                         <div class="mt-2 d-flex">
-                            <p class="h6 badge bg-info-transparent rounded-pill">{{ __('Total Kepingan : ') }}
+                            <p class="h5 bg-info-transparent rounded-pill">{{ __('Total Kepingan : ') }}
                             </p>
-                            <h4 class="h6 badge bg-info-transparent rounded-pill">
-                                {{ formatAmount($total_kepingan_sudah_pelunasan->total_kepingan_sudah_pelunasan) }}
+                            <h4 class="h5 bg-info-transparent rounded-pill">
+                                &nbsp;{{ formatAmount($total_kepingan_sudah_pelunasan->total_kepingan_sudah_pelunasan) }}
                             </h4>
                         </div>
                     </div>
@@ -131,20 +131,20 @@
                             </div>
                         </div>
                         <div class="mt-2 d-flex">
-                            <p class="h6 badge bg-danger-transparent rounded-pill">{{ __('Total Gramasi : ') }}
+                            <p class="h5 bg-danger-transparent rounded-pill">{{ __('Total Gramasi : ') }}
                             </p>
-                            <h4 class="h6 badge bg-danger-transparent rounded-pill">
-                                {{ formatAmount($total_gramasi_belum_pelunasan->total_gramasi_belum_pelunasan, 2) }}
+                            <h4 class="h5 bg-danger-transparent rounded-pill">
+                                &nbsp;{{ formatAmount($total_gramasi_belum_pelunasan->total_gramasi_belum_pelunasan, 2) }}
                             </h4>
                             <a href="kreditnasabah/detail/belum-lunas"
                                 class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
                             </a>
                         </div>
                         <div class="mt-2 d-flex">
-                            <p class="h6 badge bg-danger-transparent rounded-pill">{{ __('Total Kepingan : ') }}
+                            <p class="h5 bg-danger-transparent rounded-pill">{{ __('Total Kepingan : ') }}
                             </p>
-                            <h4 class="h6 badge bg-danger-transparent rounded-pill">
-                                {{ formatAmount($total_kepingan_belum_pelunasan->total_kepingan_belum_pelunasan) }}
+                            <h4 class="h5 bg-danger-transparent rounded-pill">
+                                &nbsp;{{ formatAmount($total_kepingan_belum_pelunasan->total_kepingan_belum_pelunasan) }}
                             </h4>
                         </div>
                         {{-- <div class="mt-2 d-flex">
