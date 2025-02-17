@@ -1,0 +1,9 @@
+GDS, per 17 Februari 2025
+=============================
+1.  Request Update
+    -   https://docs.google.com/document/d/12r8o4WlNNmfk4850wQGk_WtHT3cmg8rWp2ErggsxE0U/edit?tab=t.0
+
+2.  File Update
+    -   resources\views\dashboard\index.blade.php
+
+3.  Database
