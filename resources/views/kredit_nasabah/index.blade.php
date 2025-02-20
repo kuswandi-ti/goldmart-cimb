@@ -56,8 +56,9 @@
                                         <tr>
                                             <th scope="col" width="5%">{{ __('No.') }}</th>
                                             <th scope="col" width="12%">{{ __('Aksi') }}</th>
-                                            <th scope="col" width="10%">{{ __('Status Kredit') }}</th>
-                                            <th scope="col" width="10%">{{ __('Status Kirim Barang') }}</th>
+                                            {{-- <th scope="col" width="10%">{{ __('Status Kredit') }}</th> --}}
+                                            {{-- <th scope="col" width="10%">{{ __('Status Kirim Barang') }}</th> --}}
+                                            <th scope="col">{{ __('Kode Nasabah') }}</th>
                                             <th scope="col">{{ __('Nama Nasabah') }}</th>
                                             <th scope="col">{{ __('Alamat Nasabah') }}</th>
                                             <th scope="col">{{ __('Telp. Nasabah') }}</th>
@@ -87,6 +88,7 @@
                                             <th scope="col" width="12%">{{ __('Aksi') }}</th>
                                             <th scope="col" width="10%">{{ __('Status Kredit') }}</th>
                                             <th scope="col" width="10%">{{ __('Status Kirim Barang') }}</th>
+                                            <th scope="col">{{ __('Kode Nasabah') }}</th>
                                             <th scope="col">{{ __('Nama Nasabah') }}</th>
                                             <th scope="col">{{ __('Alamat Nasabah') }}</th>
                                             <th scope="col">{{ __('Telp. Nasabah') }}</th>
@@ -125,6 +127,8 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
+                            <h6 class="modal-title" id="data_nasabah"></h6>
+                            <hr>
                             <table class="table table-hover table-striped" id="table">
                                 <thead>
                                     <tr>
@@ -178,12 +182,19 @@
                     data: 'action',
                     searchable: false,
                     sortable: false,
-                }, {
+                },
+                /*{
                     data: 'status_kredit',
                     searchable: true,
                     sortable: true,
-                }, {
+                },*/
+                /*{
                     data: 'status_kirim_barang',
+                    searchable: true,
+                    sortable: true,
+                },*/
+                {
+                    data: 'kode_nasabah',
                     searchable: true,
                     sortable: true,
                 }, {
@@ -250,8 +261,11 @@
                     return formatAmount(data);
                 },
                 // "targets": [10, 11, 12]
-                "targets": [8, 9]
-            }, ]
+                "targets": [7, 8]
+            }, ],
+            order: [
+                [10, 'desc']
+            ]
         });
 
         table_data_lunas = $('#table_data_lunas').DataTable({
@@ -280,6 +294,10 @@
                 sortable: true,
             }, {
                 data: 'status_kirim_barang',
+                searchable: true,
+                sortable: true,
+            }, {
+                data: 'kode_nasabah',
                 searchable: true,
                 sortable: true,
             }, {
@@ -339,8 +357,11 @@
                 "render": function(data, type, row) {
                     return formatAmount(data);
                 },
-                "targets": [10, 11, 12]
-            }, ]
+                "targets": [11, 12, 13]
+            }, ],
+            order: [
+                [15, 'desc']
+            ]
         });
 
         // $('#status_lunas, #status_kirim_barang').select2({
@@ -379,14 +400,18 @@
                 success: function(response) {
                     $('#viewDataLabel').html("Detail Data Barang");
 
+                    $('#data_nasabah').html("Nasabah : " + response.nasabah.nama + " (" + response
+                        .nasabah.kode +
+                        ")");
+
                     var $tableBody = $('#table tbody');
                     var no = 1;
                     var total = 0;
 
                     $tableBody.empty();
 
-                    if (response.length > 0) {
-                        $.each(response, function(index, rowData) {
+                    if (response.kredit_detail.length > 0) {
+                        $.each(response.kredit_detail, function(index, rowData) {
                             var $newRow = $('<tr>');
                             total = total + Number(rowData.gramasi);
                             $newRow.append('<td align="center">' + no + '</td>');

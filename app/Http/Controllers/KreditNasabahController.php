@@ -249,7 +249,14 @@ class KreditNasabahController extends Controller
             ->where('id_kredit_nasabah', $id)
             ->orderBy('id', 'ASC')
             ->get();
-        return response()->json($kredit_detail);
+
+        $nasabah = DB::table('kredit_nasabah')
+            ->select(DB::raw('kredit_nasabah.id_nasabah, nasabah.kode, nasabah.nama'))
+            ->leftJoin('nasabah', 'kredit_nasabah.id_nasabah', '=', 'nasabah.id')
+            ->where('kredit_nasabah.id', $id)
+            ->first();
+
+        return response()->json(['kredit_detail' => $kredit_detail, 'nasabah' => $nasabah]);
     }
 
     public function detailData($filter)
@@ -276,19 +283,19 @@ class KreditNasabahController extends Controller
 
         switch ($filter) {
             case 'nasabah':
-                $query = ViewKreditNasabah::orderBy('tgl_incoming', 'DESC');
+                $query = ViewKreditNasabah::where('id IS NOT NULL');
                 break;
             case 'kredit':
-                $query = ViewKreditNasabah::orderBy('tgl_incoming', 'DESC');
+                $query = ViewKreditNasabah::where('id IS NOT NULL');
                 break;
             case 'keuntungan':
-                $query = ViewKreditNasabah::orderBy('tgl_incoming', 'DESC');
+                $query = ViewKreditNasabah::where('id IS NOT NULL');
                 break;
             case 'sudah-lunas':
-                $query = ViewKreditNasabah::lunas()->orderBy('tgl_incoming', 'DESC');
+                $query = ViewKreditNasabah::lunas()->where('id IS NOT NULL');
                 break;
             case 'belum-lunas':
-                $query = ViewKreditNasabah::belumlunas()->orderBy('tgl_incoming', 'DESC');
+                $query = ViewKreditNasabah::belumlunas()->where('id IS NOT NULL');
                 break;
             default:
                 $query = "";
