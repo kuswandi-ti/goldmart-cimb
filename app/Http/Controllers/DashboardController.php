@@ -11,23 +11,29 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // $total_nasabah = DB::table('nasabah')
-        //     ->select(DB::raw('COUNT(DISTINCT id) as total_nasabah'))
-        //     ->first();
-
         /* Widget 1 - Start */
         $total_nasabah = DB::table('kredit_nasabah')
             ->select(DB::raw('COUNT(DISTINCT id) as total_nasabah'))
             ->first();
-        $total_nasabah_belum_pelunasan = DB::table('nasabah')
-            ->select(DB::raw('COUNT(nasabah.id) AS total_nasabah_belum_pelunasan'))
-            ->where('kredit_nasabah.status_kredit', 'Berjalan')
-            ->leftJoin('kredit_nasabah', 'nasabah.id', '=', 'kredit_nasabah.id_nasabah')
+
+        // $total_nasabah_belum_pelunasan = DB::table('nasabah')
+        //     ->select(DB::raw('COUNT(nasabah.id) AS total_nasabah_belum_pelunasan'))
+        //     ->where('kredit_nasabah.status_kredit', 'Berjalan')
+        //     ->leftJoin('kredit_nasabah', 'nasabah.id', '=', 'kredit_nasabah.id_nasabah')
+        //     ->first();
+        $total_nasabah_belum_pelunasan = DB::table('kredit_nasabah')
+            ->select(DB::raw('COUNT(id) AS total_nasabah_belum_pelunasan'))
+            ->where('status_kredit', 'Berjalan')
             ->first();
-        $total_nasabah_sudah_pelunasan = DB::table('nasabah')
-            ->select(DB::raw('COUNT(nasabah.id) AS total_nasabah_sudah_pelunasan'))
-            ->where('kredit_nasabah.status_kredit', 'Lunas')
-            ->leftJoin('kredit_nasabah', 'nasabah.id', '=', 'kredit_nasabah.id_nasabah')
+
+        // $total_nasabah_sudah_pelunasan = DB::table('nasabah')
+        //     ->select(DB::raw('COUNT(nasabah.id) AS total_nasabah_sudah_pelunasan'))
+        //     ->where('kredit_nasabah.status_kredit', 'Lunas')
+        //     ->leftJoin('kredit_nasabah', 'nasabah.id', '=', 'kredit_nasabah.id_nasabah')
+        //     ->first();
+        $total_nasabah_sudah_pelunasan = DB::table('kredit_nasabah')
+            ->select(DB::raw('COUNT(id) AS total_nasabah_sudah_pelunasan'))
+            ->where('status_kredit', 'Lunas')
             ->first();
         /* Widget 1 - End */
 
@@ -40,11 +46,19 @@ class DashboardController extends Controller
         $total_nilai_kredit = DB::table('kredit_nasabah')
             ->select(DB::raw('SUM(total_nilai_kredit) AS total_nilai_kredit'))
             ->first();
-        $total_gramasi = DB::table('kredit_detail')
-            ->select(DB::raw('SUM(gramasi) AS total_gramasi'))
+
+        // $total_gramasi = DB::table('kredit_detail')
+        //     ->select(DB::raw('SUM(gramasi) AS total_gramasi'))
+        //     ->first();
+        $total_gramasi = DB::table('kredit_nasabah')
+            ->select(DB::raw('SUM(total_gram) AS total_gramasi'))
             ->first();
+
+        // $total_kepingan = DB::table('kredit_nasabah')
+        //     ->select(DB::raw('SUM(qty) AS total_kepingan'))
+        //     ->first();
         $total_kepingan = DB::table('kredit_nasabah')
-            ->select(DB::raw('SUM(qty) AS total_kepingan'))
+            ->select(DB::raw('SUM(total_keping) AS total_kepingan'))
             ->first();
         /* Widget 2 - End */
 
@@ -53,13 +67,23 @@ class DashboardController extends Controller
             ->select(DB::raw('SUM(total_nilai_kredit) AS total_sudah_lunas'))
             ->where('status_kredit', '=', 'Lunas')
             ->first();
-        $total_gramasi_sudah_pelunasan = DB::table('kredit_detail')
-            ->select(DB::raw('SUM(gramasi) AS total_gramasi_sudah_pelunasan'))
-            ->leftJoin('kredit_nasabah', 'kredit_detail.id_kredit_nasabah', '=', 'kredit_nasabah.id')
-            ->where('kredit_nasabah.status_kredit', 'Lunas')
+
+        // $total_gramasi_sudah_pelunasan = DB::table('kredit_detail')
+        //     ->select(DB::raw('SUM(gramasi) AS total_gramasi_sudah_pelunasan'))
+        //     ->leftJoin('kredit_nasabah', 'kredit_detail.id_kredit_nasabah', '=', 'kredit_nasabah.id')
+        //     ->where('kredit_nasabah.status_kredit', 'Lunas')
+        //     ->first();
+        $total_gramasi_sudah_pelunasan = DB::table('kredit_nasabah')
+            ->select(DB::raw('SUM(total_gram) AS total_gramasi_sudah_pelunasan'))
+            ->where('status_kredit', 'Lunas')
             ->first();
+
+        // $total_kepingan_sudah_pelunasan = DB::table('kredit_nasabah')
+        //     ->select(DB::raw('SUM(qty) AS total_kepingan_sudah_pelunasan'))
+        //     ->where('status_kredit', 'Lunas')
+        //     ->first();
         $total_kepingan_sudah_pelunasan = DB::table('kredit_nasabah')
-            ->select(DB::raw('SUM(qty) AS total_kepingan_sudah_pelunasan'))
+            ->select(DB::raw('SUM(total_keping) AS total_kepingan_sudah_pelunasan'))
             ->where('status_kredit', 'Lunas')
             ->first();
         /* Widget 3 - End */
@@ -69,18 +93,28 @@ class DashboardController extends Controller
             ->select(DB::raw('SUM(total_nilai_kredit) AS total_belum_lunas'))
             ->where('status_kredit', '=', 'Berjalan')
             ->first();
-        $total_gramasi_belum_pelunasan = DB::table('kredit_detail')
-            ->select(DB::raw('SUM(gramasi) AS total_gramasi_belum_pelunasan'))
-            ->leftJoin(
-                'kredit_nasabah',
-                'kredit_detail.id_kredit_nasabah',
-                '=',
-                'kredit_nasabah.id'
-            )
-            ->where('kredit_nasabah.status_kredit', 'Berjalan')
+
+        // $total_gramasi_belum_pelunasan = DB::table('kredit_detail')
+        //     ->select(DB::raw('SUM(gramasi) AS total_gramasi_belum_pelunasan'))
+        //     ->leftJoin(
+        //         'kredit_nasabah',
+        //         'kredit_detail.id_kredit_nasabah',
+        //         '=',
+        //         'kredit_nasabah.id'
+        //     )
+        //     ->where('kredit_nasabah.status_kredit', 'Berjalan')
+        //     ->first();
+        $total_gramasi_belum_pelunasan = DB::table('kredit_nasabah')
+            ->select(DB::raw('SUM(total_gram) AS total_gramasi_belum_pelunasan'))
+            ->where('status_kredit', 'Berjalan')
             ->first();
+
+        // $total_kepingan_belum_pelunasan = DB::table('kredit_nasabah')
+        //     ->select(DB::raw('SUM(qty) AS total_kepingan_belum_pelunasan'))
+        //     ->where('status_kredit', 'Berjalan')
+        //     ->first();
         $total_kepingan_belum_pelunasan = DB::table('kredit_nasabah')
-            ->select(DB::raw('SUM(qty) AS total_kepingan_belum_pelunasan'))
+            ->select(DB::raw('SUM(total_keping) AS total_kepingan_belum_pelunasan'))
             ->where('status_kredit', 'Berjalan')
             ->first();
         /* Widget 4 - End */

@@ -11,12 +11,12 @@
 @section('section_header_breadcrumb')
     @parent
     {{-- <li class="breadcrumb-item">
-        <a href="{{ route('kreditnasabah.index') }}" class="text-white-50">
+        <a href="{{ route('outstandingdanjaminan.index') }}" class="text-white-50">
             {{ __('Kredit Nasabah') }}
         </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">{{ __('Lihat Data Kredit Nasabah') }}</li> --}}
-    <x-breadcrumb-item url="{{ route('kreditnasabah.index') }}" title="{{ __('Outstanding & Jaminan') }}" />
+    <x-breadcrumb-item url="{{ route('outstandingdanjaminan.index') }}" title="{{ __('Outstanding & Jaminan') }}" />
     <x-breadcrumb-active title="{!! __('Lihat Data Outstanding & Jaminan') !!}" />
 @endsection
 
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="d-flex">
-                        <a href="{{ route('kreditnasabah.index') }}" class="btn btn-warning">
+                        <a href="{{ route('outstandingdanjaminan.index') }}" class="btn btn-warning">
                             {{ __('Kembali') }}
                         </a>
                     </div>

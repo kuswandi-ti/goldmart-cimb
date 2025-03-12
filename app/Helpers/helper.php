@@ -59,14 +59,29 @@ function truncateString(string $text, int $limit = 45): ?string
     return Str::limit($text, $limit, '...');
 }
 
-function capitalAllWord(string $text = null): ?string
+function capitalAllWord(string $text = ""): ?string
 {
     return $text != null ? Str::of($text)->upper() : '';
 }
 
-function capitalFirstLetter(string $text = null): ?string
+function capitalFirstLetter(string $text = ""): ?string
 {
     return $text != null ? Str::of($text)->ucfirst() : '';
+}
+
+function left($text, $length)
+{
+    return substr($text, 0, $length);
+}
+
+function mid($text, $start, $length)
+{
+    return substr($text, $start, $length);
+}
+
+function right($text, $length)
+{
+    return substr($text, -$length);
 }
 
 function getArrayAllPermission()

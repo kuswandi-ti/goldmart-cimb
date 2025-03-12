@@ -32,7 +32,7 @@
                             <h4 class="h6 bg-primary-transparent rounded-pill">
                                 &nbsp;{{ $total_nasabah_belum_pelunasan->total_nasabah_belum_pelunasan }}
                             </h4>
-                            <a href="{{ route('kreditnasabah.index') }}"
+                            <a href="{{ route('outstandingdanjaminan.index') }}"
                                 class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
                             </a>
                         </div>
@@ -66,7 +66,8 @@
                             <h4 class="h6 bg-secondary-transparent rounded-pill">
                                 &nbsp;{{ formatAmount($total_gramasi->total_gramasi, 2) }}
                             </h4>
-                            <a href="kreditnasabah/detail/kredit"
+                            {{-- <a href="outstandingdanjaminan/detail/kredit" --}}
+                            <a href="{{ route('outstandingdanjaminan.index') }}"
                                 class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
                             </a>
                         </div>
@@ -101,7 +102,8 @@
                             <h4 class="h6 bg-info-transparent rounded-pill">
                                 &nbsp;{{ formatAmount($total_gramasi_sudah_pelunasan->total_gramasi_sudah_pelunasan, 2) }}
                             </h4>
-                            <a href="kreditnasabah/detail/sudah-lunas"
+                            {{-- <a href="outstandingdanjaminan/detail/sudah-lunas" --}}
+                            <a href="{{ route('outstandingdanjaminan.index') }}"
                                 class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
                             </a>
                         </div>
@@ -136,7 +138,8 @@
                             <h4 class="h6 bg-danger-transparent rounded-pill">
                                 &nbsp;{{ formatAmount($total_gramasi_belum_pelunasan->total_gramasi_belum_pelunasan, 2) }}
                             </h4>
-                            <a href="kreditnasabah/detail/belum-lunas"
+                            {{-- <a href="outstandingdanjaminan/detail/belum-lunas" --}}
+                            <a href="{{ route('outstandingdanjaminan.index') }}"
                                 class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
                             </a>
                         </div>
@@ -154,7 +157,7 @@
                             <span class="badge bg-danger-transparent rounded-pill">
                                 <b>{{ formatAmount($total_gramasi_belum_pelunasan->total_gramasi_belum_pelunasan, 2) }}</b>
                             </span>
-                            <a href="kreditnasabah/detail/belum-lunas"
+                            <a href="outstandingdanjaminan/detail/belum-lunas"
                                 class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}</a>
                         </div>
                         <div class="mt-2 d-flex">
@@ -191,7 +194,7 @@
                                 <h4 class="h6 badge bg-primary-transparent rounded-pill">
                                     {{ $total_nasabah_belum_pelunasan->total_nasabah_belum_pelunasan }}
                                 </h4>
-                                <a href="{{ route('kreditnasabah.index') }}"
+                                <a href="{{ route('outstandingdanjaminan.index') }}"
                                     class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
                                 </a>
                             </div>
@@ -222,7 +225,7 @@
                                 <h4 class="h6 badge bg-secondary-transparent rounded-pill">
                                     {{ formatAmount($total_gramasi->total_gramasi, 2) }}
                                 </h4>
-                                <a href="kreditnasabah/detail/kredit"
+                                <a href="outstandingdanjaminan/detail/kredit"
                                     class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}
                                 </a>
                             </div>
@@ -254,7 +257,7 @@
                                 <span class="badge bg-info-transparent rounded-pill">
                                     <b>{{ formatAmount($total_gramasi->total_gramasi, 2) }}</b>
                                 </span>
-                                <a href="kreditnasabah/detail/keuntungan"
+                                <a href="outstandingdanjaminan/detail/keuntungan"
                                     class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}</a>
                             </div>
                             <div class="mt-2 d-flex">
@@ -286,7 +289,7 @@
                                 <span class="badge bg-warning-transparent rounded-pill">
                                     <b>{{ formatAmount($total_gramasi_sudah_pelunasan->total_gramasi_sudah_pelunasan, 2) }}</b>
                                 </span>
-                                <a href="kreditnasabah/detail/sudah-lunas"
+                                <a href="outstandingdanjaminan/detail/sudah-lunas"
                                     class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}</a>
                             </div>
                             <div class="mt-2 d-flex">
@@ -318,7 +321,7 @@
                                 <span class="badge bg-danger-transparent rounded-pill">
                                     <b>{{ formatAmount($total_gramasi_belum_pelunasan->total_gramasi_belum_pelunasan, 2) }}</b>
                                 </span>
-                                <a href="kreditnasabah/detail/belum-lunas"
+                                <a href="outstandingdanjaminan/detail/belum-lunas"
                                     class="mt-auto text-muted fs-11 ms-auto text-decoration-underline">{{ __('Lihat Detail') }}</a>
                             </div>
                             <div class="mt-2 d-flex">

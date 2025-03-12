@@ -11,19 +11,29 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // \DB::statement("
+        //     CREATE VIEW view_kredit_nasabah
+        //     AS
+        //     SELECT
+        //         A.*,
+        //         B.kode AS kode_nasabah,
+        //         B.nama AS nama_nasabah,
+        //         B.email,
+        //         B.no_tlp,
+        //         B.alamat AS alamat_nasabah
+        //     FROM
+        //         kredit_nasabah A
+        //         LEFT OUTER JOIN nasabah B ON A.id_nasabah = B.id
+        // ");
+
         \DB::statement("
             CREATE VIEW view_kredit_nasabah
             AS
             SELECT
-                A.*,
-                B.kode AS kode_nasabah,
-                B.nama AS nama_nasabah,
-                B.email,
-                B.no_tlp,
-                B.alamat AS alamat_nasabah
+                A.*
             FROM
                 kredit_nasabah A
-                INNER JOIN nasabah B ON A.id_nasabah = B.id
+                LEFT OUTER JOIN nasabah B ON A.id_nasabah = B.id
         ");
     }
 

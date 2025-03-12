@@ -91,7 +91,7 @@
                 searchable: true,
                 sortable: true,
             }, {
-                data: 'qty',
+                data: 'total_keping',
                 searchable: true,
                 sortable: true,
             }, {

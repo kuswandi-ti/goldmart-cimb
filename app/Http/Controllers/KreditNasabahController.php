@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use App\Models\KreditDetail;
 use Illuminate\Http\Request;
 use App\Models\KreditNasabah;
-use App\Models\KreditDetail;
-use App\Models\ViewKreditNasabah;
 use App\Traits\FileUploadTrait;
-use DB;
+use App\Models\ViewKreditNasabah;
+use App\Imports\KreditNasabahImport;
+use App\Models\KreditNasabahTmp;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class KreditNasabahController extends Controller
 {
@@ -96,9 +100,9 @@ class KreditNasabahController extends Controller
         }
 
         if ($update) {
-            return redirect()->route('kreditnasabah.index')->with('success', __('Data berhasil diperbarui'));
+            return redirect()->route('outstandingdanjaminan.index')->with('success', __('Data berhasil diperbarui'));
         } else {
-            return redirect()->route('kreditnasabah.index')->with('error', __('Data gagal diperbarui'));
+            return redirect()->route('outstandingdanjaminan.index')->with('error', __('Data gagal diperbarui'));
         }
     }
 
@@ -133,11 +137,12 @@ class KreditNasabahController extends Controller
     {
         // $query = ViewKreditNasabah::periodeaktif()->belumlunas();
 
-        $query = ViewKreditNasabah::belumlunas();
+        // $query = ViewKreditNasabah::belumlunas();
+        $query = KreditNasabah::belumlunas();
 
         // $query = KreditNasabah::select('kredit_nasabah.id AS id, kredit_nasabah.status_kredit AS status_kredit', 'kredit_nasabah.status_kirim_barang AS status_kirim_barang',
         //         'nasabah.nama AS nama_nasabah', 'nasabah.alamat AS alamat_nasabah', 'nasabah.no_tlp AS no_tlp',
-        //         'kredit_nasabah.rekening_pencairan AS rekening_pencairan', 'kredit_nasabah.nama_barang AS nama_barang', 'kredit_nasabah.qty AS qty',
+        //         'kredit_nasabah.rekening_pencairan AS rekening_pencairan', 'kredit_nasabah.nama_barang AS nama_barang', 'kredit_nasabah.total_keping AS total_keping',
         //         'kredit_nasabah.total_nilai_kredit AS total_nilai_kredit', 'kredit_nasabah.margin_keuntungan AS margin_keuntungan',
         //         'kredit_nasabah.angsuran AS angsuran', 'kredit_nasabah.tenor AS tenor', 'kredit_nasabah.tgl_pencairan AS tgl_pencairan',
         //         'kredit_nasabah.tgl_lunas AS tgl_lunas', 'kredit_nasabah.tgl_kirim_barang AS tgl_kirim_barang')
@@ -150,7 +155,7 @@ class KreditNasabahController extends Controller
                 if (canAccess(['kredit nasabah update'])) {
                     $update = '
                             <li>
-                                <a class="edit dropdown-item border-bottom" href="' . route('kreditnasabah.edit', $query) . '" data-toggle="tooltip" data-id="' . $query->id . '">
+                                <a class="edit dropdown-item border-bottom" href="' . route('outstandingdanjaminan.edit', $query) . '" data-toggle="tooltip" data-id="' . $query->id . '">
                                     <i class="bx bx-edit-alt fs-20"></i> ' . __("Perbarui") . '
                                 </a>
                             </li>
@@ -158,7 +163,7 @@ class KreditNasabahController extends Controller
                 }
                 $view = '
                             <li>
-                                <a class="edit dropdown-item border-bottom" href="' . route('kreditnasabah.show', $query) . '" data-toggle="tooltip" data-id="' . $query->id . '">
+                                <a class="edit dropdown-item border-bottom" href="' . route('outstandingdanjaminan.show', $query) . '" data-toggle="tooltip" data-id="' . $query->id . '">
                                     <i class="bx bx-show fs-20"></i> ' . __("Lihat") . '
                                 </a>
                             </li>
@@ -190,8 +195,8 @@ class KreditNasabahController extends Controller
             ->editColumn('status_kirim_barang', function ($query) {
                 return '<h6><span class="badge bg-' . setStatusKirimBarangBadge($query->status_kirim_barang) . '">' . $query->status_kirim_barang . '</span></h6>';
             })
-            ->editColumn('qty', function ($query) {
-                return '<a href="javascript:void(0)" id="id_kredit_nasabah" data-toggle="tooltip" title="Detail" data-id="' . $query->id . '"><u>' . $query->qty . '</u></a>';
+            ->editColumn('total_keping', function ($query) {
+                return '<a href="javascript:void(0)" id="id_kredit_nasabah" data-toggle="tooltip" title="Detail" data-id="' . $query->id . '"><u>' . $query->total_keping . '</u></a>';
             })
             ->rawColumns(['action'])
             ->escapeColumns([])
@@ -202,7 +207,8 @@ class KreditNasabahController extends Controller
     {
         // $query = ViewKreditNasabah::periodeaktif()->lunas();
 
-        $query = ViewKreditNasabah::lunas();
+        // $query = ViewKreditNasabah::lunas();
+        $query = KreditNasabah::lunas();
 
         return datatables($query)
             ->addIndexColumn()
@@ -210,7 +216,7 @@ class KreditNasabahController extends Controller
                 if (canAccess(['kredit nasabah update'])) {
                     $update = '
                             <li>
-                                <a class="edit dropdown-item border-bottom" href="' . route('kreditnasabah.edit', $query) . '" data-toggle="tooltip" data-id="' . $query->id . '">
+                                <a class="edit dropdown-item border-bottom" href="' . route('outstandingdanjaminan.edit', $query) . '" data-toggle="tooltip" data-id="' . $query->id . '">
                                     <i class="bx bx-edit-alt fs-20"></i> ' . __("Perbarui") . '
                                 </a>
                             </li>
@@ -235,8 +241,8 @@ class KreditNasabahController extends Controller
             ->editColumn('status_kirim_barang', function ($query) {
                 return '<h6><span class="badge bg-' . setStatusKirimBarangBadge($query->status_kirim_barang) . '">' . $query->status_kirim_barang . '</span></h6>';
             })
-            ->editColumn('qty', function ($query) {
-                return '<a href="javascript:void(0)" id="id_kredit_nasabah" data-toggle="tooltip" title="Detail" data-id="' . $query->id . '"><u>' . $query->qty . '</u></a>';
+            ->editColumn('total_keping', function ($query) {
+                return '<a href="javascript:void(0)" id="id_kredit_nasabah" data-toggle="tooltip" title="Detail" data-id="' . $query->id . '"><u>' . $query->total_keping . '</u></a>';
             })
             ->rawColumns(['action'])
             ->escapeColumns([])
@@ -251,9 +257,8 @@ class KreditNasabahController extends Controller
             ->get();
 
         $nasabah = DB::table('kredit_nasabah')
-            ->select(DB::raw('kredit_nasabah.id_nasabah, nasabah.kode, nasabah.nama'))
-            ->leftJoin('nasabah', 'kredit_nasabah.id_nasabah', '=', 'nasabah.id')
-            ->where('kredit_nasabah.id', $id)
+            ->select(DB::raw('id_nasabah, kode_nasabah, nama_nasabah'))
+            ->where('id', $id)
             ->first();
 
         return response()->json(['kredit_detail' => $kredit_detail, 'nasabah' => $nasabah]);
@@ -305,5 +310,137 @@ class KreditNasabahController extends Controller
             ->addIndexColumn()
             ->escapeColumns([])
             ->make(true);
+    }
+
+    public function importData()
+    {
+        return view('import_data.index');
+    }
+
+    public function postImportData(Request $request)
+    {
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+        $file = $request->file('file');
+
+        // membuat nama file unik
+        $nama_file = $file->hashName();
+
+        // temporary file
+        $path = $file->storeAs('public/excel/', $nama_file);
+
+        // delete semua data lama
+        DB::table('kredit_nasabah_tmp')->truncate();
+
+        // import data
+        $import = Excel::import(new KreditNasabahImport(), storage_path('app/public/excel/' . $nama_file));
+
+        // remove from server
+        Storage::delete($path);
+
+        if ($import) {
+            // next proses, import ke tabel header & detail
+            $tmp = KreditNasabahTmp::get();
+            foreach ($tmp as $data) {
+                // create header
+                $store_header = KreditNasabah::create([
+                    'nama_nasabah' => $data->nama_nasabah,
+                    'tlp_nasabah' => $data->tlp_nasabah,
+                    'alamat_nasabah' => $data->alamat_nasabah,
+                    'no_loan' => $data->no_loan,
+                    'tgl_pencairan' => $data->tgl_pencairan,
+                    'total_keping' => $data->total_keping,
+                    'total_gram' => $data->total_gram,
+                    'nilai_pencairan' => $data->nilai_pencairan,
+                    'total_nilai_kredit' => $data->nilai_pencairan,
+                    'angsuran' => $data->angsuran,
+                    'tenor' => $data->tenor,
+                    'bulan' => date('m', strtotime($data->tgl_pencairan)),
+                    'tahun' => date('Y', strtotime($data->tgl_pencairan)),
+                    'tgl_lunas' => $data->tgl_lunas,
+                ]);
+
+                $last_insert_id_header = $store_header->id;
+
+                $gram_05 = $data->gram_05;
+                $gram_1 = $data->gram_1;
+                $gram_2 = $data->gram_2;
+                $gram_3 = $data->gram_3;
+                $gram_5 = $data->gram_5;
+                $gram_10 = $data->gram_10;
+                $gram_25 = $data->gram_25;
+                $gram_50 = $data->gram_50;
+                $gram_100 = $data->gram_100;
+
+                if (!empty($gram_05)) {
+                    KreditDetail::create([
+                        'id_kredit_nasabah' => $last_insert_id_header,
+                        'gramasi' => 0.5,
+                        'keping' => $gram_05,
+                    ]);
+                }
+                if (!empty($gram_1)) {
+                    KreditDetail::create([
+                        'id_kredit_nasabah' => $last_insert_id_header,
+                        'gramasi' => 1,
+                        'keping' => $gram_1,
+                    ]);
+                }
+                if (!empty($gram_2)) {
+                    KreditDetail::create([
+                        'id_kredit_nasabah' => $last_insert_id_header,
+                        'gramasi' => 2,
+                        'keping' => $gram_2,
+                    ]);
+                }
+                if (!empty($gram_3)) {
+                    KreditDetail::create([
+                        'id_kredit_nasabah' => $last_insert_id_header,
+                        'gramasi' => 3,
+                        'keping' => $gram_3,
+                    ]);
+                }
+                if (!empty($gram_5)) {
+                    KreditDetail::create([
+                        'id_kredit_nasabah' => $last_insert_id_header,
+                        'gramasi' => 5,
+                        'keping' => $gram_5,
+                    ]);
+                }
+                if (!empty($gram_10)) {
+                    KreditDetail::create([
+                        'id_kredit_nasabah' => $last_insert_id_header,
+                        'gramasi' => 10,
+                        'keping' => $gram_10,
+                    ]);
+                }
+                if (!empty($gram_25)) {
+                    KreditDetail::create([
+                        'id_kredit_nasabah' => $last_insert_id_header,
+                        'gramasi' => 25,
+                        'keping' => $gram_25,
+                    ]);
+                }
+                if (!empty($gram_50)) {
+                    KreditDetail::create([
+                        'id_kredit_nasabah' => $last_insert_id_header,
+                        'gramasi' => 50,
+                        'keping' => $gram_50,
+                    ]);
+                }
+                if (!empty($gram_100)) {
+                    KreditDetail::create([
+                        'id_kredit_nasabah' => $last_insert_id_header,
+                        'gramasi' => 100,
+                        'keping' => $gram_100,
+                    ]);
+                }
+            }
+            return redirect()->back()->with(['success' => 'Data Berhasil Diimport!']);
+        } else {
+            return redirect()->back()->with(['error' => 'Data Gagal Diimport!']);
+        }
     }
 }

@@ -19,6 +19,7 @@ class KreditDetail extends Model
     protected $fillable = [
         'id_kredit_nasabah',
         'gramasi',
+        'keping',
         'no_seri',
         'image',
         'created_by',

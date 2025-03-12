@@ -1,17 +1,17 @@
 @extends('layouts.master')
 
 @section('page_title')
-    {{ __('Outstanding & Jaminan') }}
+    {{ __('Import Data') }}
 @endsection
 
 @section('section_header_title')
-    {{ __('Outstanding & Jaminan') }}
+    {{ __('Import Data') }}
 @endsection
 
 @section('section_header_breadcrumb')
     @parent
     {{-- <li class="breadcrumb-item active" aria-current="page">{{ __('Daftar Data Kredit Nasabah') }}</li> --}}
-    <x-breadcrumb-active title="{!! __('Daftar Data Outstanding & Jaminan') !!}" />
+    <x-breadcrumb-active title="{!! __('Import Data') !!}" />
 @endsection
 
 @section('page_content')
@@ -21,120 +21,32 @@
                 <div class="flex-wrap card-header d-flex align-items-center flex-xxl-nowrap">
                     <div class="flex-fill">
                         <div class="card-title">
-                            {{ __('Daftar Data Outstanding & Jaminan') }}
+                            {{ __('Import Data') }}
                             <p class="subtitle text-muted fs-12 fw-normal">
-                                {{ __('Menampilkan semua data Outstanding & Jaminan') }}
+                                {{ __('Import file excel data kredit nasabah') }}
                             </p>
                         </div>
                     </div>
-                    {{-- @can('external update')
-                        <div class="d-flex" role="search">
-                            <a href="#" class="btn btn-danger">
-                                {{ __('Update Eksternal Data') }}
-                            </a>
-                        </div>
-                    @endcan --}}
                 </div>
-                <div class="card-body">
-                    <ul class="nav nav-pills mb-3 nav-justified tab-style-5 d-sm-flex d-block" id="pills-tab" role="tablist">
-                        <li class="nav-item active" role="presentation">
-                            <a class="nav-link active" data-bs-toggle="tab" role="tab" href="#tab_kredit_berjalan"
-                                aria-selected="true">{{ __('Berjalan') }}</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" data-bs-toggle="tab" role="tab" href="#tab_kredit_lunas"
-                                aria-selected="false">{{ __('Lunas') }}</a>
-                        </li>
-                    </ul>
+                <form action="{{ route('outstandingdanjaminan.post_import_data') }}" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
 
-                    <div class="tab-content">
-                        <div class="tab-pane show active text-muted" id="tab_kredit_berjalan" role="tabpanel">
-                            <div class="table-responsive">
-                                <table class="table table-striped" id="table_data">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" width="5%">{{ __('No.') }}</th>
-                                            <th scope="col" width="12%">{{ __('Aksi') }}</th>
-                                            <th scope="col" width="10%">{{ __('Status Kredit') }}</th>
-                                            <th scope="col">{{ __('Kode Nasabah') }}</th>
-                                            <th scope="col">{{ __('Nama Nasabah') }}</th>
-                                            <th scope="col">{{ __('No. Loan') }}</th>
-                                            <th scope="col">{{ __('Total Keping') }}</th>
-                                            <th scope="col">{{ __('Total Gram') }}</th>
-                                            <th scope="col">{{ __('Total Nilai Kredit') }}</th>
-                                            <th scope="col">{{ __('Tgl Pencairan') }}</th>
-                                            <th scope="col">{{ __('Tgl Pelunasan') }}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="tab-pane text-muted" id="tab_kredit_lunas" role="tabpanel">
-                            <div class="table-responsive">
-                                <table class="table table-striped" id="table_data_lunas">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" width="5%">{{ __('No.') }}</th>
-                                            <th scope="col" width="5%">{{ __('Aksi') }}</th>
-                                            <th scope="col" width="7%">{{ __('Status Kredit') }}</th>
-                                            <th scope="col" width="10%">{{ __('Status Kirim') }}</th>
-                                            <th scope="col">{{ __('Kode Nasabah') }}</th>
-                                            <th scope="col">{{ __('Nama Nasabah') }}</th>
-                                            <th scope="col">{{ __('No. Loan') }}</th>
-                                            <th scope="col">{{ __('Total Keping') }}</th>
-                                            <th scope="col">{{ __('Total Gram') }}</th>
-                                            <th scope="col">{{ __('Total Nilai Kredit') }}</th>
-                                            <th scope="col">{{ __('Tgl Pencairan') }}</th>
-                                            <th scope="col">{{ __('Tgl Pelunasan') }}</th>
-                                            <th scope="col">{{ __('Tgl Kirim Barang') }}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+                    <div class="card-body">
+                        <div class="row gy-4">
+                            <div class="col-xl-12">
+                                <label for="file" class="form-label text-default">{{ __('Pilih File Excel') }}
+                                    <x-all-not-null /></label>
+                                <input type="file" name="file" class="form-control" accept=".xlsx,.xls" required>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="viewDataModal" data-bs-backdrop="static" data-bs-keyboard="false"
-        aria-labelledby="viewDataLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <input type="hidden" id="id"></input>
-                    <h6 class="modal-title" id="viewDataLabel"></h6>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <h6 class="modal-title" id="data_nasabah"></h6>
-                            <hr>
-                            <table class="table table-hover table-striped" id="table">
-                                <thead>
-                                    <tr>
-                                        <th width="15%" class="text-center">{{ __('No.') }}</th>
-                                        <th width="55%">{{ __('No. Seri') }}</th>
-                                        <th width="15%" class="text-end">{{ __('Gramasi') }}</th>
-                                        <th width="15%" class="text-end">{{ __('Keping') }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">
+                            {{ __('Import Data') }}
+                        </button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">{{ __('Close') }}</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -212,7 +124,7 @@
                 "render": function(data, type, row) {
                     return formatAmount(data);
                 },
-                "targets": [8]
+                "targets": [6, 7, 8]
             }, ],
             order: [
                 [9, 'desc']
@@ -288,7 +200,7 @@
                 "render": function(data, type, row) {
                     return formatAmount(data);
                 },
-                "targets": [9]
+                "targets": [6, 7, 8]
             }, ],
             order: [
                 [9, 'desc']
@@ -331,15 +243,12 @@
                 success: function(response) {
                     $('#viewDataLabel').html("Detail Data Barang");
 
-                    $('#data_nasabah').html("Nasabah : " + response.nasabah.nama_nasabah + " (" +
-                        response
-                        .nasabah.kode_nasabah +
+                    $('#data_nasabah').html("Nasabah : " + response.nasabah.nama + " (" + response
+                        .nasabah.kode +
                         ")");
 
                     var $tableBody = $('#table tbody');
                     var no = 1;
-                    var total_gramasi = 0;
-                    var total_keping = 0;
                     var total = 0;
 
                     $tableBody.empty();
@@ -347,24 +256,18 @@
                     if (response.kredit_detail.length > 0) {
                         $.each(response.kredit_detail, function(index, rowData) {
                             var $newRow = $('<tr>');
-                            total_gramasi = total_gramasi + Number(rowData.gramasi);
-                            total_keping = total_keping + Number(rowData.keping);
+                            total = total + Number(rowData.gramasi);
                             $newRow.append('<td align="center">' + no + '</td>');
                             $newRow.append('<td>' + rowData.no_seri + '</td>');
                             $newRow.append('<td align="right">' + formatAmount(rowData
                                 .gramasi) + '</td>');
-                            $newRow.append('<td align="right">' + formatAmount(rowData
-                                .keping) + '</td>');
                             $tableBody.append($newRow);
 
                             no++;
                         });
                         var $newRow = $('<tr>');
                         $newRow.append('<td colspan="2"><b>Total</b></td>');
-                        $newRow.append('<td align="right"><b>' + formatAmount(total_gramasi) +
-                            '</b></td>');
-                        $newRow.append('<td align="right"><b>' + formatAmount(total_keping) +
-                            '</b></td>');
+                        $newRow.append('<td align="right"><b>' + formatAmount(total) + '</b></td>');
                         $tableBody.append($newRow);
                     } else {
                         var $newRow = $('<tr>');

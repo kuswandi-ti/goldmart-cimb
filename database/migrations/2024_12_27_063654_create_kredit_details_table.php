@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('id_kredit_nasabah');
             $table->decimal('gramasi', 20, 2)->default(0);
+            $table->decimal('keping', 20, 2)->default(0);
             $table->string('no_seri')->nullable();
             $table->text('image')->nullable();
             $table->timestamps();

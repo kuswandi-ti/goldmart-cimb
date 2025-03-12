@@ -11,19 +11,20 @@
 @section('section_header_breadcrumb')
     @parent
     {{-- <li class="breadcrumb-item">
-        <a href="{{ route('kreditnasabah.index') }}" class="text-white-50">
+        <a href="{{ route('outstandingdanjaminan.index') }}" class="text-white-50">
             {{ __('Kredit Nasabah') }}
         </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">{{ __('Memperbarui Data Kredit Nasabah') }}</li> --}}
-    <x-breadcrumb-item url="{{ route('kreditnasabah.index') }}" title="{{ __('Outstanding & Jaminan') }}" />
+    <x-breadcrumb-item url="{{ route('outstandingdanjaminan.index') }}" title="{{ __('Outstanding & Jaminan') }}" />
     <x-breadcrumb-active title="{!! __('Memperbarui Data Outstanding & Jaminan') !!}" />
 @endsection
 
 @section('page_content')
     <div class="row">
         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-            <form method="POST" action="{{ route('kreditnasabah.update', $kredit_nasabah) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('outstandingdanjaminan.update', $kredit_nasabah) }}"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -38,7 +39,7 @@
                             </div>
                         </div>
                         <div class="d-flex">
-                            <a href="{{ route('kreditnasabah.index') }}" class="btn btn-warning">
+                            <a href="{{ route('outstandingdanjaminan.index') }}" class="btn btn-warning">
                                 {{ __('Kembali') }}
                             </a>
                         </div>

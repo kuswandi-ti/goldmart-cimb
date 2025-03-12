@@ -66,12 +66,14 @@ Route::group(['middleware' => ['auth_check', 'prevent_back_history']], function 
     Route::resource('nasabah', NasabahController::class);
 
     /** Kredit Nasabah Routes */
-    Route::get('kreditnasabah/detail/show_detail/{id}', [KreditNasabahController::class, 'showDetail'])->name('kreditnasabah.show_detail');
-    Route::get('kreditnasabah/detail/detail_data/{filter}', [KreditNasabahController::class, 'detailData'])->name('kreditnasabah.detail_data');
-    Route::get('kreditnasabah/detail/{filter}', [KreditNasabahController::class, 'detail'])->name('kreditnasabah.detail');
-    Route::get('kreditnasabah/data', [KreditNasabahController::class, 'data'])->name('kreditnasabah.data');
-    Route::get('kreditnasabah/datalunas', [KreditNasabahController::class, 'dataLunas'])->name('kreditnasabah.datalunas');
-    Route::resource('kreditnasabah', KreditNasabahController::class);
+    Route::get('outstandingdanjaminan/detail/show_detail/{id}', [KreditNasabahController::class, 'showDetail'])->name('outstandingdanjaminan.show_detail');
+    Route::get('outstandingdanjaminan/detail/detail_data/{filter}', [KreditNasabahController::class, 'detailData'])->name('outstandingdanjaminan.detail_data');
+    Route::get('outstandingdanjaminan/detail/{filter}', [KreditNasabahController::class, 'detail'])->name('outstandingdanjaminan.detail');
+    Route::get('outstandingdanjaminan/data', [KreditNasabahController::class, 'data'])->name('outstandingdanjaminan.data');
+    Route::get('outstandingdanjaminan/datalunas', [KreditNasabahController::class, 'dataLunas'])->name('outstandingdanjaminan.datalunas');
+    Route::get('outstandingdanjaminan/import-data', [KreditNasabahController::class, 'importData'])->name('outstandingdanjaminan.import_data');
+    Route::post('outstandingdanjaminan/post-import-data', [KreditNasabahController::class, 'postImportData'])->name('outstandingdanjaminan.post_import_data');
+    Route::resource('outstandingdanjaminan', KreditNasabahController::class);
 
     /** Setting Routes */
     Route::get('setting', [SettingController::class, 'index'])->name('setting.index');

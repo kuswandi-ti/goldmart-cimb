@@ -13,18 +13,20 @@ return new class extends Migration
     {
         Schema::create('kredit_nasabah', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_nasabah');
-            /*$table->string('kode_nasabah');
+            $table->bigInteger('id_nasabah')->nullable();
+            $table->string('kode_nasabah')->nullable();
             $table->string('nama_nasabah');
-            $table->string('email')->nullable();
             $table->string('tlp_nasabah')->nullable();
-            $table->text('alamat_nasabah')->nullable();*/
+            $table->text('alamat_nasabah')->nullable();
+            $table->string('no_loan')->nullable();
             $table->date('tgl_pencairan')->nullable();
             $table->date('tgl_incoming')->nullable();
             $table->string('rekening_pencairan')->nullable();
             $table->string('nama_barang')->nullable();
             $table->text('image')->nullable();
             $table->integer('qty')->default(0);
+            $table->decimal('total_keping', 20, 2)->default(0);
+            $table->decimal('total_gram', 20, 2)->default(0);
             $table->decimal('nilai_pencairan', 20, 2)->default(0);
             $table->decimal('total_nilai_kredit', 20, 2)->default(0);
             $table->decimal('margin_keuntungan', 20, 2)->default(0);

@@ -1,0 +1,38 @@
+GDS, per 12 Maret 2025
+=============================
+
+1.  Install Library
+    -   composer require maatwebsite/excel --ignore-platform-reqs
+
+2.  Aturan import data excel
+    -   File excel hanya mempunyai 1 sheet, yaitu Sheet 1
+    -   Header pada baris 1 harus dihilangkan
+    -   Kolom B (Tgl Pencairan) formatnya diubah menjadi text (bukan date). Bisa lewat menu excel di Data->Text to Columns
+    -   Kolom U (Tgl Pelunasan) formatnya diubah menjadi text (bukan date). Bisa lewat menu excel di Data->Text to Columns
+
+2.  Request Update
+    -   https://docs.google.com/document/d/12r8o4WlNNmfk4850wQGk_WtHT3cmg8rWp2ErggsxE0U/edit?tab=t.0
+    -   Import data Excel
+
+3.  File Update
+    -   app\Helpers\helper.php
+    -   app\Http\Controllers\DashboardController.php
+    -   app\Http\Controllers\KreditNasabahController.php
+    -   app\Imports\KreditNasabahImport.php
+    -   app\Models\KreditDetail.php
+    -   app\Models\KreditNasabah.php
+    -   app\Models\KreditNasabahTmp.php
+    -   config\app.php
+    -   config\excel.php
+    -   resources\views\dashboard\index.blade.php
+    -   resources\views\import_data (all files, folder baru)
+    -   resources\views\kredit_nasabah\ (all files)
+    -   resources\views\layouts\partials\_sidebar.blade.php
+    -   routes\web.php
+
+4.  Database
+    -   Create ulang tabel [kredit_nasabah] karena ada penambahan beberapa kolom
+    -   Create ulang tabel [kredit_detail] karena ada penambahan beberapa kolom
+    -   Create tabel [kredit_nasabah_tmp]
+    -   Ubah nama [external update] menjadi [import data] di tabel [permissions]
+    -   Ubah group [External Update Permission] menjadi [Import Data Permission] di tabel [permissions]

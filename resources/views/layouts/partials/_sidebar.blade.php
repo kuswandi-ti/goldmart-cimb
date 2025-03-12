@@ -79,13 +79,24 @@
                     </li>
                 @endif
                 @if (canAccess(['kredit nasabah index']))
-                    <li class="slide {{ setSidebarActive(['kreditnasabah.*']) }}">
-                        <a href="{{ route('kreditnasabah.index') }}"
-                            class="side-menu__item {{ setSidebarActive(['kreditnasabah.*']) }}">
+                    <li class="slide {{ setSidebarActive(['outstandingdanjaminan.*']) }}">
+                        <a href="{{ route('outstandingdanjaminan.index') }}"
+                            class="side-menu__item {{ setSidebarActive(['outstandingdanjaminan.*']) }}">
                             <span class="side-menu__icon">
                                 <i class='bx bxs-credit-card'></i>
                             </span>
                             <span class="side-menu__label">{{ __('Outstanding & Jaminan') }}</span>
+                        </a>
+                    </li>
+                @endif
+                @if (canAccess(['import data']))
+                    <li class="slide {{ setSidebarActive(['outstandingdanjaminan.*']) }}">
+                        <a href="{{ route('outstandingdanjaminan.import_data') }}"
+                            class="side-menu__item {{ setSidebarActive(['outstandingdanjaminan.*']) }}">
+                            <span class="side-menu__icon">
+                                <i class='bx bx-import'></i>
+                            </span>
+                            <span class="side-menu__label">{{ __('Import Data') }}</span>
                         </a>
                     </li>
                 @endif
