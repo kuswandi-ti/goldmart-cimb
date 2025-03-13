@@ -57,7 +57,7 @@ class KreditNasabahController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, KreditNasabah $kreditnasabah)
+    public function update(Request $request, string $id)
     {
         // $id = $request->id;
         $imagePath = $this->handleImageUpload($request, 'image_barang', $request->old_image_barang, 'barang');
@@ -66,9 +66,8 @@ class KreditNasabahController extends Controller
         $no_seri = $request->no_seri;
         $gramasi = $request->gramasi;
 
-        // dd(count($no_seri));
-
-        $update = $kreditnasabah->update([
+        $kredit_nasabah = KreditNasabah::findOrFail($id);
+        $update = $kredit_nasabah->update([
             'status_kredit' => $request->status_kredit,
             'tgl_lunas' => $request->tgl_lunas,
             'status_kirim_barang' => $request->status_kirim_barang,
@@ -79,20 +78,22 @@ class KreditNasabahController extends Controller
             'updated_by' => auth()->user()->name,
         ]);
 
-        if (count($no_seri) > 0) {
-            for ($i = 0; $i < count($no_seri); $i++) {
-                $cek = KreditDetail::where('no_seri', '=', $no_seri[$i])->first();
-                if ($cek) {
-                    return redirect()->back()->withInput()->withErrors('Data No. [' . $cek->no_seri . '] sudah pernah dipakai');
-                }
-            }
-        }
+        // if (count($no_seri) > 0) {
+        //     for ($i = 0; $i < count($no_seri); $i++) {
+        //         if ($no_seri[$i] !== '' || !empty($no_seri[$i]) || $no_seri[$i] !== null) {
+        //             $cek = KreditDetail::where('no_seri', '=', $no_seri[$i])->first();
+        //             if ($cek) {
+        //                 return redirect()->back()->withInput()->withErrors('Data No. [' . $cek->no_seri . '] sudah pernah dipakai');
+        //             }
+        //         }
+        //     }
+        // }
 
         if (count($no_seri) > 0) {
             for ($i = 0; $i < count($no_seri); $i++) {
                 $update = KreditDetail::where('id', '=', $id_detail[$i])
                     ->update([
-                        'no_seri' => $no_seri[$i],
+                        'no_seri' => ($no_seri[$i] == '' || empty($no_seri[$i]) || $no_seri[$i] == null) ? '' : $no_seri[$i],
                         'updated_at' => saveDateTimeNow(),
                         'updated_by' => auth()->user()->name,
                     ]);
@@ -331,116 +332,122 @@ class KreditNasabahController extends Controller
         // temporary file
         $path = $file->storeAs('public/excel/', $nama_file);
 
-        // delete semua data lama
-        DB::table('kredit_nasabah_tmp')->truncate();
-
         // import data
-        $import = Excel::import(new KreditNasabahImport(), storage_path('app/public/excel/' . $nama_file));
+        $arr_import = Excel::toArray(new KreditNasabahImport, storage_path('app/public/excel/' . $nama_file));
 
         // remove from server
         Storage::delete($path);
 
-        if ($import) {
-            // next proses, import ke tabel header & detail
-            $tmp = KreditNasabahTmp::get();
-            foreach ($tmp as $data) {
-                // create header
-                $store_header = KreditNasabah::create([
-                    'nama_nasabah' => $data->nama_nasabah,
-                    'tlp_nasabah' => $data->tlp_nasabah,
-                    'alamat_nasabah' => $data->alamat_nasabah,
-                    'no_loan' => $data->no_loan,
-                    'tgl_pencairan' => $data->tgl_pencairan,
-                    'total_keping' => $data->total_keping,
-                    'total_gram' => $data->total_gram,
-                    'nilai_pencairan' => $data->nilai_pencairan,
-                    'total_nilai_kredit' => $data->nilai_pencairan,
-                    'angsuran' => $data->angsuran,
-                    'tenor' => $data->tenor,
-                    'bulan' => date('m', strtotime($data->tgl_pencairan)),
-                    'tahun' => date('Y', strtotime($data->tgl_pencairan)),
-                    'tgl_lunas' => $data->tgl_lunas,
-                ]);
+        if (count($arr_import) > 0) {
+            foreach ($arr_import as $key => $value) {
+                foreach ($value as $row) {
+                    $tgl_pencairan = right($row[1], 4) . "-" . mid($row[1], 3, 2) . "-" . left($row[1], 2);
+                    $tgl_lunas = right($row[20], 4) . "-" . mid($row[20], 3, 2) . "-" . left($row[20], 2);
+                    $insert_id_header = KreditNasabah::insertGetId([
+                        'tgl_pencairan'         => $tgl_pencairan,
+                        'nama_nasabah'          => $row[2],
+                        'no_loan'               => $row[3],
+                        'tlp_nasabah'           => $row[4],
+                        'alamat_nasabah'        => $row[5],
+                        'nilai_pencairan'       => $row[6],
+                        'total_nilai_kredit'    => $row[6],
+                        'total_keping'          => $row[16],
+                        'total_gram'            => $row[17],
+                        'angsuran'              => $row[18],
+                        'tenor'                 => $row[19],
+                        'bulan'                 => date('m', strtotime($tgl_pencairan)),
+                        'tahun'                 => date('Y', strtotime($tgl_pencairan)),
+                        'tgl_lunas'             => $tgl_lunas,
+                        'created_at'            => saveDateTimeNow(),
+                        'created_by'            => auth()->user()->name,
+                    ]);
 
-                $last_insert_id_header = $store_header->id;
+                    $gram_05 = $row[7];
+                    $gram_1 = $row[8];
+                    $gram_2 = $row[9];
+                    $gram_3 = $row[10];
+                    $gram_5 = $row[11];
+                    $gram_10 = $row[12];
+                    $gram_25 = $row[13];
+                    $gram_50 = $row[14];
+                    $gram_100 = $row[15];
 
-                $gram_05 = $data->gram_05;
-                $gram_1 = $data->gram_1;
-                $gram_2 = $data->gram_2;
-                $gram_3 = $data->gram_3;
-                $gram_5 = $data->gram_5;
-                $gram_10 = $data->gram_10;
-                $gram_25 = $data->gram_25;
-                $gram_50 = $data->gram_50;
-                $gram_100 = $data->gram_100;
-
-                if (!empty($gram_05)) {
-                    KreditDetail::create([
-                        'id_kredit_nasabah' => $last_insert_id_header,
-                        'gramasi' => 0.5,
-                        'keping' => $gram_05,
-                    ]);
-                }
-                if (!empty($gram_1)) {
-                    KreditDetail::create([
-                        'id_kredit_nasabah' => $last_insert_id_header,
-                        'gramasi' => 1,
-                        'keping' => $gram_1,
-                    ]);
-                }
-                if (!empty($gram_2)) {
-                    KreditDetail::create([
-                        'id_kredit_nasabah' => $last_insert_id_header,
-                        'gramasi' => 2,
-                        'keping' => $gram_2,
-                    ]);
-                }
-                if (!empty($gram_3)) {
-                    KreditDetail::create([
-                        'id_kredit_nasabah' => $last_insert_id_header,
-                        'gramasi' => 3,
-                        'keping' => $gram_3,
-                    ]);
-                }
-                if (!empty($gram_5)) {
-                    KreditDetail::create([
-                        'id_kredit_nasabah' => $last_insert_id_header,
-                        'gramasi' => 5,
-                        'keping' => $gram_5,
-                    ]);
-                }
-                if (!empty($gram_10)) {
-                    KreditDetail::create([
-                        'id_kredit_nasabah' => $last_insert_id_header,
-                        'gramasi' => 10,
-                        'keping' => $gram_10,
-                    ]);
-                }
-                if (!empty($gram_25)) {
-                    KreditDetail::create([
-                        'id_kredit_nasabah' => $last_insert_id_header,
-                        'gramasi' => 25,
-                        'keping' => $gram_25,
-                    ]);
-                }
-                if (!empty($gram_50)) {
-                    KreditDetail::create([
-                        'id_kredit_nasabah' => $last_insert_id_header,
-                        'gramasi' => 50,
-                        'keping' => $gram_50,
-                    ]);
-                }
-                if (!empty($gram_100)) {
-                    KreditDetail::create([
-                        'id_kredit_nasabah' => $last_insert_id_header,
-                        'gramasi' => 100,
-                        'keping' => $gram_100,
-                    ]);
+                    if (!empty($gram_05)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 0.5,
+                            'keping' => $gram_05,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    if (!empty($gram_1)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 1,
+                            'keping' => $gram_1,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    if (!empty($gram_2)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 2,
+                            'keping' => $gram_2,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    if (!empty($gram_3)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 3,
+                            'keping' => $gram_3,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    if (!empty($gram_5)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 5,
+                            'keping' => $gram_5,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    if (!empty($gram_10)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 10,
+                            'keping' => $gram_10,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    if (!empty($gram_25)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 25,
+                            'keping' => $gram_25,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    if (!empty($gram_50)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 50,
+                            'keping' => $gram_50,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    if (!empty($gram_100)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 100,
+                            'keping' => $gram_100,
+                            'no_seri' => '',
+                        ]);
+                    }
                 }
             }
-            return redirect()->back()->with(['success' => 'Data Berhasil Diimport!']);
-        } else {
-            return redirect()->back()->with(['error' => 'Data Gagal Diimport!']);
         }
+
+        return redirect()->back()->with(['success' => 'Data Berhasil Diimport!']);
     }
 }

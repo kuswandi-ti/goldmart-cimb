@@ -90,9 +90,9 @@
                     </li>
                 @endif
                 @if (canAccess(['import data']))
-                    <li class="slide {{ setSidebarActive(['outstandingdanjaminan.*']) }}">
-                        <a href="{{ route('outstandingdanjaminan.import_data') }}"
-                            class="side-menu__item {{ setSidebarActive(['outstandingdanjaminan.*']) }}">
+                    <li class="slide {{ setSidebarActive(['importdata.*']) }}">
+                        <a href="{{ route('importdata.index') }}"
+                            class="side-menu__item {{ setSidebarActive(['importdata.*']) }}">
                             <span class="side-menu__icon">
                                 <i class='bx bx-import'></i>
                             </span>

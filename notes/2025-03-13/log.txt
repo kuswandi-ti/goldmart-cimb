@@ -1,4 +1,4 @@
-GDS, per 12 Maret 2025
+GDS, per 13 Maret 2025
 =============================
 
 1.  Install Library
@@ -7,8 +7,8 @@ GDS, per 12 Maret 2025
 2.  Aturan import data excel
     -   File excel hanya mempunyai 1 sheet, yaitu Sheet 1
     -   Header pada baris 1 harus dihilangkan
-    -   Kolom B (Tgl Pencairan) formatnya diubah menjadi text (bukan date). Bisa lewat menu excel di Data->Text to Columns
-    -   Kolom U (Tgl Pelunasan) formatnya diubah menjadi text (bukan date). Bisa lewat menu excel di Data->Text to Columns
+    -   Kolom B (Tgl Pencairan) formatnya diubah menjadi text (bukan date). Bisa lewat menu excel di Data->Text to Columns (info di gambar Capture2.jpg)
+    -   Kolom U (Tgl Pelunasan) formatnya diubah menjadi text (bukan date). Bisa lewat menu excel di Data->Text to Columns (info di gambar Capture2.jpg)
 
 2.  Request Update
     -   https://docs.google.com/document/d/12r8o4WlNNmfk4850wQGk_WtHT3cmg8rWp2ErggsxE0U/edit?tab=t.0
@@ -33,6 +33,5 @@ GDS, per 12 Maret 2025
 4.  Database
     -   Create ulang tabel [kredit_nasabah] karena ada penambahan beberapa kolom
     -   Create ulang tabel [kredit_detail] karena ada penambahan beberapa kolom
-    -   Create tabel [kredit_nasabah_tmp]
-    -   Ubah nama [external update] menjadi [import data] di tabel [permissions]
-    -   Ubah group [External Update Permission] menjadi [Import Data Permission] di tabel [permissions]
+    -   Ubah nama [external update] menjadi [import data] di tabel [permissions] (info di gambar Capture1.jpg)
+    -   Ubah group [External Update Permission] menjadi [Import Data Permission] di tabel [permissions] (info di gambar Capture1.jpg)

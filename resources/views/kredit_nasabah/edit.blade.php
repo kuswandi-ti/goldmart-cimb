@@ -23,7 +23,7 @@
 @section('page_content')
     <div class="row">
         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-            <form method="POST" action="{{ route('outstandingdanjaminan.update', $kredit_nasabah) }}"
+            <form method="POST" action="{{ route('outstandingdanjaminan.update', $kredit_nasabah->id) }}"
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')

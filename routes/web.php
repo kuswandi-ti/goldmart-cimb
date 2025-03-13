@@ -71,9 +71,10 @@ Route::group(['middleware' => ['auth_check', 'prevent_back_history']], function 
     Route::get('outstandingdanjaminan/detail/{filter}', [KreditNasabahController::class, 'detail'])->name('outstandingdanjaminan.detail');
     Route::get('outstandingdanjaminan/data', [KreditNasabahController::class, 'data'])->name('outstandingdanjaminan.data');
     Route::get('outstandingdanjaminan/datalunas', [KreditNasabahController::class, 'dataLunas'])->name('outstandingdanjaminan.datalunas');
-    Route::get('outstandingdanjaminan/import-data', [KreditNasabahController::class, 'importData'])->name('outstandingdanjaminan.import_data');
-    Route::post('outstandingdanjaminan/post-import-data', [KreditNasabahController::class, 'postImportData'])->name('outstandingdanjaminan.post_import_data');
     Route::resource('outstandingdanjaminan', KreditNasabahController::class);
+
+    Route::get('importdata/index', [KreditNasabahController::class, 'importData'])->name('importdata.index');
+    Route::post('importdata/post', [KreditNasabahController::class, 'postImportData'])->name('importdata.post');
 
     /** Setting Routes */
     Route::get('setting', [SettingController::class, 'index'])->name('setting.index');

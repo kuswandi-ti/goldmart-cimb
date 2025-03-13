@@ -60,7 +60,7 @@ class KreditNasabah extends Model
 
     public function nasabah()
     {
-        return $this->belongsTo(Nasabah::class, 'id_brand', 'id');
+        return $this->belongsTo(Nasabah::class, 'id_nasabah', 'id');
     }
 
     public function scopePeriodeAktif($query)

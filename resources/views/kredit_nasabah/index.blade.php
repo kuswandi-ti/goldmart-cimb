@@ -120,9 +120,10 @@
                                 <thead>
                                     <tr>
                                         <th width="15%" class="text-center">{{ __('No.') }}</th>
-                                        <th width="55%">{{ __('No. Seri') }}</th>
+                                        <th width="40%">{{ __('No. Seri') }}</th>
                                         <th width="15%" class="text-end">{{ __('Gramasi') }}</th>
                                         <th width="15%" class="text-end">{{ __('Keping') }}</th>
+                                        <th width="15%" class="text-end">{{ __('Total Gram') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -331,44 +332,44 @@
                 success: function(response) {
                     $('#viewDataLabel').html("Detail Data Barang");
 
-                    $('#data_nasabah').html("Nasabah : " + response.nasabah.nama_nasabah + " (" +
-                        response
-                        .nasabah.kode_nasabah +
-                        ")");
+                    $('#data_nasabah').html("Nasabah : " + response.nasabah.nama_nasabah);
 
                     var $tableBody = $('#table tbody');
                     var no = 1;
-                    var total_gramasi = 0;
-                    var total_keping = 0;
-                    var total = 0;
+                    var total_gram = 0;
+                    var grand_total_keping = 0;
+                    var grand_total_gram = 0;
 
                     $tableBody.empty();
 
                     if (response.kredit_detail.length > 0) {
                         $.each(response.kredit_detail, function(index, rowData) {
                             var $newRow = $('<tr>');
-                            total_gramasi = total_gramasi + Number(rowData.gramasi);
-                            total_keping = total_keping + Number(rowData.keping);
+                            total_gram = Number(rowData.gramasi) * Number(rowData.keping);
+                            grand_total_keping = grand_total_keping + Number(rowData.keping);
+                            grand_total_gram = grand_total_gram + total_gram;
                             $newRow.append('<td align="center">' + no + '</td>');
                             $newRow.append('<td>' + rowData.no_seri + '</td>');
                             $newRow.append('<td align="right">' + formatAmount(rowData
                                 .gramasi) + '</td>');
                             $newRow.append('<td align="right">' + formatAmount(rowData
                                 .keping) + '</td>');
+                            $newRow.append('<td align="right">' + formatAmount(total_gram) +
+                                '</td>');
                             $tableBody.append($newRow);
 
                             no++;
                         });
                         var $newRow = $('<tr>');
-                        $newRow.append('<td colspan="2"><b>Total</b></td>');
-                        $newRow.append('<td align="right"><b>' + formatAmount(total_gramasi) +
+                        $newRow.append('<td colspan="3"><b>Total</b></td>');
+                        $newRow.append('<td align="right"><b>' + formatAmount(grand_total_keping) +
                             '</b></td>');
-                        $newRow.append('<td align="right"><b>' + formatAmount(total_keping) +
+                        $newRow.append('<td align="right"><b>' + formatAmount(grand_total_gram) +
                             '</b></td>');
                         $tableBody.append($newRow);
                     } else {
                         var $newRow = $('<tr>');
-                        $newRow.append('<td colspan="3" align="center">Tidak ada data</td>');
+                        $newRow.append('<td colspan="4" align="center">Tidak ada data</td>');
                         $tableBody.append($newRow);
                     }
 
