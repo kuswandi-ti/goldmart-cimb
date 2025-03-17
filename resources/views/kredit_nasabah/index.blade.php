@@ -177,11 +177,11 @@
                 searchable: true,
                 sortable: true,
             }, {
-                data: 'kode_nasabah',
+                data: 'nasabah_code',
                 searchable: true,
                 sortable: true,
             }, {
-                data: 'nama_nasabah',
+                data: 'nasabah_name',
                 searchable: true,
                 sortable: true,
             }, {
@@ -249,11 +249,11 @@
                 searchable: true,
                 sortable: true,
             }, {
-                data: 'kode_nasabah',
+                data: 'nasabah_code',
                 searchable: true,
                 sortable: true,
             }, {
-                data: 'nama_nasabah',
+                data: 'nasabah_name',
                 searchable: true,
                 sortable: true,
             }, {

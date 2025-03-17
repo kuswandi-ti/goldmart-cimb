@@ -6,6 +6,7 @@ GDS, per 17 Maret 2025
     -   Import data master nasabah
 
 2.  File Update
+    -   app\Http\Controllers\DashboardController.php
     -   app\Http\Controllers\KreditNasabahController.php
     -   resources\views\kredit_nasabah\edit.blade.php
     -   resources\views\kredit_nasabah\index.blade.php

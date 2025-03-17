@@ -12,7 +12,10 @@ class DashboardController extends Controller
     public function index()
     {
         /* Widget 1 - Start */
-        $total_nasabah = DB::table('kredit_nasabah')
+        // $total_nasabah = DB::table('kredit_nasabah')
+        //     ->select(DB::raw('COUNT(DISTINCT id) as total_nasabah'))
+        //     ->first();
+        $total_nasabah = DB::table('nasabah')
             ->select(DB::raw('COUNT(DISTINCT id) as total_nasabah'))
             ->first();
 
