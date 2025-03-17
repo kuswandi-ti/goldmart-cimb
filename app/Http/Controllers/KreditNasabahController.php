@@ -345,7 +345,9 @@ class KreditNasabahController extends Controller
                     // Insert ke tabel Nasabah
                     $nasabah = Nasabah::get();
                     $count_nasabah = $nasabah->count();
-                    $kode_nasabah = "N" . right("0000000000" . (int)$count_nasabah + 1, 10);
+                    $bulan = right("00" . date('m'), 2);
+                    $tahun = right(date('Y'), 2);
+                    $kode_nasabah = "N" . "-" . $bulan . $tahun . "-" . right("000" . (int)$count_nasabah + 1, 5);
                     $insert_id_nasabah = Nasabah::insertGetId([
                         'kode'          => $kode_nasabah,
                         'nama'          => $row[2],
