@@ -10,6 +10,7 @@ use App\Traits\FileUploadTrait;
 use App\Models\ViewKreditNasabah;
 use App\Imports\KreditNasabahImport;
 use App\Models\KreditNasabahTmp;
+use App\Models\Nasabah;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
@@ -138,8 +139,8 @@ class KreditNasabahController extends Controller
     {
         // $query = ViewKreditNasabah::periodeaktif()->belumlunas();
 
-        // $query = ViewKreditNasabah::belumlunas();
-        $query = KreditNasabah::belumlunas();
+        $query = ViewKreditNasabah::belumlunas();
+        // $query = KreditNasabah::belumlunas();
 
         // $query = KreditNasabah::select('kredit_nasabah.id AS id, kredit_nasabah.status_kredit AS status_kredit', 'kredit_nasabah.status_kirim_barang AS status_kirim_barang',
         //         'nasabah.nama AS nama_nasabah', 'nasabah.alamat AS alamat_nasabah', 'nasabah.no_tlp AS no_tlp',
@@ -257,8 +258,8 @@ class KreditNasabahController extends Controller
             ->orderBy('id', 'ASC')
             ->get();
 
-        $nasabah = DB::table('kredit_nasabah')
-            ->select(DB::raw('id_nasabah, kode_nasabah, nama_nasabah'))
+        $nasabah = DB::table('nasabah')
+            ->select(DB::raw('id, kode, nama'))
             ->where('id', $id)
             ->first();
 
@@ -341,10 +342,26 @@ class KreditNasabahController extends Controller
         if (count($arr_import) > 0) {
             foreach ($arr_import as $key => $value) {
                 foreach ($value as $row) {
+                    // Insert ke tabel Nasabah
+                    $nasabah = Nasabah::get();
+                    $count_nasabah = $nasabah->count();
+                    $kode_nasabah = "N" . right("0000000000" . (int)$count_nasabah + 1, 10);
+                    $insert_id_nasabah = Nasabah::insertGetId([
+                        'kode'          => $kode_nasabah,
+                        'nama'          => $row[2],
+                        'no_tlp'        => $row[4],
+                        'alamat'        => $row[5],
+                        'created_at'    => saveDateTimeNow(),
+                        'created_by'    => auth()->user()->name,
+                    ]);
+
+                    // Insert ke tabel Kredit Nasabah
                     $tgl_pencairan = right($row[1], 4) . "-" . mid($row[1], 3, 2) . "-" . left($row[1], 2);
                     $tgl_lunas = right($row[20], 4) . "-" . mid($row[20], 3, 2) . "-" . left($row[20], 2);
                     $insert_id_header = KreditNasabah::insertGetId([
                         'tgl_pencairan'         => $tgl_pencairan,
+                        'id_nasabah'            => $insert_id_nasabah,
+                        'kode_nasabah'          => $kode_nasabah,
                         'nama_nasabah'          => $row[2],
                         'no_loan'               => $row[3],
                         'tlp_nasabah'           => $row[4],

@@ -174,10 +174,22 @@
                                         <th width="10%" class="text-center">{{ __('No.') }}</th>
                                         <th width="80%">{{ __('No. Seri') }}</th>
                                         <th width="20%" class="text-end">{{ __('Gramasi') }}</th>
+                                        <th width="20%" class="text-end">{{ __('Keping') }}</th>
+                                        <th width="20%" class="text-end">{{ __('Total Gram') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $grand_total_keping = 0;
+                                        $grand_total_gram = 0;
+                                    @endphp
                                     @forelse ($kredit_detail as $kredit_details)
+                                        @php
+                                            $total_gram =
+                                                (float) $kredit_details->gramasi * (float) $kredit_details->keping;
+                                            $grand_total_keping = $grand_total_keping + (float) $kredit_details->keping;
+                                            $grand_total_gram = $grand_total_gram + $total_gram;
+                                        @endphp
                                         <tr>
                                             <td align="center">
                                                 <input class="form-control form-control-sm" name="id_detail[]"
@@ -188,17 +200,33 @@
                                                 <input class="form-control form-control-sm" name="no_seri[]"
                                                     type="text" value="{{ $kredit_details->no_seri }}" disabled>
                                             </td>
-                                            <td align="right">
-                                                <input class="form-control form-control-sm" name="gramasi[]"
+                                            <td>
+                                                <input class="form-control form-control-sm text-end" name="gramasi[]"
                                                     type="text" value="{{ $kredit_details->gramasi }}" disabled>
+                                            </td>
+                                            <td>
+                                                <input class="form-control form-control-sm text-end" name="keping[]"
+                                                    type="text" value="{{ $kredit_details->keping }}" disabled>
+                                            </td>
+                                            <td>
+                                                <input class="form-control form-control-sm text-end" name="total_gram[]"
+                                                    type="text" value="{{ $total_gram }}" disabled>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="3" align="center">{{ __('Tidak ada data') }}</td>
+                                            <td colspan="5" align="center">{{ __('Tidak ada data') }}</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="3"><strong>{{ __('Total') }}</strong></th>
+                                        <td class="text-end"><strong>{{ formatAmount($grand_total_keping, 2) }}
+                                            </strong></td>
+                                        <td class="text-end"><strong>{{ formatAmount($grand_total_gram, 2) }}</strong></td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

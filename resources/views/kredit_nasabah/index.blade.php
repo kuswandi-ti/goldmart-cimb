@@ -332,7 +332,8 @@
                 success: function(response) {
                     $('#viewDataLabel').html("Detail Data Barang");
 
-                    $('#data_nasabah').html("Nasabah : " + response.nasabah.nama_nasabah);
+                    $('#data_nasabah').html("Nasabah : " + response.nasabah.nama + " (" +
+                        response.nasabah.kode + ")");
 
                     var $tableBody = $('#table tbody');
                     var no = 1;
