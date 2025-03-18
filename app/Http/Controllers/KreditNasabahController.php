@@ -336,6 +336,8 @@ class KreditNasabahController extends Controller
         // import data
         $arr_import = Excel::toArray(new KreditNasabahImport, storage_path('app/public/excel/' . $nama_file));
 
+        // dd($arr_import);
+
         // remove from server
         Storage::delete($path);
 
@@ -350,30 +352,30 @@ class KreditNasabahController extends Controller
                     $kode_nasabah = "N" . "-" . $bulan . $tahun . "-" . right("000" . (int)$count_nasabah + 1, 5);
                     $insert_id_nasabah = Nasabah::insertGetId([
                         'kode'          => $kode_nasabah,
-                        'nama'          => $row[2],
-                        'no_tlp'        => $row[4],
-                        'alamat'        => $row[5],
+                        'nama'          => $row['nama_nasabah'],
+                        'no_tlp'        => $row['telp_nasabah'],
+                        'alamat'        => $row['alamat_nasabah'],
                         'created_at'    => saveDateTimeNow(),
                         'created_by'    => auth()->user()->name,
                     ]);
 
                     // Insert ke tabel Kredit Nasabah
-                    $tgl_pencairan = right($row[1], 4) . "-" . mid($row[1], 3, 2) . "-" . left($row[1], 2);
-                    $tgl_lunas = right($row[20], 4) . "-" . mid($row[20], 3, 2) . "-" . left($row[20], 2);
+                    $tgl_pencairan = right($row['tgl_pencairan'], 4) . "-" . mid($row['tgl_pencairan'], 3, 2) . "-" . left($row['tgl_pencairan'], 2);
+                    $tgl_lunas = right($row['tgl_pelunasan'], 4) . "-" . mid($row['tgl_pelunasan'], 3, 2) . "-" . left($row['tgl_pelunasan'], 2);
                     $insert_id_header = KreditNasabah::insertGetId([
                         'tgl_pencairan'         => $tgl_pencairan,
                         'id_nasabah'            => $insert_id_nasabah,
                         'kode_nasabah'          => $kode_nasabah,
-                        'nama_nasabah'          => $row[2],
-                        'no_loan'               => $row[3],
-                        'tlp_nasabah'           => $row[4],
-                        'alamat_nasabah'        => $row[5],
-                        'nilai_pencairan'       => $row[6],
-                        'total_nilai_kredit'    => $row[6],
-                        'total_keping'          => $row[16],
-                        'total_gram'            => $row[17],
-                        'angsuran'              => $row[18],
-                        'tenor'                 => $row[19],
+                        'nama_nasabah'          => $row['nama_nasabah'],
+                        'no_loan'               => $row['no_loan'],
+                        'tlp_nasabah'           => $row['telp_nasabah'],
+                        'alamat_nasabah'        => $row['alamat_nasabah'],
+                        'nilai_pencairan'       => $row['nilai_pencairan'],
+                        'total_nilai_kredit'    => $row['nilai_pencairan'],
+                        'total_keping'          => $row['total_keping'],
+                        'total_gram'            => $row['total_gram'],
+                        'angsuran'              => $row['angsuran'],
+                        'tenor'                 => $row['jangka_waktu'],
                         'bulan'                 => date('m', strtotime($tgl_pencairan)),
                         'tahun'                 => date('Y', strtotime($tgl_pencairan)),
                         'tgl_lunas'             => $tgl_lunas,
@@ -381,15 +383,15 @@ class KreditNasabahController extends Controller
                         'created_by'            => auth()->user()->name,
                     ]);
 
-                    $gram_05 = $row[7];
-                    $gram_1 = $row[8];
-                    $gram_2 = $row[9];
-                    $gram_3 = $row[10];
-                    $gram_5 = $row[11];
-                    $gram_10 = $row[12];
-                    $gram_25 = $row[13];
-                    $gram_50 = $row[14];
-                    $gram_100 = $row[15];
+                    $gram_05 = $row['05'];
+                    $gram_1 = $row['1'];
+                    $gram_2 = $row['2'];
+                    $gram_3 = $row['3'];
+                    $gram_5 = $row['5'];
+                    $gram_10 = $row['10'];
+                    $gram_25 = $row['25'];
+                    $gram_50 = $row['50'];
+                    $gram_100 = $row['100'];
 
                     if (!empty($gram_05)) {
                         KreditDetail::create([

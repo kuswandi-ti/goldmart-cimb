@@ -1,0 +1,21 @@
+GDS, per 18 Maret 2025
+=============================
+
+1.  Request Update
+    -   https://docs.google.com/document/d/12r8o4WlNNmfk4850wQGk_WtHT3cmg8rWp2ErggsxE0U/edit?tab=t.0
+    -   Import data master nasabah
+
+2.  Aturan import data excel
+    -   File excel hanya mempunyai 1 sheet, yaitu Sheet 1
+    -   Kolom B (Tgl Pencairan) formatnya diubah menjadi text (bukan date). Bisa lewat menu excel di Data->Text to Columns (info di gambar Capture2.jpg)
+    -   Kolom U (Tgl Pelunasan) formatnya diubah menjadi text (bukan date). Bisa lewat menu excel di Data->Text to Columns (info di gambar Capture2.jpg)
+
+3.  File Update
+    -   app\Http\Controllers\KreditNasabahController.php
+    -   app\Imports\KreditNasabahImport.php
+
+4.  Database
+    -   Create ulang tabel [kredit_nasabah] karena ada penambahan beberapa kolom
+    -   Create ulang tabel [kredit_detail] karena ada penambahan beberapa kolom
+    -   Ubah nama [external update] menjadi [import data] di tabel [permissions] (info di gambar Capture1.jpg)
+    -   Ubah group [External Update Permission] menjadi [Import Data Permission] di tabel [permissions] (info di gambar Capture1.jpg)

@@ -12,8 +12,8 @@ class KreditNasabahImport implements ToArray, WithHeadingRow
         return $array;
     }
 
-    public function headingRow(): int
-    {
-        return 0;
-    }
+    // public function headingRow(): int
+    // {
+    //     return 0;
+    // }
 }
