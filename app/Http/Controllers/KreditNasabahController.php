@@ -209,8 +209,8 @@ class KreditNasabahController extends Controller
     {
         // $query = ViewKreditNasabah::periodeaktif()->lunas();
 
-        // $query = ViewKreditNasabah::lunas();
-        $query = KreditNasabah::lunas();
+        $query = ViewKreditNasabah::lunas();
+        // $query = KreditNasabah::lunas();
 
         return datatables($query)
             ->addIndexColumn()
