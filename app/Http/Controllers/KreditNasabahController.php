@@ -90,14 +90,16 @@ class KreditNasabahController extends Controller
         //     }
         // }
 
-        if (count($no_seri) > 0) {
-            for ($i = 0; $i < count($no_seri); $i++) {
-                $update = KreditDetail::where('id', '=', $id_detail[$i])
-                    ->update([
-                        'no_seri' => ($no_seri[$i] == '' || empty($no_seri[$i]) || $no_seri[$i] == null) ? '' : $no_seri[$i],
-                        'updated_at' => saveDateTimeNow(),
-                        'updated_by' => auth()->user()->name,
-                    ]);
+        if (!empty($no_seri)) {
+            if (count($no_seri) > 0) {
+                for ($i = 0; $i < count($no_seri); $i++) {
+                    $update = KreditDetail::where('id', '=', $id_detail[$i])
+                        ->update([
+                            'no_seri' => ($no_seri[$i] == '' || empty($no_seri[$i]) || $no_seri[$i] == null) ? '' : $no_seri[$i],
+                            'updated_at' => saveDateTimeNow(),
+                            'updated_by' => auth()->user()->name,
+                        ]);
+                }
             }
         }
 
