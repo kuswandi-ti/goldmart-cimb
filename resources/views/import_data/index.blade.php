@@ -28,10 +28,14 @@
                         </div>
                     </div>
                 </div>
+
                 <form action="{{ route('importdata.post') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="card-body">
+
+                        <x-web-alert-message />
+
                         <div class="row gy-4">
                             <div class="col-xl-12">
                                 <label for="file" class="form-label text-default">{{ __('Pilih File Excel') }}
