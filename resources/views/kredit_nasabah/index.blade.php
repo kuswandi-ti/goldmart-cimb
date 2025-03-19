@@ -36,14 +36,27 @@
                     @endcan --}}
                 </div>
                 <div class="card-body">
-                    <ul class="nav nav-pills mb-3 nav-justified tab-style-5 d-sm-flex d-block" id="pills-tab" role="tablist">
+                    {{-- <ul class="nav nav-pills mb-3 nav-justified tab-style-5 d-sm-flex d-block" id="pills-tab" role="tablist">
                         <li class="nav-item active" role="presentation">
-                            <a class="nav-link active" data-bs-toggle="tab" role="tab" href="#tab_kredit_berjalan"
-                                aria-selected="true">{{ __('Berjalan') }}</a>
+                            <a class="nav-link active" data-bs-toggle="tab" role="tab"
+                                data-bs-target="#tab_kredit_berjalan" aria-selected="true">{{ __('Berjalan') }}</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" data-bs-toggle="tab" role="tab" href="#tab_kredit_lunas"
+                            <a class="nav-link" data-bs-toggle="tab" role="tab" data-bs-target="#tab_kredit_lunas"
                                 aria-selected="false">{{ __('Lunas') }}</a>
+                        </li>
+                    </ul> --}}
+
+                    <ul class="nav nav-pills mb-3 nav-justified tab-style-5 d-sm-flex d-block" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="kredit_berjalan_tab" data-bs-toggle="tab"
+                                data-bs-target="#tab_kredit_berjalan" type="button" role="tab"
+                                aria-controls="kredit_berjalan" aria-selected="true">{{ __('Berjalan') }}</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="kredit_lunas_tab" data-bs-toggle="tab"
+                                data-bs-target="#tab_kredit_lunas" type="button" role="tab"
+                                aria-controls="kredit_lunas" aria-selected="false">{{ __('Lunas') }}</button>
                         </li>
                     </ul>
 
@@ -294,6 +307,16 @@
             order: [
                 [9, 'desc']
             ]
+        });
+
+        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function(event) {
+            var tabID = $(event.target).attr('data-bs-target');
+            if (tabID === '#tab_kredit_berjalan') {
+                table_data.columns.adjust().responsive.recalc();
+            }
+            if (tabID === '#tab_kredit_lunas') {
+                table_data_lunas.columns.adjust().responsive.recalc();
+            }
         });
 
         // $('#status_lunas, #status_kirim_barang').select2({

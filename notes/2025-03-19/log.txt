@@ -6,5 +6,6 @@ GDS, per 19 Maret 2025
 
 2.  File Update
     -   app\Http\Controllers\KreditNasabahController.php
+    -   resources\views\kredit_nasabah\index.blade.php
 
 3.  Database
