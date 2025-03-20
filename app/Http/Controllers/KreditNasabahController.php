@@ -350,6 +350,7 @@ class KreditNasabahController extends Controller
             foreach ($arr_import as $key => $value) {
                 foreach ($value as $row) {
                     $i++;
+                    // dd($row['angsuran']);
                     if (
                         empty($row['tgl_pencairan']) &&
                         !empty($row['nama_nasabah']) &&
@@ -436,14 +437,14 @@ class KreditNasabahController extends Controller
                         !empty($row['no_loan']) &&
                         !empty($row['telp_nasabah']) &&
                         !empty($row['alamat_nasabah']) &&
-                        empty($row['nilai_pencairan']) &&
+                        (empty($row['nilai_pencairan']) || is_numeric($row['angsuran']) == false) &&
                         !empty($row['total_keping']) &&
                         !empty($row['total_gram']) &&
                         !empty($row['angsuran']) &&
                         !empty($row['jangka_waktu']) &&
                         !empty($row['tgl_pelunasan'])
                     ) {
-                        $msg = 'Data Gagal Diimport! Ada data NILAI PENCAIRAN yg kosong';
+                        $msg = 'Data Gagal Diimport! Ada data NILAI PENCAIRAN yg kosong / bukan angka';
                         return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
                     }
                     if (
@@ -453,29 +454,13 @@ class KreditNasabahController extends Controller
                         !empty($row['telp_nasabah']) &&
                         !empty($row['alamat_nasabah']) &&
                         !empty($row['nilai_pencairan']) &&
-                        empty($row['total_keping']) &&
+                        (empty($row['total_keping']) || is_numeric($row['total_keping']) == false) &&
                         !empty($row['total_gram']) &&
                         !empty($row['angsuran']) &&
                         !empty($row['jangka_waktu']) &&
                         !empty($row['tgl_pelunasan'])
                     ) {
-                        $msg = 'Data Gagal Diimport! Ada data TOTAL KEPING yg kosong';
-                        return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
-                    }
-                    if (
-                        !empty($row['tgl_pencairan']) &&
-                        !empty($row['nama_nasabah']) &&
-                        !empty($row['no_loan']) &&
-                        !empty($row['telp_nasabah']) &&
-                        !empty($row['alamat_nasabah']) &&
-                        !empty($row['nilai_pencairan']) &&
-                        !empty($row['total_keping']) &&
-                        empty($row['total_gram']) &&
-                        !empty($row['angsuran']) &&
-                        !empty($row['jangka_waktu']) &&
-                        !empty($row['tgl_pelunasan'])
-                    ) {
-                        $msg = 'Data Gagal Diimport! Ada data TOTAL GRAM yg kosong';
+                        $msg = 'Data Gagal Diimport! Ada data TOTAL KEPING yg kosong / bukan angka';
                         return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
                     }
                     if (
@@ -486,12 +471,12 @@ class KreditNasabahController extends Controller
                         !empty($row['alamat_nasabah']) &&
                         !empty($row['nilai_pencairan']) &&
                         !empty($row['total_keping']) &&
-                        !empty($row['total_gram']) &&
-                        empty($row['angsuran']) &&
+                        (empty($row['total_gram']) || is_numeric($row['total_gram']) == false) &&
+                        !empty($row['angsuran']) &&
                         !empty($row['jangka_waktu']) &&
                         !empty($row['tgl_pelunasan'])
                     ) {
-                        $msg = 'Data Gagal Diimport! Ada data ANGSURAN yg kosong';
+                        $msg = 'Data Gagal Diimport! Ada data TOTAL GRAM yg kosong / bukan angka';
                         return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
                     }
                     if (
@@ -503,11 +488,27 @@ class KreditNasabahController extends Controller
                         !empty($row['nilai_pencairan']) &&
                         !empty($row['total_keping']) &&
                         !empty($row['total_gram']) &&
-                        !empty($row['angsuran']) &&
-                        empty($row['jangka_waktu']) &&
+                        (empty($row['angsuran']) || is_numeric($row['angsuran']) == false) &&
+                        !empty($row['jangka_waktu']) &&
                         !empty($row['tgl_pelunasan'])
                     ) {
-                        $msg = 'Data Gagal Diimport! Ada data JANGKA WAKTU yg kosong';
+                        $msg = 'Data Gagal Diimport! Ada data ANGSURAN yg kosong / bukan angka';
+                        return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
+                    }
+                    if (
+                        !empty($row['tgl_pencairan']) &&
+                        !empty($row['nama_nasabah']) &&
+                        !empty($row['no_loan']) &&
+                        !empty($row['telp_nasabah']) &&
+                        !empty($row['alamat_nasabah']) &&
+                        !empty($row['nilai_pencairan']) &&
+                        !empty($row['total_keping']) &&
+                        !empty($row['total_gram']) &&
+                        !empty($row['angsuran']) &&
+                        (empty($row['jangka_waktu']) || is_numeric($row['jangka_waktu']) == false) &&
+                        !empty($row['tgl_pelunasan'])
+                    ) {
+                        $msg = 'Data Gagal Diimport! Ada data JANGKA WAKTU yg kosong / bukan angka';
                         return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
                     }
                     if (
@@ -532,143 +533,146 @@ class KreditNasabahController extends Controller
 
         // Insert jika data lengkap
         if (count($arr_import) > 0) {
+            // dd($arr_import);
             foreach ($arr_import as $key => $value) {
+                // dd($value);
                 foreach ($value as $row) {
                     // Insert ke tabel Nasabah
-                    if (
-                        !empty($row['tgl_pencairan']) &&
-                        !empty($row['nama_nasabah']) &&
-                        !empty($row['no_loan']) &&
-                        !empty($row['telp_nasabah']) &&
-                        !empty($row['alamat_nasabah']) &&
-                        !empty($row['nilai_pencairan']) &&
-                        !empty($row['total_keping']) &&
-                        !empty($row['total_gram']) &&
-                        !empty($row['angsuran']) &&
-                        !empty($row['jangka_waktu']) &&
-                        !empty($row['tgl_pelunasan'])
-                    ) {
-                        $nasabah = Nasabah::get();
-                        $count_nasabah = $nasabah->count();
-                        $bulan = right("00" . date('m'), 2);
-                        $tahun = right(date('Y'), 2);
-                        $kode_nasabah = "N" . "-" . $bulan . $tahun . "-" . right("000" . (int)$count_nasabah + 1, 5);
-                        $insert_id_nasabah = Nasabah::insertGetId([
-                            'kode'          => $kode_nasabah,
-                            'nama'          => $row['nama_nasabah'],
-                            'no_tlp'        => $row['telp_nasabah'],
-                            'alamat'        => $row['alamat_nasabah'],
-                            'created_at'    => saveDateTimeNow(),
-                            'created_by'    => auth()->user()->name,
+                    // dd($row);
+                    // if (
+                    //     !empty($row['tgl_pencairan'])
+                    //     && !empty($row['nama_nasabah'])
+                    //     && !empty($row['no_loan'])
+                    //     && !empty($row['telp_nasabah'])
+                    //     && !empty($row['alamat_nasabah'])
+                    //     && !empty($row['nilai_pencairan'])
+                    //     && !empty($row['total_keping'])
+                    //     && !empty($row['total_gram'])
+                    //     && !empty($row['angsuran'])
+                    //     && !empty($row['jangka_waktu'])
+                    //     && !empty($row['tgl_pelunasan'])
+                    // ) {
+                    $nasabah = Nasabah::get();
+                    $count_nasabah = $nasabah->count();
+                    $bulan = right("00" . date('m'), 2);
+                    $tahun = right(date('Y'), 2);
+                    $kode_nasabah = "N" . "-" . $bulan . $tahun . "-" . right("000" . (int)$count_nasabah + 1, 5);
+                    $insert_id_nasabah = Nasabah::insertGetId([
+                        'kode'          => $kode_nasabah,
+                        'nama'          => $row['nama_nasabah'],
+                        'no_tlp'        => $row['telp_nasabah'],
+                        'alamat'        => $row['alamat_nasabah'],
+                        'created_at'    => saveDateTimeNow(),
+                        'created_by'    => auth()->user()->name,
+                    ]);
+
+                    // Insert ke tabel Kredit Nasabah
+                    $tgl_pencairan = right($row['tgl_pencairan'], 4) . "-" . mid($row['tgl_pencairan'], 3, 2) . "-" . left($row['tgl_pencairan'], 2);
+                    $tgl_lunas = right($row['tgl_pelunasan'], 4) . "-" . mid($row['tgl_pelunasan'], 3, 2) . "-" . left($row['tgl_pelunasan'], 2);
+                    $insert_id_header = KreditNasabah::insertGetId([
+                        'tgl_pencairan'         => $tgl_pencairan,
+                        'id_nasabah'            => $insert_id_nasabah,
+                        'kode_nasabah'          => $kode_nasabah,
+                        'nama_nasabah'          => $row['nama_nasabah'],
+                        'no_loan'               => $row['no_loan'],
+                        'tlp_nasabah'           => $row['telp_nasabah'],
+                        'alamat_nasabah'        => $row['alamat_nasabah'],
+                        'nilai_pencairan'       => $row['nilai_pencairan'],
+                        'total_nilai_kredit'    => $row['nilai_pencairan'],
+                        'total_keping'          => $row['total_keping'],
+                        'total_gram'            => $row['total_gram'],
+                        'angsuran'              => $row['angsuran'],
+                        'tenor'                 => $row['jangka_waktu'],
+                        'bulan'                 => date('m', strtotime($tgl_pencairan)),
+                        'tahun'                 => date('Y', strtotime($tgl_pencairan)),
+                        'tgl_lunas'             => $tgl_lunas,
+                        'created_at'            => saveDateTimeNow(),
+                        'created_by'            => auth()->user()->name,
+                    ]);
+
+                    $gram_05 = $row['05'];
+                    $gram_1 = $row['1'];
+                    $gram_2 = $row['2'];
+                    $gram_3 = $row['3'];
+                    $gram_5 = $row['5'];
+                    $gram_10 = $row['10'];
+                    $gram_25 = $row['25'];
+                    $gram_50 = $row['50'];
+                    $gram_100 = $row['100'];
+
+                    if (!empty($gram_05)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 0.5,
+                            'keping' => $gram_05,
+                            'no_seri' => '',
                         ]);
-
-                        // Insert ke tabel Kredit Nasabah
-                        $tgl_pencairan = right($row['tgl_pencairan'], 4) . "-" . mid($row['tgl_pencairan'], 3, 2) . "-" . left($row['tgl_pencairan'], 2);
-                        $tgl_lunas = right($row['tgl_pelunasan'], 4) . "-" . mid($row['tgl_pelunasan'], 3, 2) . "-" . left($row['tgl_pelunasan'], 2);
-                        $insert_id_header = KreditNasabah::insertGetId([
-                            'tgl_pencairan'         => $tgl_pencairan,
-                            'id_nasabah'            => $insert_id_nasabah,
-                            'kode_nasabah'          => $kode_nasabah,
-                            'nama_nasabah'          => $row['nama_nasabah'],
-                            'no_loan'               => $row['no_loan'],
-                            'tlp_nasabah'           => $row['telp_nasabah'],
-                            'alamat_nasabah'        => $row['alamat_nasabah'],
-                            'nilai_pencairan'       => $row['nilai_pencairan'],
-                            'total_nilai_kredit'    => $row['nilai_pencairan'],
-                            'total_keping'          => $row['total_keping'],
-                            'total_gram'            => $row['total_gram'],
-                            'angsuran'              => $row['angsuran'],
-                            'tenor'                 => $row['jangka_waktu'],
-                            'bulan'                 => date('m', strtotime($tgl_pencairan)),
-                            'tahun'                 => date('Y', strtotime($tgl_pencairan)),
-                            'tgl_lunas'             => $tgl_lunas,
-                            'created_at'            => saveDateTimeNow(),
-                            'created_by'            => auth()->user()->name,
-                        ]);
-
-                        $gram_05 = $row['05'];
-                        $gram_1 = $row['1'];
-                        $gram_2 = $row['2'];
-                        $gram_3 = $row['3'];
-                        $gram_5 = $row['5'];
-                        $gram_10 = $row['10'];
-                        $gram_25 = $row['25'];
-                        $gram_50 = $row['50'];
-                        $gram_100 = $row['100'];
-
-                        if (!empty($gram_05)) {
-                            KreditDetail::create([
-                                'id_kredit_nasabah' => $insert_id_header,
-                                'gramasi' => 0.5,
-                                'keping' => $gram_05,
-                                'no_seri' => '',
-                            ]);
-                        }
-                        if (!empty($gram_1)) {
-                            KreditDetail::create([
-                                'id_kredit_nasabah' => $insert_id_header,
-                                'gramasi' => 1,
-                                'keping' => $gram_1,
-                                'no_seri' => '',
-                            ]);
-                        }
-                        if (!empty($gram_2)) {
-                            KreditDetail::create([
-                                'id_kredit_nasabah' => $insert_id_header,
-                                'gramasi' => 2,
-                                'keping' => $gram_2,
-                                'no_seri' => '',
-                            ]);
-                        }
-                        if (!empty($gram_3)) {
-                            KreditDetail::create([
-                                'id_kredit_nasabah' => $insert_id_header,
-                                'gramasi' => 3,
-                                'keping' => $gram_3,
-                                'no_seri' => '',
-                            ]);
-                        }
-                        if (!empty($gram_5)) {
-                            KreditDetail::create([
-                                'id_kredit_nasabah' => $insert_id_header,
-                                'gramasi' => 5,
-                                'keping' => $gram_5,
-                                'no_seri' => '',
-                            ]);
-                        }
-                        if (!empty($gram_10)) {
-                            KreditDetail::create([
-                                'id_kredit_nasabah' => $insert_id_header,
-                                'gramasi' => 10,
-                                'keping' => $gram_10,
-                                'no_seri' => '',
-                            ]);
-                        }
-                        if (!empty($gram_25)) {
-                            KreditDetail::create([
-                                'id_kredit_nasabah' => $insert_id_header,
-                                'gramasi' => 25,
-                                'keping' => $gram_25,
-                                'no_seri' => '',
-                            ]);
-                        }
-                        if (!empty($gram_50)) {
-                            KreditDetail::create([
-                                'id_kredit_nasabah' => $insert_id_header,
-                                'gramasi' => 50,
-                                'keping' => $gram_50,
-                                'no_seri' => '',
-                            ]);
-                        }
-                        if (!empty($gram_100)) {
-                            KreditDetail::create([
-                                'id_kredit_nasabah' => $insert_id_header,
-                                'gramasi' => 100,
-                                'keping' => $gram_100,
-                                'no_seri' => '',
-                            ]);
-                        }
                     }
+                    if (!empty($gram_1)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 1,
+                            'keping' => $gram_1,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    if (!empty($gram_2)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 2,
+                            'keping' => $gram_2,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    if (!empty($gram_3)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 3,
+                            'keping' => $gram_3,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    if (!empty($gram_5)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 5,
+                            'keping' => $gram_5,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    if (!empty($gram_10)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 10,
+                            'keping' => $gram_10,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    if (!empty($gram_25)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 25,
+                            'keping' => $gram_25,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    if (!empty($gram_50)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 50,
+                            'keping' => $gram_50,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    if (!empty($gram_100)) {
+                        KreditDetail::create([
+                            'id_kredit_nasabah' => $insert_id_header,
+                            'gramasi' => 100,
+                            'keping' => $gram_100,
+                            'no_seri' => '',
+                        ]);
+                    }
+                    // }
                 }
             }
         }

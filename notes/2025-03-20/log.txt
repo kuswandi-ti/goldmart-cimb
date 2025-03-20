@@ -1,0 +1,13 @@
+GDS, per 20 Maret 2025
+=============================
+
+1.  Request Update
+    -   https://docs.google.com/document/d/12r8o4WlNNmfk4850wQGk_WtHT3cmg8rWp2ErggsxE0U/edit?tab=t.0
+    -   Import data
+
+2.  File Update
+    -   app\Http\Controllers\KreditNasabahController.php
+    -   resources\views\kredit_nasabah\index.blade.php
+    -   routes\web.php
+
+3.  Database

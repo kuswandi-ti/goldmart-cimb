@@ -228,9 +228,9 @@
                 },
                 "targets": [8]
             }, ],
-            order: [
-                [9, 'desc']
-            ]
+            // order: [
+            //     [9, 'desc']
+            // ]
         });
 
         table_data_lunas = $('#table_data_lunas').DataTable({
@@ -304,9 +304,9 @@
                 },
                 "targets": [9]
             }, ],
-            order: [
-                [9, 'desc']
-            ]
+            // order: [
+            //     [9, 'desc']
+            // ]
         });
 
         $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function(event) {

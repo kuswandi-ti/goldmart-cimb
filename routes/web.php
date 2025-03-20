@@ -73,7 +73,7 @@ Route::group(['middleware' => ['auth_check', 'prevent_back_history']], function 
     Route::get('outstandingdanjaminan/datalunas', [KreditNasabahController::class, 'dataLunas'])->name('outstandingdanjaminan.datalunas');
     Route::resource('outstandingdanjaminan', KreditNasabahController::class);
 
-    Route::get('importdata/index', [KreditNasabahController::class, 'importData'])->name('importdata.index');
+    Route::get('importdata', [KreditNasabahController::class, 'importData'])->name('importdata.index');
     Route::post('importdata/post', [KreditNasabahController::class, 'postImportData'])->name('importdata.post');
 
     /** Setting Routes */
