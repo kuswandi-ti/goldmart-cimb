@@ -344,189 +344,83 @@ class KreditNasabahController extends Controller
         Storage::delete($path);
 
         // Cek data kosong
-        $msg = '';
+        $msg = array();
+        $no_loan = array();
         $i = 0;
         if (count($arr_import) > 0) {
             foreach ($arr_import as $key => $value) {
                 foreach ($value as $row) {
                     $i++;
-                    // dd($row['angsuran']);
-                    if (
-                        empty($row['tgl_pencairan']) &&
-                        !empty($row['nama_nasabah']) &&
-                        !empty($row['no_loan']) &&
-                        !empty($row['telp_nasabah']) &&
-                        !empty($row['alamat_nasabah']) &&
-                        !empty($row['nilai_pencairan']) &&
-                        !empty($row['total_keping']) &&
-                        !empty($row['total_gram']) &&
-                        !empty($row['angsuran']) &&
-                        !empty($row['jangka_waktu']) &&
-                        !empty($row['tgl_pelunasan'])
-                    ) {
-                        $msg = 'Data Gagal Diimport! Ada data TGL PENCAIRAN yg kosong';
-                        return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
+
+                    if (strlen($row['tgl_pencairan']) == 0) {
+                        $msg[] = 'Data Gagal Diimport! Ada data TGL PENCAIRAN yg kosong di baris ' . $i;
                     }
-                    if (
-                        !empty($row['tgl_pencairan']) &&
-                        empty($row['nama_nasabah']) &&
-                        !empty($row['no_loan']) &&
-                        !empty($row['telp_nasabah']) &&
-                        !empty($row['alamat_nasabah']) &&
-                        !empty($row['nilai_pencairan']) &&
-                        !empty($row['total_keping']) &&
-                        !empty($row['total_gram']) &&
-                        !empty($row['angsuran']) &&
-                        !empty($row['jangka_waktu']) &&
-                        !empty($row['tgl_pelunasan'])
-                    ) {
-                        $msg = 'Data Gagal Diimport! Ada data NAMA NASABAH yg kosong';
-                        return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
+
+                    if (strlen($row['nama_nasabah']) == 0) {
+                        $msg[] = 'Data Gagal Diimport! Ada data NAMA NASABAH yg kosong di baris ' . $i;
                     }
-                    if (
-                        !empty($row['tgl_pencairan']) &&
-                        !empty($row['nama_nasabah']) &&
-                        empty($row['no_loan']) &&
-                        !empty($row['telp_nasabah']) &&
-                        !empty($row['alamat_nasabah']) &&
-                        !empty($row['nilai_pencairan']) &&
-                        !empty($row['total_keping']) &&
-                        !empty($row['total_gram']) &&
-                        !empty($row['angsuran']) &&
-                        !empty($row['jangka_waktu']) &&
-                        !empty($row['tgl_pelunasan'])
-                    ) {
-                        $msg = 'Data Gagal Diimport! Ada data NO. LOAN yg kosong';
-                        return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
+
+                    if (strlen($row['no_loan']) == 0) {
+                        $msg[] = 'Data Gagal Diimport! Ada data NO LOAN yg kosong di baris ' . $i;
+                    } else {
+                        $no_loan[] = $row['no_loan'];
                     }
-                    if (
-                        !empty($row['tgl_pencairan']) &&
-                        !empty($row['nama_nasabah']) &&
-                        !empty($row['no_loan']) &&
-                        empty($row['telp_nasabah']) &&
-                        !empty($row['alamat_nasabah']) &&
-                        !empty($row['nilai_pencairan']) &&
-                        !empty($row['total_keping']) &&
-                        !empty($row['total_gram']) &&
-                        !empty($row['angsuran']) &&
-                        !empty($row['jangka_waktu']) &&
-                        !empty($row['tgl_pelunasan'])
-                    ) {
-                        $msg = 'Data Gagal Diimport! Ada data NO. TLPN NASABAH yg kosong';
-                        return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
+
+                    if (strlen($row['telp_nasabah']) == 0) {
+                        $msg[] = 'Data Gagal Diimport! Ada data TLPN NASABAH yg kosong di baris ' . $i;
                     }
-                    if (
-                        !empty($row['tgl_pencairan']) &&
-                        !empty($row['nama_nasabah']) &&
-                        !empty($row['no_loan']) &&
-                        !empty($row['telp_nasabah']) &&
-                        empty($row['alamat_nasabah']) &&
-                        !empty($row['nilai_pencairan']) &&
-                        !empty($row['total_keping']) &&
-                        !empty($row['total_gram']) &&
-                        !empty($row['angsuran']) &&
-                        !empty($row['jangka_waktu']) &&
-                        !empty($row['tgl_pelunasan'])
-                    ) {
-                        $msg = 'Data Gagal Diimport! Ada data ALAMAT NASABAH yg kosong';
-                        return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
+
+                    if (strlen($row['alamat_nasabah']) == 0) {
+                        $msg[] = 'Data Gagal Diimport! Ada data ALAMAT NASABAH yg kosong di baris ' . $i;
                     }
-                    if (
-                        !empty($row['tgl_pencairan']) &&
-                        !empty($row['nama_nasabah']) &&
-                        !empty($row['no_loan']) &&
-                        !empty($row['telp_nasabah']) &&
-                        !empty($row['alamat_nasabah']) &&
-                        (empty($row['nilai_pencairan']) || is_numeric($row['angsuran']) == false) &&
-                        !empty($row['total_keping']) &&
-                        !empty($row['total_gram']) &&
-                        !empty($row['angsuran']) &&
-                        !empty($row['jangka_waktu']) &&
-                        !empty($row['tgl_pelunasan'])
-                    ) {
-                        $msg = 'Data Gagal Diimport! Ada data NILAI PENCAIRAN yg kosong / bukan angka';
-                        return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
+
+                    if (strlen($row['nilai_pencairan']) == 0 || !is_numeric($row['nilai_pencairan'])) {
+                        $msg[] = 'Data Gagal Diimport! Ada data NILAI PENCAIRAN yg kosong / bukan angka di baris ' . $i;
                     }
-                    if (
-                        !empty($row['tgl_pencairan']) &&
-                        !empty($row['nama_nasabah']) &&
-                        !empty($row['no_loan']) &&
-                        !empty($row['telp_nasabah']) &&
-                        !empty($row['alamat_nasabah']) &&
-                        !empty($row['nilai_pencairan']) &&
-                        (empty($row['total_keping']) || is_numeric($row['total_keping']) == false) &&
-                        !empty($row['total_gram']) &&
-                        !empty($row['angsuran']) &&
-                        !empty($row['jangka_waktu']) &&
-                        !empty($row['tgl_pelunasan'])
-                    ) {
-                        $msg = 'Data Gagal Diimport! Ada data TOTAL KEPING yg kosong / bukan angka';
-                        return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
+
+                    if (strlen($row['total_keping']) == 0 || !is_numeric($row['total_keping'])) {
+                        $msg[] = 'Data Gagal Diimport! Ada data TOTAL KEPING yg kosong / bukan angka di baris ' . $i;
                     }
-                    if (
-                        !empty($row['tgl_pencairan']) &&
-                        !empty($row['nama_nasabah']) &&
-                        !empty($row['no_loan']) &&
-                        !empty($row['telp_nasabah']) &&
-                        !empty($row['alamat_nasabah']) &&
-                        !empty($row['nilai_pencairan']) &&
-                        !empty($row['total_keping']) &&
-                        (empty($row['total_gram']) || is_numeric($row['total_gram']) == false) &&
-                        !empty($row['angsuran']) &&
-                        !empty($row['jangka_waktu']) &&
-                        !empty($row['tgl_pelunasan'])
-                    ) {
-                        $msg = 'Data Gagal Diimport! Ada data TOTAL GRAM yg kosong / bukan angka';
-                        return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
+
+                    if (strlen($row['total_gram']) == 0 || !is_numeric($row['total_gram'])) {
+                        $msg[] = 'Data Gagal Diimport! Ada data TOTAL GRAM yg kosong / bukan angka di baris ' . $i;
                     }
-                    if (
-                        !empty($row['tgl_pencairan']) &&
-                        !empty($row['nama_nasabah']) &&
-                        !empty($row['no_loan']) &&
-                        !empty($row['telp_nasabah']) &&
-                        !empty($row['alamat_nasabah']) &&
-                        !empty($row['nilai_pencairan']) &&
-                        !empty($row['total_keping']) &&
-                        !empty($row['total_gram']) &&
-                        (empty($row['angsuran']) || is_numeric($row['angsuran']) == false) &&
-                        !empty($row['jangka_waktu']) &&
-                        !empty($row['tgl_pelunasan'])
-                    ) {
-                        $msg = 'Data Gagal Diimport! Ada data ANGSURAN yg kosong / bukan angka';
-                        return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
+
+                    if (strlen($row['angsuran']) == 0 || !is_numeric($row['angsuran'])) {
+                        $msg[] = 'Data Gagal Diimport! Ada data ANGSURAN yg kosong / bukan angka di baris ' . $i;
                     }
-                    if (
-                        !empty($row['tgl_pencairan']) &&
-                        !empty($row['nama_nasabah']) &&
-                        !empty($row['no_loan']) &&
-                        !empty($row['telp_nasabah']) &&
-                        !empty($row['alamat_nasabah']) &&
-                        !empty($row['nilai_pencairan']) &&
-                        !empty($row['total_keping']) &&
-                        !empty($row['total_gram']) &&
-                        !empty($row['angsuran']) &&
-                        (empty($row['jangka_waktu']) || is_numeric($row['jangka_waktu']) == false) &&
-                        !empty($row['tgl_pelunasan'])
-                    ) {
-                        $msg = 'Data Gagal Diimport! Ada data JANGKA WAKTU yg kosong / bukan angka';
-                        return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
+
+                    if (strlen($row['jangka_waktu']) == 0 || !is_numeric($row['jangka_waktu'])) {
+                        $msg[] = 'Data Gagal Diimport! Ada data JANGKA WAKTU yg kosong / bukan angka di baris ' . $i;
                     }
-                    if (
-                        !empty($row['tgl_pencairan']) &&
-                        !empty($row['nama_nasabah']) &&
-                        !empty($row['no_loan']) &&
-                        !empty($row['telp_nasabah']) &&
-                        !empty($row['alamat_nasabah']) &&
-                        !empty($row['nilai_pencairan']) &&
-                        !empty($row['total_keping']) &&
-                        !empty($row['total_gram']) &&
-                        !empty($row['angsuran']) &&
-                        !empty($row['jangka_waktu']) &&
-                        empty($row['tgl_pelunasan'])
-                    ) {
-                        $msg = 'Data Gagal Diimport! Ada data TGL PELUNASAN yg kosong';
-                        return redirect()->back()->with(['error' => $msg . ' di baris ' . $i]);
+
+                    if (strlen($row['tgl_pelunasan']) == 0) {
+                        $msg[] = 'Data Gagal Diimport! Ada data TGL PELUNASAN yg kosong di baris ' . $i;
                     }
+
+                    // cek duplikat no loan di array
+                    $duplicate_no_loan = array_diff_assoc(
+                        $no_loan,
+                        array_unique($no_loan)
+                    );
+                    if (!empty($duplicate_no_loan)) {
+                        $msg[] = 'Data Gagal Diimport! Ada data NO LOAN ' . implode(',', $duplicate_no_loan) . ' yg sama di baris ' . $i;
+                        return back()->withErrors(['error' => $msg])->withInput();
+                    }
+
+                    // cek duplicat no loan di database
+                    $cek_no_loan = DB::table('kredit_nasabah')
+                        ->select(DB::raw('no_loan'))
+                        ->where('no_loan', $row['no_loan'])
+                        ->first();
+                    if (!empty($cek_no_loan)) {
+                        $msg[] = 'Data Gagal Diimport! Ada data NO LOAN ' . $row['no_loan'] . ' yg sama di database baris ' . $i;
+                        return back()->withErrors(['error' => $msg])->withInput();
+                    }
+                }
+
+                if (!empty($msg)) {
+                    return back()->withErrors(['error' => $msg])->withInput();
                 }
             }
         }
