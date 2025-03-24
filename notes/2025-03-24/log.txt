@@ -1,0 +1,11 @@
+GDS, per 24 Maret 2025
+=============================
+
+1.  Request Update
+    -   Urutkan data Nasabah & Outstanding berdasarkan kode nasabah dari yg terbesar
+
+2.  File Update
+    -   app\Http\Controllers\KreditNasabahController.php
+    -   app\Http\Controllers\NasabahController.php
+
+3.  Database

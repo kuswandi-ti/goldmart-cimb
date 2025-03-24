@@ -141,7 +141,7 @@ class KreditNasabahController extends Controller
     {
         // $query = ViewKreditNasabah::periodeaktif()->belumlunas();
 
-        $query = ViewKreditNasabah::belumlunas();
+        $query = ViewKreditNasabah::belumlunas()->orderBy('kode_nasabah', 'DESC');
         // $query = KreditNasabah::belumlunas();
 
         // $query = KreditNasabah::select('kredit_nasabah.id AS id, kredit_nasabah.status_kredit AS status_kredit', 'kredit_nasabah.status_kirim_barang AS status_kirim_barang',
@@ -211,7 +211,7 @@ class KreditNasabahController extends Controller
     {
         // $query = ViewKreditNasabah::periodeaktif()->lunas();
 
-        $query = ViewKreditNasabah::lunas();
+        $query = ViewKreditNasabah::lunas()->orderBy('kode_nasabah', 'DESC');
         // $query = KreditNasabah::lunas();
 
         return datatables($query)
