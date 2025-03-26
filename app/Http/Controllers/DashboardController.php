@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         /* Widget 1 - Start */
         // $total_nasabah = DB::table('kredit_nasabah')
@@ -137,13 +137,63 @@ class DashboardController extends Controller
         //     ->where('tahun', activePeriod())
         //     ->first();
 
+        $req1 = $request->efy1;
+        $req2 = $request->efy2;
+        // dd($req);
+        // switch ($req) {
+        //     case 'all':
+        //         $where = 'customer_visit.tahun = ' . activePeriod();
+        //         $type = 'ALL';
+        //         $filter = 'Tahun ' . activePeriod();
+        //         break;
+
+        //     case 'daily':
+        //         $where = 'customer_visit.tgl_visit = "' . searchDate($request->efd) . '"';
+        //         $type = 'DAILY';
+        //         $filter = 'Tanggal ' . $request->efd;
+        //         break;
+
+        //     case 'weekly':
+        //         $where = 'customer_visit.week = ' . $request->efw .
+        //             ' AND customer_visit.tahun = ' . activePeriod();
+        //         $type = 'WEEKLY';
+        //         $filter = 'Week ' . $request->efw . ', Tahun ' . activePeriod();
+        //         break;
+
+        //     case 'monthly':
+        //         $where = 'customer_visit.bulan = ' . $request->efm .
+        //             ' AND customer_visit.tahun = ' . activePeriod();
+        //         $type = 'MONTHLY';
+        //         $filter = 'BULAN ' . Str::upper(formatMonth($request->efm)) . ', Tahun ' . activePeriod();
+        //         break;
+
+        //     case 'quarterly':
+        //         $where = 'customer_visit.quarter = ' . $request->efq .
+        //             ' AND customer_visit.tahun = ' . activePeriod();
+        //         $type = 'QUARTERLY';
+        //         $filter = 'Quarter ' . $request->efq . ', Tahun ' . activePeriod();
+        //         break;
+
+        //     case 'yearly':
+        //         $where = 'customer_visit.tahun = ' . $request->efy;
+        //         $type = 'YEARLY';
+        //         $filter = 'Tahun ' . $request->efy;
+        //         break;
+
+        //     default:
+        //         $where = 'customer_visit.tahun = ' . activePeriod();
+        //         $type = '';
+        //         $filter = 'Tahun ' . activePeriod();
+        //         break;
+        // }
+
         $total_nilai_kredit_graph = array();
         for ($i = 0; $i < 12; $i++) {
             $total_nilai_kredit_graph[] = DB::table('kredit_nasabah')
                 ->select(DB::raw('SUM(total_nilai_kredit) AS total_nilai_kredit'))
-                ->whereYear('tgl_pencairan', activePeriod())
+                ->whereYear('tgl_pencairan', $req1)
                 ->whereMonth('tgl_pencairan', $i + 1)
-                ->where('tahun', activePeriod())
+                ->where('tahun', $req1)
                 ->groupBy(DB::raw('MONTH(tgl_pencairan)'))
                 ->orderBy(DB::raw('MONTH(tgl_pencairan)'))
                 ->pluck('total_nilai_kredit')
@@ -155,10 +205,10 @@ class DashboardController extends Controller
         for ($i = 0; $i < 12; $i++) {
             $total_nilai_pelunasan_graph[] = DB::table('kredit_nasabah')
                 ->select(DB::raw('SUM(total_nilai_kredit) AS total_nilai_kredit'))
-                ->whereYear('tgl_lunas', activePeriod())
+                ->whereYear('tgl_lunas', $req1)
                 ->where('status_kredit', 'Lunas')
                 ->whereMonth('tgl_lunas', $i + 1)
-                ->where('tahun', activePeriod())
+                // ->where('tahun', $req)
                 ->groupBy(DB::raw('MONTH(tgl_lunas)'))
                 ->orderBy(DB::raw('MONTH(tgl_lunas)'))
                 ->pluck('total_nilai_kredit')
@@ -178,7 +228,7 @@ class DashboardController extends Controller
                 })
                 ->where('kredit_detail.gramasi', $key->gramasi)
                 ->where('kredit_nasabah.status_kredit', 'Berjalan')
-                ->where('kredit_nasabah.tahun', activePeriod())
+                ->where('kredit_nasabah.tahun', $req2)
                 ->groupBy(DB::raw('kredit_detail.gramasi'))
                 ->pluck('count_gramasi')
                 ->first();
@@ -208,5 +258,172 @@ class DashboardController extends Controller
                 'total_emas_graph'
             )
         );
+    }
+
+    public function graph1(Request $request)
+    {
+        $req = $request->f1;
+        $type = '';
+        $filter = '';
+
+        switch ($req) {
+            case 'all1':
+                $where = 'id IS NOT NULL';
+                $type = 'ALL';
+                $filter = 'Tahun ' . activePeriod();
+                break;
+
+            case 'yearly1':
+                $where = 'tahun = ' . $request->efy1;
+                $type = 'YEARLY';
+                $filter = 'Tahun ' . $request->efy;
+                break;
+
+            default:
+                $where = 'tahun = ' . date('Y');
+                $type = '';
+                $filter = 'Tahun ' . activePeriod();
+                break;
+        }
+
+
+
+        $sql = "SELECT
+                    sales_person.kode AS kode_sales_person,
+                    sales_person.nama AS nama_sales_person,
+                    sales_person.kode_store,
+                    sales_person.nama_store,
+                    sales_person.kota_store,
+                    SUM(COALESCE(customer_visit.beli, 0)) AS total_beli,
+                    SUM(COALESCE(customer_visit.qty, 0)) AS total_qty,
+                    SUM(COALESCE(customer_visit.nominal, 0)) AS total_nominal
+                FROM
+                    sales_person
+                    LEFT OUTER JOIN (
+                        SELECT
+                            CASE
+                                WHEN customer_visit_detail.parameter_main = 'Beli' THEN COUNT(customer_visit.id)
+                                ELSE 0
+                            END AS beli,
+                            customer_visit.id_sales_person,
+                            SUM(customer_visit_detail.qty) AS qty,
+                            SUM(customer_visit_detail.nominal) AS nominal
+                        FROM
+                            customer_visit
+                            LEFT OUTER JOIN customer_visit_detail ON customer_visit.id = customer_visit_detail.id_visit
+                        WHERE
+                            customer_visit_detail.parameter_main = 'Beli'
+                            AND " . $where . "
+                        GROUP BY
+                            customer_visit.id,
+                            customer_visit.id_sales_person
+                    ) customer_visit ON sales_person.id = customer_visit.id_sales_person
+                WHERE
+                    " . $where_store . "
+                GROUP BY
+                    sales_person.kode,
+                    sales_person.nama,
+                    sales_person.kode_store,
+                    sales_person.nama_store,
+                    sales_person.kota_store
+                ORDER BY
+                    sales_person.nama";
+
+        // Untuk data yg tampil di tabel
+        $data_table = DB::select($sql);
+
+        // Untuk data di grafik
+        $data_sales_graph = array();
+        foreach ($data_table as $key) {
+            $data_sales_graph[] = $key->nama_sales_person;
+        }
+
+        $data_qty_graph = array();
+        foreach ($data_table as $key) {
+            $data_qty_graph[] = $key->total_qty;
+        }
+        $data_qty_graph = array_map('intval', $data_qty_graph);
+
+        $data_nominal_graph = array();
+        foreach ($data_table as $key) {
+            $data_nominal_graph[] = $key->total_nominal;
+        }
+        $data_nominal_graph = array_map('intval', $data_nominal_graph);
+
+        $penjualan_hari_ini_per_person = DB::table('customer_visit')
+            ->select(DB::raw('customer_visit.id_sales_person, customer_visit.kode_sales, customer_visit.nama_sales,
+                    customer_visit.id_store, customer_visit.kode_store, customer_visit.nama_store, customer_visit.kota_store,
+                    SUM(customer_visit_detail.qty) AS qty,
+                    SUM(customer_visit_detail.nominal) AS nominal'))
+            ->leftJoin('customer_visit_detail', 'customer_visit.id', '=', 'customer_visit_detail.id_visit')
+            ->where('customer_visit.tgl_visit', saveDateNow())
+            ->where('customer_visit_detail.parameter_main', 'Beli')
+            ->groupBy([
+                'customer_visit.id_sales_person',
+                'customer_visit.kode_sales',
+                'customer_visit.nama_sales',
+                'customer_visit.id_store',
+                'customer_visit.kode_store',
+                'customer_visit.nama_store',
+                'customer_visit.kota_store',
+            ])
+            ->get();
+
+        $penjualan_bulan_ini_per_person = DB::table('customer_visit')
+            ->select(DB::raw('customer_visit.id_sales_person, customer_visit.kode_sales, customer_visit.nama_sales,
+                    customer_visit.id_store, customer_visit.kode_store, customer_visit.nama_store, customer_visit.kota_store,
+                    SUM(customer_visit_detail.qty) AS qty,
+                    SUM(customer_visit_detail.nominal) AS nominal'))
+            ->leftJoin('customer_visit_detail', 'customer_visit.id', '=', 'customer_visit_detail.id_visit')
+            ->whereYear('customer_visit.tgl_visit', activePeriod())
+            ->whereMonth('customer_visit.tgl_visit', date('m'))
+            ->where('customer_visit_detail.parameter_main', 'Beli')
+            ->groupBy([
+                'customer_visit.id_sales_person',
+                'customer_visit.kode_sales',
+                'customer_visit.nama_sales',
+                'customer_visit.id_store',
+                'customer_visit.kode_store',
+                'customer_visit.nama_store',
+                'customer_visit.kota_store',
+            ])
+            ->get();
+
+        $penjualan_tahun_ini_per_person = DB::table('customer_visit')
+            ->select(DB::raw('customer_visit.id_sales_person, customer_visit.kode_sales, customer_visit.nama_sales,
+                    customer_visit.id_store, customer_visit.kode_store, customer_visit.nama_store, customer_visit.kota_store,
+                    SUM(customer_visit_detail.qty) AS qty,
+                    SUM(customer_visit_detail.nominal) AS nominal'))
+            ->leftJoin('customer_visit_detail', 'customer_visit.id', '=', 'customer_visit_detail.id_visit')
+            ->whereYear('customer_visit.tgl_visit', activePeriod())
+            ->where('customer_visit_detail.parameter_main', 'Beli')
+            ->groupBy([
+                'customer_visit.id_sales_person',
+                'customer_visit.kode_sales',
+                'customer_visit.nama_sales',
+                'customer_visit.id_store',
+                'customer_visit.kode_store',
+                'customer_visit.nama_store',
+                'customer_visit.kota_store',
+            ])
+            ->get();
+
+        $store = Store::orderBy('nama')->get();
+
+        if (empty($request->submit) || $request->submit == 'search') {
+            return view('laporan.penjualan_per_person', compact(
+                'store',
+                'nama_store',
+                'data_table',
+                'data_sales_graph',
+                'data_qty_graph',
+                'data_nominal_graph',
+                'penjualan_hari_ini_per_person',
+                'penjualan_bulan_ini_per_person',
+                'penjualan_tahun_ini_per_person',
+            ));
+        } elseif ($request->submit == 'export') {
+            return Excel::download(new LaporanPenjualanPerPersonExport($sql, $type, $filter, $nama_store), 'laporan_penjualan_per_person.xlsx');
+        }
     }
 }
