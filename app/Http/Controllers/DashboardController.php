@@ -137,8 +137,8 @@ class DashboardController extends Controller
         //     ->where('tahun', activePeriod())
         //     ->first();
 
-        $req1 = $request->efy1;
-        $req2 = $request->efy2;
+        $req1 = !empty($request->efy1) ? $request->efy1 : date('Y');
+        $req2 = !empty($request->efy2) ? $request->efy2 : date('Y');
         // dd($req);
         // switch ($req) {
         //     case 'all':

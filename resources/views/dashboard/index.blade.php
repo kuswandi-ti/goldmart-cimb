@@ -349,16 +349,19 @@
         </div>
     </div> --}}
 
-    <div class="row">
-        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-            <div class="card custom-card">
-                <div class="card-header justify-content-between">
-                    <div class="card-title">
-                        &nbsp;
-                    </div>
+    <form action="{{ route('dashboard.index') }}" method="GET" id="form-search1">
+        @csrf
 
-                    <form action="{{ route('dashboard.index') }}" method="GET" id="form-search1">
-                        @csrf
+        <div class="row">
+            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="card custom-card">
+                    <div class="card-header justify-content-between">
+                        <div class="card-title">
+                            &nbsp;
+                        </div>
+
+                        {{-- <form action="{{ route('dashboard.index') }}" method="GET" id="form-search1">
+                        @csrf --}}
 
                         <div class="dropdown d-flex">
                             <div class="me-2" id="div-filter1">
@@ -441,25 +444,25 @@
                                 {{ __('Submit') }}
                             </button>
                         </div>
-                    </form>
-                </div>
-                <div class="card-body">
-                    <div id="kreditstatistic1"></div>
+                        {{-- </form> --}}
+                    </div>
+                    <div class="card-body">
+                        <div id="kreditstatistic1"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-            <div class="card custom-card">
-                <div class="card-header justify-content-between">
-                    <div class="card-title">
-                        &nbsp;
-                    </div>
+        <div class="row">
+            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="card custom-card">
+                    <div class="card-header justify-content-between">
+                        <div class="card-title">
+                            &nbsp;
+                        </div>
 
-                    <form action="{{ route('dashboard.index') }}" method="GET" id="form-search2">
-                        @csrf
+                        {{-- <form action="{{ route('dashboard.index') }}" method="GET" id="form-search2">
+                            @csrf --}}
 
                         <div class="dropdown d-flex">
                             <div class="me-2" id="div-filter2">
@@ -542,14 +545,15 @@
                                 {{ __('Submit') }}
                             </button>
                         </div>
-                    </form>
-                </div>
-                <div class="card-body">
-                    <div id="kreditstatistic2"></div>
+                        {{-- </form> --}}
+                    </div>
+                    <div class="card-body">
+                        <div id="kreditstatistic2"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 @endsection
 
 <x-web-sweet-alert />
@@ -567,6 +571,8 @@
         // var f1 = {{ Js::from(request()->get('f1')) }}
         var e1 = {{ Js::from(request()->get('efy1')) }};
         var e2 = {{ Js::from(request()->get('efy2')) }};
+
+        var yearNow = new Date().getFullYear();
 
         // if (f1 == 'all1' || !f1) {
         //     e1 = 'Semua Data';
@@ -641,7 +647,7 @@
                 }
             },
             title: {
-                text: 'Statistik Pelunasan Kredit<br>' + (e1 !== null ? e1 : '')
+                text: 'Statistik Pelunasan Kredit<br>' + (e1 !== null ? e1 : yearNow)
             },
             subtitle: {
                 text: 'Source: <a href="https://www.goldmart.co.id/" target="_blank">goldmart</a>'
@@ -709,7 +715,7 @@
                 }
             },
             title: {
-                text: 'Statistik Total Emas (Belum Pelunasan)<br>' + (e2 !== null ? e2 : '')
+                text: 'Statistik Total Emas (Belum Pelunasan)<br>' + (e2 !== null ? e2 : yearNow)
             },
             subtitle: {
                 text: 'Source: <a href="https://www.goldmart.co.id/" target="_blank">goldmart</a>'
